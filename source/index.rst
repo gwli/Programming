@@ -12,6 +12,9 @@ Contents:
    :maxdepth: 2
     
    content/target
+   content/foreword
+   content/componentOfLanguage
+   content/HowToLearnLanguage
 
 
 Indices and tables
