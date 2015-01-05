@@ -20,6 +20,7 @@ VS中对于immediate Windows是可以执行一些调试命令，并且提供运�
 
 调试器的用途
 ============
+
 #. 可以动态查看程序的各种信息，ABI,以及有哪些库的依赖。所以遇到查询各种信息的可以直接debugger联接上去。
 #. 动态修改代码，及执行其内部的函数。
 #. 动态获取系统的状态。
@@ -29,6 +30,7 @@ VS中对于immediate Windows是可以执行一些调试命令，并且提供运�
 
 如何实现引导代码
 ================
+
 profiling都是支持tree 的，调试也是一样的。自己可以设置一个引导程序然后来加载自己的应用程序。然后把调试移至后面。这里用到那就是*gdb set follow-fork-mode* 与 *detach-on-fork* 等。`gdb process tree <http://www.360doc.com/content/12/0311/11/7775902_193444555.shtml>`_ .
 另外那就是 *gdb wrapper* see `here <http://www.ibm.com/developerworks/cn/linux/l-cn-gdbmp/index.html>`_ .
 #. `gdb wraper <https://sourceware.org/gdb/current/onlinedocs/gdb/Starting.html>`_ . 
@@ -89,7 +91,7 @@ Debug 的实现机理
 
    info line , 查看符号与源码行的对应关系
    info source/sources, 查看源代码的信息
-   info symbols,
+   info symbols, 查看符号表
    info function,查看加所有函数
 
 .. note::
@@ -100,6 +102,7 @@ GNU GDB
 -------
 
 debuger 是一个大工程，不仅检测CPU的状态，还要提供一个运行时环境，就像tclsh一样，可以实时运行情境。
+
 .. graphviz::
 
    digraph gdb {
