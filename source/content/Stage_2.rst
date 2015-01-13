@@ -7,6 +7,7 @@
 #. 如何build 与优化 跨平台
 #. 如何调试
 
+.. include:: Stage_2/build.rst
 .. include:: Stage_2/HowToDebug.rst
    
 .. include:: Stage_2/HowToGDB.rst
