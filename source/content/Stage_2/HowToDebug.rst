@@ -9,6 +9,7 @@ Introduction
 
 strace and sreplay
 ------------------
+
 *strace* 与 *sreplay* 可以抓取系统调用并且能够回放。例子见[streplay]_
 
 .. [sreplay] http://people.seas.harvard.edu/~apw/sreplay/
@@ -26,12 +27,14 @@ strace and sreplay
 
 如何调试并行调试
 ----------------
+
 这个可以参考CUDA的并行调试。一个重要问题那就是对线程的控制，CUDA提供了基于lanes,warp,block,grid的,以及任意的frezen/thaw,以及支持与与或非的查询条件。可以方便过滤那些thread的查看。
 
 
 
 调试都需要信息
 --------------
+
 debug Symbols 信息，有了符号表才能符号表地址对应起来，并且还源码对应起来了。对于GDB来说，那就需要设置 symbols directory, 另外那就是源码目录。还有那就是如何起动。
 for apk, they need androidManifest.xml to get the package name to start it.
 
