@@ -2,15 +2,49 @@ introduction
 ============
 
 `haskell offical web <http://www.haskell.org/haskellwiki/Haskell>`_
+
+
+
+debug and profiling
+===================
+
+ghci 是可以直接以 :command:`:break line`  类似于vim的命令直接在解释器下断点。 并且是集成一起的。 `ghci-debugger <https://downloads.haskell.org/~ghc/7.8.3/docs/html/users_guide/ghci-debugger.html>`_ .
+profiling 见此 `haskell profiling <https://downloads.haskell.org/~ghc/7.8.3/docs/html/users_guide/profiling.html>`_  .
+
+同时还得安装 :command:`apt-get install ghc-dynamic ghc-prof`
+
+库的管理
+========
+cabal 类似于 perl 的cpan,以及python的pip.
+
 映射与函数的表示
-========================
+================
 
 haskell是与数学最接近的编程语言，haskell可以求解哪些隐式函数。它应该是用笛卡尔基再加过虑来实现的。
 并且是从数理的脚度来进编程的。
 
-Monad是从另一个角度来分函数进行区分，那就是有限响应与无限响应滤波器，那就是有没有全局变量在函数内部，所谓纯虚函数，就是我们平时编程中最常见的函数，输出只与输入有关。没有记忆状态。而haskell把这个出来进行深入区分，就提出Monad的机制http://zhuoqiang.me/what-is-monad.html。
+Monad是从另一个角度来分函数进行区分，那就是有限响应与无限响应滤波器，那就是有没有全局变量在函数内部，所谓纯虚函数，就是我们平时编程中最常见的函数，输出只与输入有关。没有记忆状态。而haskell把这个出来进行深入区分，就提出Monad的机制 http://zhuoqiang.me/what-is-monad.html。
 
 http://www.zhihu.com/question/19635359
+
+
+
+简单的语法
+==========
+*where* 相当于 python中 context中with功能。
+
+*type*  C语言的中typedef 的功能。
+
+`Hoogle  <http://www.haskell.org/hoogle/>`_ 在线的帮助文档引擎
+`xs` 可变列表的剩余部分。
+
+
+
+如何快速读haskell 代码
+======================
+`How_to_read_Haskell <https://www.haskell.org/haskellwiki/How_to_read_Haskell>`_ .
+
+
 
 See also
 ========
@@ -19,7 +53,6 @@ See also
 #. `Here are a few Sudoku solvers coded up in Haskell. <http://www.haskell.org/haskellwiki/Sudoku>`_ 
 #. `JSON解释器的实现 <http://rwh.readthedocs.org/en/latest/chp/5.html>`_ 
 #. `漫谈Haskell 之零 一入哈门深似海从此节操是路人 <http://naga-eda.org/home/yujie/?tag&#61;haskell>`_ 
-#. `Hoogle  <http://www.haskell.org/hoogle/>`_ 在线的帮助文档引擎
 #. `对 haskell 与 monad 的理解 <http://yi-programmer.com/2010-03-20&#95;haskell&#95;and&#95;monad.html>`_ 
 #. `Introduction to IO（介绍Haskell的IO） <Introduction to IO（介绍Haskell的IO）>`_ 
 #. `Monad 最简介绍 <http://zhuoqiang.me/what-is-monad.html>`_ 
@@ -33,7 +66,6 @@ See also
 #. `Languages best suited for scientific computing? <http://lambda-the-ultimate.org/node/2720>`_ 
 #. `Haskell与范畴论 <http://yi-programmer.com/2010-04-06&#95;haskell&#95;and&#95;category&#95;translate.html>`_ 
 #. `Theorem provers <Applications and libraries/Theorem provers>`_ 公式验证库
-#. `haskell profiling <http://www.haskell.org/ghc/docs/7.6.2/html/users&#95;guide/profiling.html>`_ 
 #. `HLearn: A Machine Learning Library for Haskell <http://faculty.cs.byu.edu/~jay/conferences/2013-tfp/proceedings/tfp2013&#95;submission&#95;10.pdf>`_ 研究一下这个
 #. `AI  haskell wiki <http://www.haskell.org/haskellwiki/AI>`_ 
 #. `scala-vs-haskell-vs-python <http://blog.samibadawi.com/2013/02/scala-vs-haskell-vs-python.html>`_ 

@@ -14,3 +14,7 @@ Racket 可以用直接处理图，并且有人拿来画图与做动画。
 用racket 当做脚本使用 http://docs.racket-lang.org/guide/intro.html#%28tech._repl%29 。 
 
 当做系统脚本就得像bash那样的的清爽。同时具有python的强大。现在看来racket还是不错的。 这里有全面的 `racket-lang reference <http://docs.racket-lang.org/reference/index.html>`_ 
+
+代码最简单的方式那就是像bash一样，然后可以对输入与输出进行控制，并用管道，并且语法也要简单。这个正是函数式编程要达到目的。
+
+:command:`(cmd para)` 不正是bash的语法格式吗，并且直接用()执行一次替换，bash也正是这么来的。
