@@ -1,5 +1,5 @@
 Bash 编程
-=========
+*********
 
 优点与缺点
 ==========
@@ -8,6 +8,9 @@ Bash 编程
 这也是为什么bash一直没有被取代的原因之一。这也是各种DSL语言流行的本身。
 
 缺点也很明显，一个是变量没有作用域，主要靠人为的添加前缀来分区。
+
+
+
 
 
 bash 有最好用重定向
@@ -44,6 +47,52 @@ bash 有最好用重定向
            } >> $RULES_FILE
    }
    
+精确的文档生成
+==============
+
+对于linux 下大部分的命令输出都是可以参数可控控制，并且大部分命令都支持 与或非
+同时直接支持把结果当命令进一步执行这个不正是自己之前到 tcl 用到 subst 功能吗。
+
+同时也就具备了m4 的部分功能。
+
+.. code-block:: bash
+
+   $> 
+   -> for cl in 19156448 19064514 19006994; do p4 shelve -r -c $cl && echo -e "-------------\n"; done
+   Shelving files for change 19156448.
+   add //sw/README.mkd#none
+   add //sw/TestPlan.pm#none
+   add //sw/build_checker.pl#none
+   add //sw/build_installer.pl#none
+   add //sw/builds/aardvark/nightly/20141218_aardvark_nightly_debug/data/hello.txt#none
+   add //sw/builds/aardvark/nightly/20141218_aardvark_nightly_debug/data/world.txt#none
+   add //sw/builds/aardvark/nightly/20141219_aardvark_nightly_debug/data/hello.txt#none
+   add //sw/builds/aardvark/nightly/20141219_aardvark_nightly_debug/data/world.txt#none
+   add //sw/builds/aardvark/nightly/20141219_aardvark_nightly_debug/installer/installer.pl#none
+   add //sw/test_project/data/taskEntry.pl#none
+   Change 19156448 files shelved.
+   -------------
+   
+   Shelving files for change 19064514.
+   edit //sw/devtools/QA/Tools/Farm/exec/Nexus/Submit_ToT.pl#4
+   Change 19064514 files shelved.
+   -------------
+   
+   Shelving files for change 19006994.
+   edit //sw/doc/code-notes.mkd#1
+   edit //sw/FarmEntry.pm#33
+   add //sw/BuildCheckerV2.pl#none
+   add //sw/d/TestPlan.pm#none
+   add //sw/AppConfigValidator.pm#none
+   add //sw/Machine.pm#none
+   Change 19006994 files shelved.
+   -------------
+
+
+
+
+
+
 command complete
 ================
 
