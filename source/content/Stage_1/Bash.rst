@@ -22,6 +22,10 @@ Bash 编程
 例如xargs列表也会有妙用。 :command:`man xargs`
 (()) 数学计算的扩展。
 
+自动补齐
+========
+
+:command:`apt-get install bash-completion` 
 
 串行与并行计算与同步
 --------------------
