@@ -1,5 +1,5 @@
-﻿C 语言
-======
+﻿C/C++ 语言
+==========
 
 基本的语法也不讲了，只讲一些特殊语法的用法与理解
 
@@ -7,6 +7,7 @@
 
 typdef
 ------
+
 主要是提供了重命名的机制，用法主要两点
 
 #. 定义别名可以减少书写，同时又比macro的强，可以有语法检查。 
@@ -20,8 +21,14 @@ typdef
 
 .. _关于typedef的用法总结: http://www.cnblogs.com/csyisong/archive/2009/01/09/1372363.html
 
+
+另外那就是当于linux中 ln的用法一样，是为了灵活与高效，这样很容易的建立mapping 关系。一个 ln 就是一个逻辑设备与物理设备，或者另一个逻辑设备之间
+的mapping关系。 
+
+
 offset
 ------
+
 用法巧妙就是直接0转换为结构体起始地址，然后利用s->m自动换算出offset,相关于 *offset= memberaddress-initadress(0)*
 
 .. code-block:: C

@@ -43,6 +43,7 @@ there is two core module: *sys* and *os*. just like *info* in tcl.  sys is most 
 
 但是如果你想能够直接看到运行结果的话，那就要用到python os.system,用了以后，立竿见影！
 还是上面的问题：
+
 .. code-block::
         import os
         print os.system('ping g.cn')
@@ -69,10 +70,8 @@ Python的包管理就像perl 的CPAN一样。 `easy_install 与pip 新替 <http:
 #. `打包机制 <http://woodpecker.org.cn/diveintopython3/packaging.html>`_ .egg文件
 #. `perlbrew <http://blog.caokee.com/2012/02/pythons-virtual-environment-and-multi-version-programming-tools-virtualenv-and-pythonbrew.html][python virtual environment and multi-version]] ,[[https://github.com/gugod/App-perlbrew#readme>`_perl的虚拟环境。ruby也有。
 #. `pythonbrew online document <http://pythonbrew.readthedocs.org/en/latest/>`_
-#.
 #. `VirtualEnv 和Pip 构建Python的虚拟工作环境 <http://www.v2ex.com/t/42760>`_ 这个写的不错，virtualEnv 解决的就是不同库依赖之间的问题。并且有实例。而pythonbrew主要解决了不同引擎之间切换。同是兼容了，virtualenv这样的样的环境。这样就可以在版本与库之间进行选择了。就像pyrobot一样，就可以选择环境，选择brain.
 #.用pythonbrew指是采用哪一个python, 而virtualEnv 指的在哪一个环境下使用python. 其本质是与linux的chroot是一样的道理。
-#.
 #. `python configparser.py <http://docs.python.org/2.7/library/configparser.html>`_ 以后配制文件，可以使用它，而不用自己在写分析了，有了一个标准的分析库。它采用的是windows INI 文件格式。
 
 `包的开发与目录结构 <http://www.math.pku.edu.cn/teachers/lidf/docs/Python/6.html>`_ import 可以是整个包也可以只是变量，函数。但是python把命名空间与import并且source的功能混在一起了。看起来有一些不舒服。
@@ -96,6 +95,7 @@ for install and manipulate the package of python, just like pkgIndex in tcl. the
 例如python ETS插件式开发，http://code.enthought.com/projects/ .
 
 包管理的难点，在一个单一环境是容易的，难点各种包管理模式之间的冲突，但是apt-get 与pip 如何兼容的，包管理本身也需要一定的信息结构。例如依赖关系，linux讲究的相互共享，这就造成了，系统升级之后，就莫名其妙的不能用了，而windows采用的是自包含，所以现在windows会变非常大。`包管理的特点 <http://shzhangji.com/blog/2012/11/18/aosa-python-packaging/>`_  依赖关系，方便的查询操作，以及编译环境的准备。这个有perl，python,以及gentoo的包管理，都非常熟悉。
+
 namespace
 ---------
 
@@ -329,6 +329,7 @@ embeded system
 
 python data analysis
 --------------------
+
 python主要用于大数据分析的比较多，大的数据分析主要包括三个方面:
 数据本身的存储,分析，批量处理，以及可视化的问题
 
@@ -374,26 +375,41 @@ pylab,VTX以及直接利用opengl来计进行。
 
 下一代了 `pypy <http://www.oschina.net/translate/why_pypy_is_the_future_of_python?print>`_ . 
 
+
+
 ipython notebook
-----------------
+================
 
 其实就相是CDF的一种形式，可计算文档的结构。特别适合写paper来用。并且也实现了文学编程的模式。
 
 并且可以直接保存在github上然后直接用http://nbviewer.ipython.org/ 直接在线的显示，是非常的方便，自己只需要用就行了。然后干自己的主业就行了。并且其支持与sphinx的之间格式的转化。
 
 
+但是与CDF还有一定的区别，reader本身也要执行计算功能。
+
+
 python as shell
 ---------------
+
 http://pyist.diandian.com/?tag=ipython
 现在看来，自己想要常用功能都有，只要把find,与grep简单的整一下，再结合%sx,与%sc,就无敌了，并且也不需要每一次都写到文件里，可以放在python 的变量里，因为python的变量要bash的变量功能要强大的多。
 支持用iptyhon，尽可能，只要离开就要提出一个bug.这样就可以大大的提速了。直接继承一个magic class就可以简单，然后直接loadext就可以了，实现起来简单。自己也慢慢往里边添加自己的东东。可以参考在python里直接执行c的插件。看来这个扩展还是很容易的，把知识代码化，而不再只是文本描述。
 
-并且ipython提供了类似于tcl中多解释器的方式，来实现多进程与kernel的并行，可以让并行计算随手可得，并且解决了GIL的问题，并且能够与MPI直接集成。%px 这个插件，看来是要升级自己的shell从bash到ipython了。if expand("%") == """|browse confirm w|else|confirm w|endif"""
+并且ipython提供了类似于tcl中多解释器的方式，来实现多进程与kernel的并行，可以让并行计算随手可得，并且解决了GIL的问题，并且能够与MPI直接集成。%px 这个插件，看来是要升级自己的shell从bash到ipython了。
+.. code-block:: bash
+   
+   `if expand("%") == r"|browse confirm w|else|confirm w|endif"`
 
 在ipython  中使用vim mode其实也很简单，直接配置readline这个库就行，正是因为linux的这种共享性，只要改了readline的配置文件，那么所有用到它的地方都会改变，一般情况下，默认的文件放在/usr/lib里或者/etc/下面。这里是全局的。
 http://stackoverflow.com/questions/10394302/how-do-i-use-vi-keys-in-ipython-under-nix
 http://www.linuxfromscratch.org/lfs/view/6.2/chapter07/inputrc.html
 
+
+减少与() 的使用就是 可以用 :command:`%autocall` 来控制这个命令的解析的方式，或者直接 ``/`` 开头就可以了，在这一点上， haskell 吸收了这个每一点。把函数调用与 管道 统一了起来。在用python中是用点当管道使用了，bash 中通用的结构是 file而在  baskell中通用的是 list,其实就是矩阵相乘，只要首尾可以互认就可以了。
+在haskell 中我们采用 ``$`` 来指定这些事情。
+
+
+配色同样也是支持的可以查看 :command:`%color_info` 以及 :command:`%colors`. 
 .. seealso::
 
 #. `flask <http://flask.pocoo.org/>`_ %IF{" 'Flask is a microframework for Python based on Werkzeug,Jinja 2 and good intentions.' = '' " then="" else="- "}%Flask is a microframework for Python based on Werkzeug,Jinja 2 and good intentions.
@@ -578,3 +594,6 @@ http://radimrehurek.com/2014/03/data-streaming-in-python-generators-iterators-it
 这个直接利用语言的高阶特性会非常的简单，例如列表推导，以及filter,map,reduce再加上lambda 的使用，以及sorted 再加上itetools中groupby,
 
 另一大块那就是vector化的索引计算。其实就相当于数据组的sql语言了。
+
+
+
