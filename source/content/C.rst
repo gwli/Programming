@@ -26,6 +26,7 @@ typdef
 的mapping关系。 
 
 
+
 offset
 ------
 
@@ -45,3 +46,5 @@ offset
    NV_COMPILE_TIME_ASSERT(NV_OFFSET_OF(NVPackValidation,a)==8);
 
 
+
+STL

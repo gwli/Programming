@@ -1,9 +1,3 @@
-:author: GangweiLi
-:comment: No
-:CreateDate: 14-07-10
-:status: C
-:name: ProfilingAndAnalysis
-:LastModified: |today|
 
 ####################
 ProfilingAndAnalysis
@@ -62,6 +56,7 @@ where is the balance point
 
 如何优化
 --------
+
 各种书上都讲了各种方法与规则但是如何动手呢，NSight Analysis就提供这样一套分析工具。并且是从上到下从粗到细的，并且从定性到定量的。
 
 例如GPU的thread如何分配呢，主要靠分析occupancy. 
@@ -73,6 +68,7 @@ follow the CUDA_Best_Practice.pdf and CUDA_Profiling_Guide.pdf这两个就够了
 
 如果各个性定制
 --------------
+
 如果Nsight Analysis提供的那些方法还不行，还有办法，那就是定制化。如GPU有profilingAPI的，例如最简单的`CuProfilingStart(),CuProfilingStop()`控制。当然你还可以取得另一些数据控制。让应用程序自身实现终身的优化。
 
 
@@ -127,6 +123,7 @@ this system should support approach to make Snapshot quickly, may this is suppor
 
 latency VS Occupancy
 --------------------
+
 这两个是矛盾，latency越小越好，那当在占的资源多，执行时间短，Occupancy那就是尽可能并行，系统的总的资源是有限，并行度越大，每一个可以分到资源也就越小，那么执行间可能就会越长。在CUDA里资源，那就是寄存器，share memory.
 Occupancy研究的是使用率，相当于CPU的的使用率，如何CPU使用率100%的问题。这个是在解决GPU资源大于所需的要求，如何原来结果更快。Occupancy高，意味着更多的线程在干活，首先要解决理论occupnacy,然后是实际的值，极限值，GPU的最大值。只有有足够多并行，才能隐藏latency的问题。一个线程不执行完，就不会被释放，并且最小调度单元是warp,也就是只有一个thread在占着，那么整warp就不能被再调度了。
 
@@ -166,9 +163,10 @@ To: An Yan; Jerry Cao
 Subject: jiuyin issue
 
 Please request them to change APP_ABI to armeabi-v7a.
+
 .. code-block:: bash 
 
-   xuan@xuan-t430:~/work/jiuyin$ readelf -A libapp.so Attribute Section: aeabi File Attributes
+   t430:~/work/jiuyin$ readelf -A libapp.so Attribute Section: aeabi File Attributes
       Tag_CPU_name: "5TE"
       Tag_CPU_arch: v5TE
       Tag_ARM_ISA_use: Yes
@@ -182,7 +180,7 @@ Please request them to change APP_ABI to armeabi-v7a.
       Tag_ABI_enum_size: int
       Tag_ABI_optimization_goals: Aggressive Speed xuan@xuan-t430:~/work/jiuyin$ readelf -A lib
    libapp.so     libfmodex.so
-   xuan@xuan-t430:~/work/jiuyin$ readelf -A libfmodex.so Attribute Section: aeabi File Attributes
+   t430:~/work/jiuyin$ readelf -A libfmodex.so Attribute Section: aeabi File Attributes
       Tag_CPU_name: "5TE"
       Tag_CPU_arch: v5TE
       Tag_ARM_ISA_use: Yes

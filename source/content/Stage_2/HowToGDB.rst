@@ -167,7 +167,7 @@ debuger 是一个大工程，不仅检测CPU的状态，还要提供一个运行
       
       // break point 
        BP -> {breakpoints;watchpoints;catchpoints;tracepoints};
-        breakpoints [shape=record, label = "break | break function | break +/- offset | break linenum | break filename:linenum | break filename:function | break *address |break if | tbreak|hbreak |thbreak | rbreak regex "];
+        breakpoints [shape=record, label = "break | break function | break +/- offset | break linenum | break filename:linenum | break filename:function | break \*address |break if | tbreak|hbreak |thbreak | rbreak regex "];
         watchpoints [shape =record, label ="watch | watch expr | rwatch expr | awatch expr | info watchpoints "];
         tracepoints [shape=record, label = "{trace|tfind,tstart,tstop,tstatus,tdump,save-tracepoints|passcount | actions |collect data | while-stepping }"]
        Interface-> {HI;MI};
@@ -258,15 +258,41 @@ GDB 是支持python,并且可以通过python来实现大量的定制化，例如
 gdb 如何直接执行python
 
 .. code-block:: python
-     python
-     import sys
-     print afa
-     end
+
+   python
+   import sys
+   print afa
+   end
 
 通过学习 ndk 中ndk-gdb-python 来作为参考。  gdb 扩展可以参考`Extending GDB using Python <https://sourceware.org/gdb/onlinedocs/gdb/Python.html#Python>`_   `visual-studio-debugger-related-attributes-cheat-sheet <http://khason.net/dev/visual-studio-debugger-related-attributes-cheat-sheet/>`_  这里讲了一些 debug的设置。
 
+gdb 中使用 python 类似于 vim 中使用 python 一样的。
+
+
 对于PentaK 与VSAuto 都会 visualize功能。基本用法那就是根据结构体类型如何显示其内容，例如只显示头，以及如何以树形展开，因为对于基本的基本的数据结构的组合。
 `浅谈autoexp.dat文件的配置 <http://blog.csdn.net/lingyin55/article/details/6600447>`_  以及我们http://devtools.nvidia.com/fogbugz/default.asp?30959 
+
+
+`VS2013 Visualizers <https://msdn.microsoft.com/en-us/library/ms164761.aspx>`_ 
+
+`How to write Visualizer <https://msdn.microsoft.com/en-us/library/ms164759.aspx>`_  分两部分 debugger,与debugee两部分。然后根据模板来显示。
+
+VS 自身的模板在 :file:`C:\Program Files (x86)\Microsoft Visual Studio <version>\Common7\Packages\Debugger\autoexp.dat` 里。
+
+基本类型，整型，长整型，十六进制，以及浮点树，以及字符串。
+这里分preview and stringView,children, 基本的数据结构有#array,#list,#tree, # 本身，以及特殊的自由变量。
+
+$e,$c 是自由变量，m_pszData等等结构体自身变量。
+
+这个类似于python中pytable的功能，可以直接table值。
+
+``type=[text]<member[,format]>....``
+
+
+
+http://www.xuebuyuan.com/1300115.html 这是一个不错的教程 
+http://blogs.msdn.com/b/joshpoley/archive/2008/01/24/custom-debugger-auto-expansion-tips.aspx
+http://www.manicai.net/comp/debugging/visualizer/
 
 
 GUI 
