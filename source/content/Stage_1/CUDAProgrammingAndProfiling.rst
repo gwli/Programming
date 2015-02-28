@@ -76,11 +76,11 @@ CUDA also has own sync mechanism. Asynchonous Concurrent.
 .. seealso::
      
      .. csv-table::
-         NSightCodeStudy, NSight 
-         ProfilingAndAnalysis, 性能优化
-         NVCCStudy CUDA, 编译
-         ParallelPattern, 并行模式
-         CUDAScheduler,CUDA scheduler
+        NSightCodeStudy, NSight 
+        ProfilingAndAnalysis, 性能优化
+        NVCCStudy CUDA, 编译
+        ParallelPattern, 并行模式
+        CUDAScheduler,CUDA scheduler
 
 Nsight
 ------
@@ -106,14 +106,14 @@ wait for study
 CUDA与Texture与Surface 以及Graphic的交互
 ----------------------------------------
 
-显存的的存储结构与CPU的不同在于，显存可以直接高维数据的存储。对于CPU的内存模型就是一维与二维的数组结构，而GPU从硬件直接高维数据存储。对于Texture的结构，直接就是Graphic的texture结构，有三维以及MIP,cubmap等。直接操作自己把数据放在texture中然后再按照规则调用，另外一种那就是直接利用graphic的texture.
+显存的的存储结构与CPU的不同在于，显存可以直接高存储维数据。对于CPU的内存模型就是一维与二维的数组结构，而GPU从硬件直接高维数据存储。对于Texture的结构，直接就是Graphic的texture结构，有三维以及MIP,cubmap等。直接操作自己把数据放在texture中然后再按照规则调用，另外一种那就是直接利用graphic的texture.
 其本质都是CUDA array.
 为什么要这些原因，texture/surface 的结构同时包含了cache是如何使用。
 
 利用cudaBindTexutre与cudaUnbindTexture然后就可直接内存中图像映射到texture上，然后直接用texture函数来直接读取。
-并且bindless texture,原来是直接通过 texture cache这种方式来读取global memory,而不需要事先的人为搬运，·Texture And Surfaces <http://www.informit.com/articles/article.aspx?p=2103809&seqNum=5>`_
+并且bindless texture,原来是直接通过 texture cache这种方式来读取global memory,而不需要事先的人为搬运，`Texture And Surfaces <http://www.informit.com/articles/article.aspx?p=2103809&seqNum=5>`_
 
-对于如何提交的数据传输的效率，那就要看cache的效率了，就要数据的依赖性，对于空间依赖强的数据，直接用texture来读取效率应该更高，texture就是专门为此设计的，有大量的硬件来支持。并且对kernel的shareemomery的应用与register的分配策略在runtime层都是可以动态可配制的，这些都会影响kernel launch的时间的长短。
+对于如何提高数据传输的效率，那就要看cache的效率，以及数据的依赖性。对于空间依赖强的数据，直接用texture来读取效率应该更高，texture就是专门为此设计的，有大量的硬件来支持。并且对kernel的shareemomery的应用与register的分配策略在runtime层都是可以动态可配制的，这些都会影响kernel launch的时间的长短。
 
 有些简单的计算不需要走ogl完整的pipeline,那么可直接使用CUDA来直接操作ogl的各个管线，用直CUDA直接来计算，然后直接输出,而不是使用draw call来实现。
 对于ogl通过`cudaGraphicGLRegisterBuffer`与`cudaGraphicsResource` 然后`cudaGraphicsMapResources` 与`cudaGraphicsUnMapResources`转换成 CUDA device pointer来实现了。就可以直接互操作了。就像bindless tetxture这个子就是直接注册一个PBO，然后直接操作PBO来最终的显示。
@@ -122,9 +122,9 @@ CUDA与Texture与Surface 以及Graphic的交互
 
 
 
-的实际用途是数据可视化，才会用到这两个，在真正的游戏中，要考虑通用性问题，不会使用CUDA的。
+的实际用途是数据可视化，才会用到这两个，在真正的游戏中，要考虑通用性问题，不会使用CUDA的。（这里说的是什么？）
 
-现在对于这个互操作才算是有更深的认识，图形与图像中OGL与DX最好用的两个，如果遇到这些问题直接利用它们是最好的，就需要重复的造轮子。但是还需要再加一些物理仿真计算呢，这些很灵活的计算呢，当然ogl/DX还有一个compute shader. 但是还不够灵活。可以直接用CUDA与之互操作，例如生成texture然后再调用ogl的drawCall进一步的计算显示。CUDA可以操作OGL的各种对象bufferobject,对于ogl各种drawXXX与及glEnableXXX是可以控制pipeline的。起动哪些东东，以及从哪里开始执行，在到哪里结束。而对于pipeline内部需要定制的，现在已经有很完善的各种shader了。
+现在对于这个互操作才算是有更深的认识，图形与图像中OGL与DX最好用的两个，如果遇到这些问题直接利用它们是最好的，就需要重复的造轮子。但是还需要再加一些物理仿真计算呢，这些很灵活的计算呢，当然ogl/DX还有一个compute shader. 但是还不够灵活。可以直接用CUDA与之互操作，例如生成texture然后再调用ogl的drawCall进一步的计算显示。CUDA可以操作OGL的各种对象bufferobject,对于ogl各种drawXXX与及glEnableXXX是可以控制pipeline的。启动哪些东东，以及从哪里开始执行，在到哪里结束。而对于pipeline内部需要定制的，现在已经有很完善的各种shader了。
 
 
 
