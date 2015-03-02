@@ -273,6 +273,7 @@ Ilterators generators
    }
 
 这样就用计算代替了存储。并且解决吃内存的问题。
+
    `65285-looping-through-multiple-lists <http://code.activestate.com/recipes/65285-looping-through-multiple-lists/>`_  可以使用map,zip以及list来实现。
    `yield与labmda实现流式计算 <http://www.cnblogs.com/skabyy/p/3451780.html>`_
 
