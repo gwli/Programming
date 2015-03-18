@@ -17,7 +17,14 @@ debug 的难点：
 #. 变量声明的语句是没有，编译之后就没有了，所以不能在变量声明的地方设置断点。但是解释型好像就可以，例如在perl里是可以的，试一下java是否可以，以及其他语言。
 #. 多线程如何调试。
 
+
+批量的添加断点
+--------------
+
+在gdb 中直接用info source 或者info functions 就看到全部函数名，并且还可以用python来操作，就像vim中一样。要把gdb练成vim 一样熟悉。
 VS中对于immediate Windows是可以执行一些调试命令，并且提供运行时库的相互环境，就像一个脚本语言解释环境一样。
+
+gdb,attach 意味着你进入这个进程的空间，可以方便它的一切。
 
 调试器的用途
 ============
@@ -57,6 +64,34 @@ Debug 的实现机理
 
 
 另外一点，那就是调试的那些信息都从哪里来的呢。
+
+同时可以在 通过 `info share` 来查看指令段，就可以知道在哪里哪一个库crush,并且还可以知道在哪里设置断点。并且利用addr2line 就可以得到。
+
+当然也可以直接在 gdb 中实现这些事情。例如 info address symbol等等。
+
+.. code-block:: bash
+   
+    info address symbol
+    info symbols addr
+    whatis expr 
+    whatis
+
+这些可以非常方便让我来查看 ELF的生成格式，这个要比 objdump要直接有效的多。
+
+
+*`GDB的实现 原理 <http://www.kgdb.info/gdb/gdb_principle_ppt/>`_  以及如何手工操作 /proc*
+in linux, you can use signal and /proc and some CPU interrupt do debug, don't need the GDB.  for example on the production line. You can do like this.  send Pause signal to the process and check the /proc directory to get the status of the process.
+`Proc interrupts <http://www.crashcourse.ca/wiki/index.php/Proc_interrupts>`_ , 
+`/proc/interrupts 和 /proc/stat 查看中断的情况 <http://blog.csdn.net/richardysteven/article/details/6064717>`_ 
+那到底是用的硬中断来软中断来实现的呢。并且gdb 还支持对gdt,ldt,idt的查看DJGPP 。
+
+.. code-block:: bash
+
+   info dos gdt/ldt/idt/pde/pte     ;info w32 info dll 
+
+几种方式是插入汇编asm(bkpt) 代码，或者采用指令替换的方式，例如在原理断点处插入跳转指令。把原来指令给换掉。
+
+-- Main.GangweiLi - 16 Apr 2013
 
 变量的值
 --------
@@ -108,6 +143,8 @@ Auto local Watch
 而那些debug info 这些默认起动不加载呢，还是根据文件本身，有了就加载，没有就不加。
 
 
+而这些是通过 GDB variable object 来实现的。
+
 
 符号表以及其加载机制
 ====================
@@ -154,6 +191,9 @@ Auto local Watch
 
    这些都通过查看online help来得到更多的信息
 
+例如遇到了中途遇到crush,但是此时没有debug 信息怎么办，这里可以要求重新加载一下 lib,重新进行一次解析就可以。 这时候就需要用到
+
+:command:`symbol-reloading  symbol-reload` 
 GNU GDB
 -------
 
@@ -193,17 +233,22 @@ debuger 是一个大工程，不仅检测CPU的状态，还要提供一个运行
       //DataView;
       DataView  [shape=record,
     		label= "{DataView  || \
-                            p/xuf *array@len  \l \
-                            x (type) *array@len \l}"
+                            p/xuf \*array@len  \l \
+                            x (type) \*array@len \l}"
         ]
        
    }
 
+
 breakpoint,不仅能够disable/enable以及one stop,还能设置回调函数，不仅可以使用gdb脚本还可以被调试对象函数，以及第三张通过环境变量shell=指定的脚本。是支持python的。
+
 ---
+
 watchpoint, 用完就会背删除，并且不能直接加断点，必须每一次用完之后要，要重新设置，pentak是否会保存，并且如果是软件实现的话，速度会非常的慢，并且在多线程里，如果是软件实现只对当前的线程有效。
+
 ---
 catchpoint, gdb 提供对load,try,catch,throw等等支持，另一个更加直接方式那就是对用__raise_exception.加一个断点，类似于perl中把把DIE包装一下。
+
 ---- 
 tracepoint, this is just a pm point of SDH. you monitor the system state at the tracepoint, you can collect the data. so you that %RED%how to use tracepoint to make write down execution log just bash set +x%ENDCOLOR% the core-file is implemented use this.I guess so. there are three target for GDB: process, corefile,and executable file. what is more, GDB could offer some simulator for most of the GDB.  
 
@@ -212,9 +257,12 @@ tracepoint, this is just a pm point of SDH. you monitor the system state at the 
    os , set, info ,
 
 ---
+
 next,step,until,contil，return,jump,fg,ignore 
 这些命令都有两种xxxi这种，是针对机器指令，也就是汇编指定的，另一种是针对源码的。并且后面都可以跟一个数值来实现循环。 进入了gdb后，你完全可以重起组织代码执行顺序，甚至把应用当做一个库，利用gdb脚本重新实现一遍应用程序，例如直接把attach上当前的进程，然后，加载自己的东西，因为gdb是支持写回功能的。这样就可以强hacking 的目的。
+
 ---
+
 display  automation display the info
 *display /i $pc*
 ---print and x
@@ -228,16 +276,18 @@ there is also a cache for data.
 
 BP set 
 ------
+
 when I can I set the BP. 在今天的测试中，断点能设置在哪，并且是否被击中，并且什么被解析了。例如在空白处是不能设的，编译形与解释型debug有区别吗，
 
 working language and native language.
 -------------------------------------
+
 you do extension for gdb as native lanuage or working language. you control these by show/set language. info extensions.  different language supported different type and range check.
 
 GDB extension
 -------------
 
-gdb 支持自身命令的扩展，一种是通过<verbatim>define commandname</verbatim>. 另一种通过命令hook来实现。另外现在gdb 都支持`python来进行扩展 <http://sourceware.org/gdb/onlinedocs/gdb/Python.html>`_ 。并且gdb也是可以`http://docs.python.org/devguide/gdb.html <直接调试python>`_ .
+gdb 支持自身命令的扩展，一种是通过<verbatim>define commandname</verbatim>. 另一种通过命令hook来实现。另外现在gdb 都支持 `python来进行扩展 <http://sourceware.org/gdb/onlinedocs/gdb/Python.html>`_ 。并且gdb也是可以`http://docs.python.org/devguide/gdb.html <直接调试python>`_ .
 
 ..cas-table:: 
 
@@ -432,11 +482,6 @@ the other hand, GDB offer another way to manipulate the symbol file just like (o
 -- Main.GangweiLi - 16 Apr 2013
 
 
-*`GDB的实现 原理 <http://www.kgdb.info/gdb/gdb_principle_ppt/>`_  以及如何手工操作 /proc*
-in linux, you can use signal and /proc and some CPU interrupt do debug, don't need the GDB.  for example on the production line. You can do like this.  send Pause signal to the process and check the /proc directory to get the status of the process.
-`Proc interrupts <http://www.crashcourse.ca/wiki/index.php/Proc_interrupts>`_ , `/proc/interrupts 和 /proc/stat 查看中断的情况 <http://blog.csdn.net/richardysteven/article/details/6064717>`_  那到底是用的硬中断来软中断来实现的呢。并且gdb 还支持对gdt,ldt,idt的查看DJGPP 。<verbatim> info dos gdt/ldt/idt/pde/pte     ;info w32 info dll </verbatim>
-
--- Main.GangweiLi - 16 Apr 2013
 
 
 *GDB的命令行编辑习惯*
@@ -458,7 +503,7 @@ this one is just like tl1. there is two mode. human readable/raw. and the telnet
 -- Main.GangweiLi - 17 Apr 2013
 
 
-*JUST IN TIME DEBUGGER *
+*JUST IN TIME DEBUGGER* 
 http://msdn.microsoft.com/en-us/library/5hs4b7a6.aspx   如何使用，并且今天看了，VS调试壳，是否可以利用vim或者emacas也来招调试器。
 
 -- Main.GangweiLi - 06 Jun 2013

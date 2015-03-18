@@ -283,8 +283,37 @@ Ilterators generators
 Descriptors properites
 
 Decorators
+==========
+
    * `Python装饰器与面向切面编程 <http://www.cnblogs.com/huxi/archive/2011/03/01/1967600.html>`_ %IF{" '这个其实是perl那些符号进化版本' = '' " then="" else="- "}%这个其实是perl那些符号进化版本
-其实本质采用语法糖方式 ，其实宏处理另一种方式。在C语言采用宏，而现代语言把这一功能都溶合在语言本身里了。decorator直接采用嵌套函数定义来实现的。最背后是用lamba来实现 的。`functools <http://www.cnblogs.com/twelfthing/articles/2145656.html>`_提供了对于原有函数进行封装改变的方便方式。也就是各种样的设计模式加到语言本身中。
+其实本质采用语法糖方式 ，其实宏处理另一种方式。在C语言采用宏，而现代语言把这一功能都溶合在语言本身里了。decorator直接采用嵌套函数定义来实现的。最背后是用lamba来实现 的。 其本质就是宏函数的一种实现，并且把函数调用给融合进来了。本质还是 函数管道的实现。
+
+.. code-block:: python
+    
+   @wraper
+   def fn():
+       do something
+
+   a().b().c() 
+
+   a() | b() |c()
+   $a bc $ a bcd $c (in haskwell) 
+
+
+使用 decorator 的好处，实现函数的原名替换，同样的函数名却添加了实现。有类似于Nsight 中 LD_PRELOAD 中那API函数一样的做法。 任于参数如何传递就是简单函数传递。
+
+至于变长修饰变长函数 也是同样的道理。
+http://blog.csdn.net/meichuntao/article/details/35780557
+其实就是直接全用args就行了,就传了进去了，只是一个参数传递的过程，这个pentak中automation到处在用了。 把要wrapper的参数传递进行去。
+http://blog.csdn.net/songrongu111/article/details/4409022 其本质还是闭包运算一种实现，基本原理还是利用函数对象以及各自的命名空间来实现。
+而不用知道函数要有固定的参数，修饰变长函数。这个直接看源码的函数调用那一张，采用的命名空间嵌套的用法，原则最里优先。
+
+
+
+
+`functools <http://www.cnblogs.com/twelfthing/articles/2145656.html>`_提供了对于原有函数进行封装改变的方便方式。也就是各种样的设计模式加到语言本身中。
+
+
 
 python对于循环进行了优化。所以写循环的时候就不要再以前的方式了，采用计算器了，要用使用yield的功能。来进行简化。
 map,reduce机制，例如NP就经常有这样的操作，例如
