@@ -101,7 +101,25 @@ normally the lib linker order is not specially, but sometimes you need a specifi
 
 
 `-Wl,--as-need <http://blog.chinaunix.net/uid-27105712-id-3313293.html>`_ 这样就可以避免链接不必要的库，另外ldd -u 可以查看到哪些库链接了，但是根本用不着。 
-* -Wl* 可以直接把参数传给linker, *-Wl,-z,no`execstack <http://linux.die.net/man/8/execstack>`_ 
+* -Wl* 可以直接把参数传给linker, -Wl,-z,no `execstack <http://linux.die.net/man/8/execstack>`_ 
 现在终于明白C语言指针可做硬件灵活性在哪里，C把格式变成编格式就是最好LLVM了，并且C语言中指针，将来就是真实内存地址。当你想crack一些系统或者硬件行为的时候，利用C语言可以达到汇编直接操作，例如函数指针，例如符号表的得到，原来系统函数的地址，然后把地址改在自己的函数，并且函数的声明要原来一样，保证调用不会出错，然后自己处理，再调用系统函数，这也是各种wrapper的写法。在perl里，只就直接使用$e这些中断函数处理通过hook__DIE__这个函数调来实现的，在语言可以trap自己的函数来对segmentfault以及abort,exit等等进行hook处理。或者直接启动调器来工作。现在明白syscall有漏洞的用法了，因为syscall是不受权限限制，可以通过内核启动自己程序。这样解决权限的问题。
 
 这就是如何用语言得到汇编的控制水平，因为在汇编可以任意改变PC值来改变执行的流。明白了汇编到了高级语言失去了什么。失去了对硬件直接控制，同时提高通用性。例如汇编直接硬件机器的指令，以及直接操作硬件的各种信息。而高级语言则失去这种控制，但来的通用性。但在有些时候，还想直接控制如何处理呢，可以通过在C语言中直接使用汇编来处理。另一个办法那就是找到精确的对应，例如如何直接控制PC值呢。当然在嵌入式编程中C语言是可以控制寄存器的。
+
+
+现在终于明白了连接的意义从前到后。
+
+如果想在带码中控制将来代码分配与装载的位置，可以用一些特殊的label,这些label是会被 linker认识的，并且在编译的时候是会保留的。
+
+:command:`extern etext,edata,end` 这三个是程序segments.并且可以通用 :command:`man end` 来查看。
+
+
+
+
+程序需要链接根本原因是用于带码的复用。 链接分时静态连接，动态连接。 另外还有代码链接方式与数据连接方式。
+
+
+
+LD_PRELOAD 预先加载一些库，这样可以方便把一个help库加载到要调试的进程空间，大大加快的调试的进程。这个特别是大的库的开发的情况下会用到，apk会在某个库里会失败，但是这个库却没有相关工具去查看。这个时候利用LD_PRELOAD把其引进来，或者利用python 通过ctype把库给引进来。
+
+http://blog.csdn.net/haoel/article/details/1602108
