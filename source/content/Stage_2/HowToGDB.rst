@@ -537,3 +537,13 @@ gdb就可以实现debug，看见汇编之间的关系吗？
 
 
 
+Debugging Infomation In Seperate Files
+--------------------------------------
+
+https://sourceware.org/gdb/onlinedocs/gdb/Separate-Debug-Files.html
+
+可以通过同名文件 xxx.debug或者build-id 进行同步，如果使用前者还会有一个 CRC的校验和。
+
+同样可以用
+
+:command:`objcopy --only-keep-debug foo foo.debug; strip -g foo` 就可以得到 debug info table file.
