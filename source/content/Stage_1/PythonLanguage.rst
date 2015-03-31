@@ -582,6 +582,12 @@ python 有一个专门的 set 与frozenset类型来进行集合运算，本质�
 
 *如果用python来写后台程序* 可以参考 ndk-gdb.py 中的background Running. 其实写起来很容易，就是in,out,err的重定向问题。可以线程Thread或者subprocess.communicate等待退出并读取输出。
 
+http://ubuntuforums.org/showthread.php?t=943664
+https://jeremykao.wordpress.com/2014/09/29/use-sudo-with-python-shell-scripts/
+
+http://ubuntuforums.org/showthread.php?t=1893870  python communitcate应该是工用的，因为gdb也用的这个
+同样的sudo 也是可以这样的。 这样的方法才是最通用与简单的，并且就是直接利用进程本身的概念。看来自己还需要把这个要信给补一下了。
+
 
 
 *GIL* 这里有两篇文章写的不错，
