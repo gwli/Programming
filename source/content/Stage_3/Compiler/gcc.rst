@@ -54,3 +54,19 @@ GCC
 
 #. 算法本身对数据结构有对齐的要求，那么直接 -malign-XXX来进行整体控制。
 
+no-strict-aliasing
+------------------
+
+http://stackoverflow.com/questions/98650/what-is-the-strict-aliasing-rule
+
+也就是允许，同一块内存，可以用不结构体去读它，因点类似于 union的概念。而在实际的操作过程，就直接是指针操作了。
+只要自己知道 其内部的layout pack了。
+
+
+fwrapv 
+======
+
+这指有符号运算用补码计算的方式。
+
+https://gcc.gnu.org/onlinedocs/gcc-4.3.4/gcc/Code-Gen-Options.html
+

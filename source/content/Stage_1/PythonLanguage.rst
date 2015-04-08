@@ -443,7 +443,6 @@ http://www.linuxfromscratch.org/lfs/view/6.2/chapter07/inputrc.html
 .. seealso::
 
 #. `flask <http://flask.pocoo.org/>`_ %IF{" 'Flask is a microframework for Python based on Werkzeug,Jinja 2 and good intentions.' = '' " then="" else="- "}%Flask is a microframework for Python based on Werkzeug,Jinja 2 and good intentions.
-#. `subprocess <http://docs.python.org/library/os.html][os]] %IF{" 'android my be use this module.' = '' " then="" else="- "}%android my be use this module. and [[http://docs.python.org/library/subprocess.html>`_ which just like system call of Perl or expect? which one?
 #. `A Byte of Python <http://sebug.net/paper/python/>`_ %IF{" 'an introduction tutorial' = '' " then="" else="- "}%an introduction tutorial
 #.  1. data structure  list, metalist, dict,class,module
 #. `python PEP <http://www.python.org/dev/peps/pep-0405/>`_ %IF{" 'what is PEP' = '' " then="" else="- "}%what is PEP
@@ -579,15 +578,36 @@ python 有一个专门的 set 与frozenset类型来进行集合运算，本质�
 
 -- Main.GangweiLi - 02 Apr 2014
 
+多进程与管道
+============
 
+现在于进程有了更深入的认识，虽然在c#自己也已经这么用了，但是python还是没有认真的用明白，原来subprocess就是 process, Popen接口给出详细的定义，并且在windows下的实现就是调用了createProcess这个api,并且shell后台就是调用cmd.exe来实现的。
+
+其输入参数，一个就是 其参数，其buffersize指的就in,out,err的缓冲区的大小，是不是通过shell来调用，以及相关environment,以及前导与后导hook,以及working path等等都是可以指定的，并且其输入与输出都是可以指定的。默认是没有。并且是可以通过communciate一次性的得到，输入与输出的。 当然复杂的就可以用pexpect来做，管理就直接使用管做来操作了，
 *如果用python来写后台程序* 可以参考 ndk-gdb.py 中的background Running. 其实写起来很容易，就是in,out,err的重定向问题。可以线程Thread或者subprocess.communicate等待退出并读取输出。
 
+而线程的实现就不需要些东东。 并且知道了如何使用 subprocess 来实现管道，或者直接使用 pipes 来实现。更加的方便。 
+
+并且python也封装了spawn 这个API，其本质就是execv,execvpl,等等API的实现。 并且还可以调用os.write,os.read,os.pipes来直接实现。对于os.read. os.exec 可以直接执行任何程序，以及对于 os.fdopen,以及os.dup2这些算是有更深的认识。文件描述符用途就是通过中间机制，来对行硬盘文件的一种map机制。 并且os.path.split 实现了一种head,tailer的机制。
+
+对了head,tailer这样的机制，也可list 的slice机制来实现。
+  head,tailer = list[0],list[1:] 
+相当于这还有更的实现方法
+  i = iter(l), first=next(i),rest=list(i)
+  以后会有 first *rest = list
+ 
+看来python 会支持一些更现代的语法。
+ 
+这样的写法有没有更简单的写法呢。
+
+在bash里开一个进程很简单， 直接spawn,或者fork,或者 (),就可直接启一个新的进程了，同时bash 来说直接把一段代码 {} 然后重定向就相当于重启了进程。 现在把线程与进程搞明白了。 就可以灵活的应用了。
 http://ubuntuforums.org/showthread.php?t=943664
 https://jeremykao.wordpress.com/2014/09/29/use-sudo-with-python-shell-scripts/
 
 http://ubuntuforums.org/showthread.php?t=1893870  python communitcate应该是工用的，因为gdb也用的这个
 同样的sudo 也是可以这样的。 这样的方法才是最通用与简单的，并且就是直接利用进程本身的概念。看来自己还需要把这个要信给补一下了。
 
+#. `os <http://docs.python.org/library/os.html>`_ android my be use this module. and `subprocess <http://docs.python.org/library/subprocess.html>`_ which just like system call of Perl or expect? which one?
 
 
 *GIL* 这里有两篇文章写的不错，
