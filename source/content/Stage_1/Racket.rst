@@ -18,3 +18,14 @@ Racket 可以用直接处理图，并且有人拿来画图与做动画。
 代码最简单的方式那就是像bash一样，然后可以对输入与输出进行控制，并用管道，并且语法也要简单。这个正是函数式编程要达到目的。
 
 :command:`(cmd para)` 不正是bash的语法格式吗，并且直接用()执行一次替换，bash也正是这么来的。
+
+并且直接直接系统命令，并且接近bash一样的简练。
+http://rosettacode.org/wiki/Execute_a_System_Command#Racket
+
+.. code-block:: racket
+   
+   #lang racket
+   (system "ls")
+
+   ;; capture output
+   (string-split (with-output-to-string (λ() (system "ls"))) "\n")

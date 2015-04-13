@@ -652,4 +652,31 @@ http://radimrehurek.com/2014/03/data-streaming-in-python-generators-iterators-it
 另一大块那就是vector化的索引计算。其实就相当于数据组的sql语言了。
 
 
+文件操作
+========
 
+文件是可以直接当做列表操作。
+
+.. code-block:: python
+    
+   fd = open("xxx.txt")
+   for line in fd:
+       print fd:
+   
+   subprocess.check_output(["ifconfig"," |grep ip|sort"],shell=True)
+
+with 
+=====
+
+是不是就相当于 racket 中let 的功能。
+
+lazy evluation
+==============
+
+.. code-block:: python
+
+   gen = (x/2 for x in range(200))
+
+这是相当于yield,了，有点相当于管道了。
+
+列式推导 直接加map,filter 会更有效.http://www.ibm.com/developerworks/cn/linux/sdk/python/charm-17/index.html 这样会更有效
