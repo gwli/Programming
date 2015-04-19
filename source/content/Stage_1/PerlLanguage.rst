@@ -1,3 +1,38 @@
+perl 的语言
+===========
+
+通过对编程语言深入的理解，现在对于perl也有进一步深入了，之前一直停留下来，并且忘记了很多，关键还是没有理解函数的本质，一个是变量的作用域，perl有自己的，my, our 等等，并且对于变量的类型转换，采用动态的指定，并且还有类似指针的可以用引用。
+
+它的列表与hash与tcl一样都支持嵌套，另一点那就是也支持命令的拼接，在tcl中通过[]来实现的，多次的替换拼接。特别是 subst 命令的使用。
+对于perl来说更加简单那就是直接 空格拼接，有函数式编程的高效，同时又没有了() 的这些东东，perl 的列表推导 。 那就是 perl prototype 使用，可以让我们 函数调用不需要 ()就像 命令一样，同时也没有 tcl中[].
+http://stackoverflow.com/questions/297034/why-are-perl-5s-function-prototypes-bad
+
+现在只要记住 一般用@,(),[] 来表征数组与列表，而%与{}来表征hash,$ scale,以及指针的使用。 并且perl 具有了C的灵活与强大，例如支持goto,并且具有丰富的库。
+
+例如 删除所有的 pattern.   
+
+http://docstore.mik.ua/orelly/perl4/prog/ch06_04.htm  proto type 不是为参数参数检查，而是为函数调用个数的确定，
+http://perldoc.perl.org/perlsub.html 写清楚了各个定义。
+
+
+
+.. code-block:: perl
+
+    ulink glob "*txt";
+   
+
+这些比管道还高效。
+
+例如 perl 中函数 map实现原理 http://stackoverflow.com/questions/7626516/how-is-the-map-function-in-perl-implemented。
+
+
+
+.. code-block:: perl
+   sub map(&@){
+     my ($function,@sequence)=@_;
+   }
+
+并且 perl中 命令拼接 从右往左 ，而python 从左往右。 而haskwell 中也是从左到右。
 Error process
 =============
 
@@ -51,9 +86,8 @@ http://stackoverflow.com/questions/2628475/perl-catch-error-without-die
    };
    
    
-
-
 To avoid repeated steps, You can use expect to do the preparation.  as perl debug didn't support scripts debug.  
+
 See also
 ========
 
