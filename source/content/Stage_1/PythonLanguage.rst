@@ -1,4 +1,3 @@
-:author: GangweiLi
 :comment: No
 :CreateDate: 14-07-10
 :status: C
@@ -440,6 +439,7 @@ http://www.linuxfromscratch.org/lfs/view/6.2/chapter07/inputrc.html
 
 
 配色同样也是支持的可以查看 :command:`%color_info` 以及 :command:`%colors`. 
+
 .. seealso::
 
 #. `flask <http://flask.pocoo.org/>`_ %IF{" 'Flask is a microframework for Python based on Werkzeug,Jinja 2 and good intentions.' = '' " then="" else="- "}%Flask is a microframework for Python based on Werkzeug,Jinja 2 and good intentions.
@@ -680,3 +680,9 @@ lazy evluation
 这是相当于yield,了，有点相当于管道了。
 
 列式推导 直接加map,filter 会更有效.http://www.ibm.com/developerworks/cn/linux/sdk/python/charm-17/index.html 这样会更有效
+
+__getattr__ 用法
+================
+
+这个特别适合用于封装一些现有API使其具有 python的形式，一个简单做法，就像GTL用template生成一堆的IDL接口函数文件。
+另一个办法那就是利用 python 的这些内建接口，来实现简单高效。 例子可以参考  fogbugz.py的用法。 核心是那参数为什么可以那样定义。
