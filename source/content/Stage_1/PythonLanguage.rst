@@ -681,6 +681,11 @@ lazy evluation
 
 列式推导 直接加map,filter 会更有效.http://www.ibm.com/developerworks/cn/linux/sdk/python/charm-17/index.html 这样会更有效
 
+
+currying, Partial Argument, 可以用lambda 来实现，或者使用 :command:`from functools import partial;add_five=partial(add_numbers,5)`
+
+其本质就是又封装了一层函数。也就是alias 的一种实现而己。在函数调用之前添加了一次的简单替换，或者再一次wrap函数就行了。
+
 __getattr__ 用法
 ================
 
