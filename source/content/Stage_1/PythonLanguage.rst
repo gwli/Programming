@@ -686,6 +686,18 @@ currying, Partial Argument, 可以用lambda 来实现，或者使用 :command:`f
 
 其本质就是又封装了一层函数。也就是alias 的一种实现而己。在函数调用之前添加了一次的简单替换，或者再一次wrap函数就行了。
 
+
+参数的传递
+==========
+
+可以是固定的，位置的，也可以是字典式的，还可以是列表，并且是不定长的，*list,**kwd,  这种做法可以到处用。
+
+例如
+
+.. code-block::
+
+   self.env.set_warfunc(lambda *args:warnings.append(args))
+
 __getattr__ 用法
 ================
 
