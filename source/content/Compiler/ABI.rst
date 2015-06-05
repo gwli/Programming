@@ -34,6 +34,11 @@ ABI 指的就是`ELF,COFF,和PE COFF <http://www.cnblogs.com/yizhu2000/archive/2
 
 什么东东需要知道ABI，OS kernel, linker,dynamic linker, 以及GDB需要知道这些。当然正常情况下都是可以自动识别的
 另外就是处理器自身的编码格式，例如ARM采用的固定长度的编码。可以采用哈夫曼编码。所以ABI应该包含两部分，一个汇编指令集本身，另外一种它本身的结构了。汇编就是是汉字一样，要组成一文章还要一些文法结构。例如诗体，散文等。
+
+符号表与debug info
+==================
+
+这两个不同表，符号表是一直存在的，动态链接的时候，链接什么呢，就是这找这些符号。重定向其地址。 而debug Info 会包含这个符号与源文件的关系。而符号表有的是，这个符号的内存地址。
 [[http://sourceware.org/gdb/onlinedocs/gdb/ABI.html][对于GDB你也可以改它的]].
 #. `ABI Policy and Guidelines <http://gcc.gnu.org/onlinedocs/libstdc++/manual/abi.html>`_ 
 #. `API 与 ABI <http://wangcong.org/blog/archives/1573>`_  一个通俗点的解释。并且可以检测这种变化的。
