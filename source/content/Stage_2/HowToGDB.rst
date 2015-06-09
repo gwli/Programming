@@ -111,6 +111,15 @@ module列表
 
 elf结构的哪一些块放着呢。
 
+module 加载的顺序采用深度优先的模式，并且得不断改写进程中GOT表，来进行重定位那些lib。
+
+
+.. image:: LLD.png
+
+VS 给的link 顺序为 A,D,C,B;而gcc 需要顺序为 A,B,C,D.
+
+
+
 代码块
 ------
 

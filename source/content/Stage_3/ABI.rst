@@ -228,3 +228,47 @@ PTX到SASS这样的效率就会更高。会根据真实的环境进行再一次�
 LD_PRELOAD 预先加载一些库，这样可以方便把一个help库加载到要调试的进程空间，大大加快的调试的进程。这个特别是大的库的开发的情况下会用到，apk会在某个库里会失败，但是这个库却没有相关工具去查看。这个时候利用LD_PRELOAD把其引进来，或者利用python 通过ctype把库给引进来。
 
 http://blog.csdn.net/haoel/article/details/1602108
+
+ABI 是什么
+==========
+
+也就是如何生汇编的， 例如函数调用参数如何传递，以及寄存器的分配原则是什么。决定了如何生成由中间语言来生成汇编代码。
+
+例如ARM 的寄存器规则。http://lli_njupt.0fees.net/ar01s05.html ， R11 是栈指针，R11为SP。
+
+一个简单的赋值是两条ASM
+例如
+
+.. code-block:: C
+   int i = 1;
+   mov r0 #1
+   str r0 [r11,#-8]
+
+函数内部实现变量，就是栈上加减的。
+
+.. code-block:: C
+
+   int add(int a,int b) {
+      return a + b;
+   }
+   
+   int i =0;
+   i = add(0,1);
+
+   mov r0 #0
+   mov r1 #1
+   bl 0x<addDress>
+   
+   ##add asm
+   push {r11} // save framepointer
+   add sp, sp ,#0  //save current framepointer
+   sub sp,sp #12, //apply memory for parameter
+   str r0, [r11,#-8]
+   str r1, [r11,#-12] //pass the para to stack
+   ldr r2 [r11,#-8]
+   ldr r3 [r11,#-12]
+   add r3,r2,43
+   mov r0,r3    // r0 as return 
+   sub sp, r11,#0 // recover stack 
+   pop {r11}   //recover last framepoint
+   bx lr   //go to call point  lr is saved by pc+1 of caller.
