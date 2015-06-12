@@ -272,3 +272,7 @@ ABI 是什么
    sub sp, r11,#0 // recover stack 
    pop {r11}   //recover last framepoint
    bx lr   //go to call point  lr is saved by pc+1 of caller.
+
+
+
+函数调用约定，以及寄存器分配策略。这个是ABI要解决有事情。

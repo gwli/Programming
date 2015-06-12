@@ -39,3 +39,7 @@ debug Symbols 信息，有了符号表才能符号表地址对应起来，并且
 for apk, they need androidManifest.xml to get the package name to start it.
 
 
+signal
+======
+
+也就是kernel发现在东东，来通知应用程序来处理， 例如键盘有了输入，硬件中断在软件就叫signal. 也不是操作系统告诉你发生了什么事情，至于你怎么处理那是你的事情，除了一些标准的消息kernel会强制处理之外，例如kill -9 等等。 exception，就是kernel发现你做错了来通知你。你丫搞杂了。
