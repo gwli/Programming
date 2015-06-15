@@ -558,3 +558,22 @@ https://sourceware.org/gdb/onlinedocs/gdb/Separate-Debug-Files.html
 同样可以用
 
 :command:`objcopy --only-keep-debug foo foo.debug; strip -g foo` 就可以得到 debug info table file.
+
+
+Ptrace
+======
+
+gdb 主要原理就是动态修改的进程的所有状态与内容，还有寄存器的能力。例如修改返回寄存器的值，就可以改其反回值了。
+
+.. code-block:: c
+    
+   #include <sys/ptrace.h>
+   Long ptrace(enum_ptrace_request request,pid_t pid, void *addr,void *data)
+
+
+request 是具体的操作。 
+
+整个过程就是追踪者先通过PTRACE_ATTACH与被追踪进程建立关系，或者说attach到被追踪进程。
+然后，就可以通过各种PEEK和POKE操作来读/写进程的代码段，数据段，或各寄存器，每一次4个字节
+通过data 域传递，由addr 指明地址，或可全用PTRACE_SINGLESTEP,PTRACE_KILL,PTRACE_SYSCALL各
+PTRACE_CONT等操作来控制被追踪进程的运行，最后通过 PTRACE_DETACH与被追踪进程脱离关系。
