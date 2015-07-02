@@ -205,6 +205,7 @@ debug_info表与 符号表是不同的两表，符号是要程序动态加载的
 例如遇到了中途遇到crush,但是此时没有debug 信息怎么办，这里可以要求重新加载一下 lib,重新进行一次解析就可以。 这时候就需要用到
 
 :command:`symbol-reloading  symbol-reload` 
+
 GNU GDB
 -------
 
@@ -251,25 +252,42 @@ debuger 是一个大工程，不仅检测CPU的状态，还要提供一个运行
    }
 
 
-breakpoint,不仅能够disable/enable以及one stop,还能设置回调函数，不仅可以使用gdb脚本还可以被调试对象函数，以及第三张通过环境变量shell=指定的脚本。是支持python的。
+breakpoint
+----------
 
----
+,不仅能够disable/enable以及one stop,还能设置回调函数，不仅可以使用gdb脚本还可以被调试对象函数，以及第三张通过环境变量shell=指定的脚本。是支持python的。
 
-watchpoint, 用完就会背删除，并且不能直接加断点，必须每一次用完之后要，要重新设置，pentak是否会保存，并且如果是软件实现的话，速度会非常的慢，并且在多线程里，如果是软件实现只对当前的线程有效。
 
----
-catchpoint, gdb 提供对load,try,catch,throw等等支持，另一个更加直接方式那就是对用__raise_exception.加一个断点，类似于perl中把把DIE包装一下。
+watchpoint
+----------
 
----- 
-tracepoint, this is just a pm point of SDH. you monitor the system state at the tracepoint, you can collect the data. so you that %RED%how to use tracepoint to make write down execution log just bash set +x%ENDCOLOR% the core-file is implemented use this.I guess so. there are three target for GDB: process, corefile,and executable file. what is more, GDB could offer some simulator for most of the GDB.  
+ 用完就会背删除，并且不能直接加断点，必须每一次用完之后要，要重新设置，pentak是否会保存，并且如果是软件实现的话，速度会非常的慢，并且在多线程里，如果是软件实现只对当前的线程有效。
+
+
+catchpoint
+----------
+
+gdb 提供对load,try,catch,throw等等支持，另一个更加直接方式那就是对用__raise_exception.加一个断点，类似于perl中把把DIE包装一下。
+
+对于程序的执行控制，利用exception, singal 等等控制。 
+
+例如对不起trhow, catch,exec fork,load等等控制，都可以直接用catch 命令设置，而对于程序自身那就是raise() 来发启signal,可以用raise(),signal()结合起来实现一个状态机。http://www.csl.mtu.edu/cs4411.ck/www/NOTES/signal/raise.html
+
+
+
+tracepoint
+---------- 
+
+this is just a pm point of SDH. you monitor the system state at the tracepoint, you can collect the data. so you that %RED%how to use tracepoint to make write down execution log just bash set +x%ENDCOLOR% the core-file is implemented use this.I guess so. there are three target for GDB: process, corefile,and executable file. what is more, GDB could offer some simulator for most of the GDB.  
 
 .. csv-table:: 
    target , sim, exec,core,remote ,
    os , set, info ,
 
----
 
 next,step,until,contil，return,jump,fg,ignore 
+---------------------------------------------
+
 这些命令都有两种xxxi这种，是针对机器指令，也就是汇编指定的，另一种是针对源码的。并且后面都可以跟一个数值来实现循环。 进入了gdb后，你完全可以重起组织代码执行顺序，甚至把应用当做一个库，利用gdb脚本重新实现一遍应用程序，例如直接把attach上当前的进程，然后，加载自己的东西，因为gdb是支持写回功能的。这样就可以强hacking 的目的。
 
 ---
