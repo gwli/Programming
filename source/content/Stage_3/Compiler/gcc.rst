@@ -70,3 +70,9 @@ fwrapv
 
 https://gcc.gnu.org/onlinedocs/gcc-4.3.4/gcc/Code-Gen-Options.html
 
+
+#include 
+========
+
+中的文件路径名，怎么写是根据你的include path来的，与环境path 的方式是一样，直接发路径拼接起来去找的。
+就可以了。有的时候 egl.h 找不到， 但是EGL\egl.h 就可以找到。区别就在于 include path不一样。
