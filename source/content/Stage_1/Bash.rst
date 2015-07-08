@@ -27,6 +27,9 @@ Bash 编程
 
 :command:`apt-get install bash-completion` 
 
+并且随着 bash的升级，4.3之后已经可以 自动补全 参数了。看来是越来越强了。如果是想自定义可以使用
+http://kodango.com/bash-competion-programming
+
 串行与并行计算与同步
 --------------------
 
