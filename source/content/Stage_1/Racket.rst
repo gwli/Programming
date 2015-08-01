@@ -29,3 +29,15 @@ http://rosettacode.org/wiki/Execute_a_System_Command#Racket
 
    ;; capture output
    (string-split (with-output-to-string (λ() (system "ls"))) "\n")
+
+
+计算机程序的构造和解释
+======================
+
+通过这本书真正明白计算的构造过程，并且只要支持局部或者全局的静态变量，就可以实现各种复杂的计算。
+
+可以用let 实现不断的替换，从而实现电路的模拟。函数具有内部的状态，可以实现各种复杂的模拟，这个内部状态可以用python yield来实现。
+
+parallel-execute过程。直接实现函数体的并行执行。
+
+关键的就是这种符号替换执行。这个是难点是如何实现的。
