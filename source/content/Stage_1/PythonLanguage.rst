@@ -331,6 +331,19 @@ map,reduce机制，例如NP就经常有这样的操作，例如
 
 
 
+python中动态代码的实现
+======================
+
+一种实现方式，自己手工做一个函数表 hash dict,key就是对应的字符串，其实完全没有这个必要，动态创建本来就是为减少维护与编码，这样写我一直用if,else 有什么区别呢。
+
+可以利用sys.modules['__main__'] 再加getattr来实现。同时也可以用locals,globals等等hashtable直接可以用。而不必自己手工再做一套。
+
+.. code:: python
+
+   cmd = "update_{}".format(product_list[productIndex])
+   cmd = getattr(sys.modules['__main__'],cmd)
+   cmd()
+
 C extending Python
 ------------------
 
