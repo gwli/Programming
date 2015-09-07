@@ -349,6 +349,21 @@ C extending Python
 
 `对象机制的基石——PyObject <http://www.ibm.com/developerworks/cn/linux/l-pythc/][用C语言扩展Python的功能]] just like SWIG for tcl. there is stand process for C on python.   The big problem is that data type converstion.    [[http://book.51cto.com/art/200807/82486.htm>`_ PyObject 本质就是结构体指针加一个引用计数。
 
+
+shutil
+======
+
+学见的文件操作，copy,move都在这里有，另外打包函数也是有， make_archive,基于 zipfile,tarfile来实现的。而这些后台都是调用zlib,或者bz2.
+
+简单的创建目录，os.makedirs 都有。删除文件都有。对于目录操作。shutils.
+但是对 shuttil.copytree一个问题那就dst 目录必须存在，用distutils.dirutil.copy_tree就可个问题。
+
+如何想更灵活，就只能用os.walk自己写一个。一般都是判断一个目录与文件，另外那就是符号链接了。
+
+
+
+读写二进制文件可以用，struct,以及unpack,pack函数。
+
 test framework of python
 ------------------------
 
