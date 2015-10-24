@@ -53,6 +53,13 @@ Interfacing with the system
 
 #. `Perl调用外部命令的方式和区别 <http://www.cnblogs.com/itech/archive/2010/11/25/1887836.html>`_  
 
+当output 非常少的时候，问题不大，但是output很大的时候，例如pyquadd大量的log输出的时候，就要考虑
+IO buffer不小了，不然有可能buffer满了之后可能blocking进程的执行。可以采用下面的方法进行重定向标准的
+STD::OUT,STD::ERROR,其实这些都只是一个文件描述而己。任何一个进程都可以重定向标准的输入输出。
+这也就是文件描述符的真实的作用，并且 0，1，2是预留的文件描述符。
+
+在perl中如果不然需要收集output用system() 把结果直接打印在STDOUT中会更有意义。
+http://stackoverflow.com/questions/4415497/how-to-redirect-stdout-and-stderr-to-a-variable
 debug
 =====
 
