@@ -103,7 +103,16 @@ namespace
    #. global name space 
    #. local name space 
 
+关系的表达就是最直接的方式之一，那就是指针，类中各种关系其实都类，都是一种指针
+在数据库那就可以叫做外键。 
 
+对于静态变量可以当做是空间变量的一种吧。其本质还是变量的作用域不同。现在其提供了多种粒度的变量
+全局变量，例如环境变量，以及python自己的全局变量。可以供包之间共享信息与通信的。
+包变量，用于包内子包或者类之间的通信。
+类静态变量用于，所以所有实例之间需要通信的变量。
+类变量，同一个实例各个成员函数之间的通信变量。
+函数静态变量，这个在C中有，用于多次调用这个函数之间的通信。
+特别是在神经网络进行优画的时候这个用的最多。当然也可以把这些拿到其他的方式来实现。
 string,list,dict/hash and tuple
 -------------------------------
 
@@ -157,6 +166,8 @@ Python 中 的class
 -----------------
 
 什么是类，我想就是分情况，然后需要的初始化__init_，一个class定义一种__init__就是初始化函数，里面的self就是参数赋值，然后就是def各种方法，利用参数值。
+
+另外python中class 中各种特殊的属性，可以class具有各种功能，例如__call__这样就可以把class变成了函数，并且可以有各种状态。另外还有各种操作符。
 
 各种字符串之间的转换（dictionary->str，list->str）
 -------------------------------------------------
@@ -256,6 +267,8 @@ Ilterators generators
 
  `Python yield 使用浅析 <http://www.ibm.com/developerworks/cn/opensource/os-cn-python-yield/>`_  原理也简单，既然可以lamba 可以部分求值。yield的机制也就是执行变成半执行。参加的功能那就是计录了前当前的状态。当下一次调用时候，就可以直接恢复当前环境。执行下一步了。yield的功能其实就是中断恢复与保存机制。每一次遇到就这样保存退出。并且也保证了兼容性。下面的例子也就说明了问题。其实就是集合的表达方式问题。我们采用列举式还是公式表达式。  数据的表达方式就是集合表现方式。研究明白了集合也就把如何存储数据研究明白了。列表相当于我们数据采用列举式，而生成式我们采用是公式表示。
 
+部分求值，现在发现在其实也很简单，函数就是一个替换的过程，部分求值，什么时候替换的过程。难点在于传统的函数值是要释放的，而部分求值，反回来另一个函数，并且这部分求值当做参数传出来。这样实现部分求值。另一个那就是变量在函数中不同作用域，不能随着函数的消失而消失。直接引用全局变量或者static变量都可以达到这个目换。并且本身支持函数对象化。更容易做到了。
+
 .. code-block::
 
    range(6)  [1,2,3,4,5,6]
@@ -272,6 +285,11 @@ Ilterators generators
    }
 
 这样就用计算代替了存储。并且解决吃内存的问题。
+
+而对于tcl 中的foreach的功能可以利用zip + for 来实现
+
+.. code-block::
+   for x,y,z in zip(x_list,y_list,z_list):
 
    `65285-looping-through-multiple-lists <http://code.activestate.com/recipes/65285-looping-through-multiple-lists/>`_  可以使用map,zip以及list来实现。
    `yield与labmda实现流式计算 <http://www.cnblogs.com/skabyy/p/3451780.html>`_
@@ -314,9 +332,25 @@ http://blog.csdn.net/songrongu111/article/details/4409022 其本质还是闭包�
 
 
 
-python对于循环进行了优化。所以写循环的时候就不要再以前的方式了，采用计算器了，要用使用yield的功能。来进行简化。
+python对于循环进行了优化。所以写循环的时候就不要再以前的方式了，采用计算器了，要用使用yield的功能。来进行简化。 yield就相当于部分的C函数中static变量的功能。并且 比他还强的功能。另外也可以global的机制来实现。
 map,reduce机制，例如NP就经常有这样的操作，例如
 
+reduce,map与函数只是构造计算中的apply函数一种。 例如自己实现那个累乘也是一样的。
+
+reduce,只一次只取列表两个值，而map每一次只能取一个值。
+
+.. code-block::
+    def reduce(function,iterable,initialzer=None):
+        it = iter(iterable)
+        if initialzer is None:
+            try :
+              initialzer = next(it)
+            except:
+         for x in it:
+             accum_value = function(accum_value,x)
+
+
+其实这样的函数就相于一个神经元。 python iteral_tool 就相于一个个神经元。
 .. code-block::
 
    x,y,z=np.random.random((3,10) 每一个一行。
@@ -376,6 +410,11 @@ Data structure
   embeded dict. `what-is-the-best-way-to-implement-nested-dictionaries-in-python <http://stackoverflow.com/questions/635483/what-is-the-best-way-to-implement-nested-dictionaries-in-python>`_ 其中一个方法hook __getItem__ 来实现，但是有一个效率问题，其实那种树型结构最适合用mongodb来实现了。并且搜索的时候可以直接使用MapReduce来直接加快计算。
   
  `High-performance container datatypes <http://docs.python.org/2/library/collections.html>`_  同时还支持 `ordered Dictionary <http://code.activestate.com/recipes/576693/>`_ `同时支持对基本数据结构进行扩展，利用继承 <http://woodpecker.org.cn/diveintopython/object_oriented_framework/special_class_methods2.html>`_ 。
+
+
+ 如果让dict 像一个类样http://goodcode.io/articles/python-dict-object/， 一种是采用self.__dict__ 来实现，另外一种采用__setattr__,__getattr__,__delattr__的方法来实现。
+
+要想高效的利用内存分配还得是C/C++这样，自己进行内存的管理。管理原理无非是链表与数组。并由其排列组合出多结构。
 
 embeded system
 --------------
