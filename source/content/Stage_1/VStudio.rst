@@ -11,3 +11,11 @@ MSBuild 的log 文件
 并且每一个log还会对应一个文件夹保存 *tlog* 这里记录每一条执行的命令的输入与输出参数 
 
 所以你对编译过程有什么迷惑的时候，就可以查看这些log就知道了。
+
+
+MSBuild 用法
+
+直接msbuild添加到环境变量path中。 
+
+:commmand:`msbuild  "+ self.projPath + "/android_app/project/android_app.sln /t:executables\\android_app_standalone /p:Configration=Debug /p:Platform=Tegra-Android /p:BuildProjectReference=false`
+
