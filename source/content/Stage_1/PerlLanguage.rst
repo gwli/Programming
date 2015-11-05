@@ -33,6 +33,7 @@ http://perldoc.perl.org/perlsub.html 写清楚了各个定义。
    }
 
 并且 perl中 命令拼接 从右往左 ，而python 从左往右。 而haskwell 中也是从左到右。
+
 Error process
 =============
 
@@ -60,6 +61,38 @@ STD::OUT,STD::ERROR,其实这些都只是一个文件描述而己。任何一个
 
 在perl中如果不然需要收集output用system() 把结果直接打印在STDOUT中会更有意义。
 http://stackoverflow.com/questions/4415497/how-to-redirect-stdout-and-stderr-to-a-variable
+
+重定向STDOUT与STDERR 
+=====================
+
+对于调试用很大的作用, 也就是几个文件handle而己。重新打开一下。就行了。
+当然，也是可以用select 直接输出到哪一个。
+
+:: code-block:: perl
+
+   my $log_file = "/path/to/log/file.log";
+   redirect_streams();
+   print "Hello log file!\n";
+   print OLDOUT "Hello console!\n";
+   restore_streams();
+   exit(0);
+   ##############################################################
+   sub restore_streams
+   {
+     close(STDOUT) || die "Can't close STDOUT: $!";
+     close(STDERR) || die "Can't close STDERR: $!";
+     open(STDERR, ">&OLDERR") || die "Can't restore stderr: $!";
+     open(STDOUT, ">&OLDOUT") || die "Can't restore stdout: $!";
+   }
+   ##############################################################
+   sub redirect_streams
+   {
+     open OLDOUT,">&STDOUT" || die "Can't duplicate STDOUT: $!";
+     open OLDERR,">&STDERR" || die "Can't duplicate STDERR: $!";
+     open(STDOUT,">> $log_file");
+     open(STDERR,">&STDOUT");
+   }
+
 debug
 =====
 
@@ -74,7 +107,7 @@ what is more you query the state of debugger by `check the state variable. <http
     y        you can check stack variable. level is just like caller of perl. the other way is that you count the number backtrace of T.
     T      print call stack.
     V     V package variableName       packageName regxp  use /  , variable Name use ~ to match.
-   a
+   
    w    when just some steps you watch variable is simple. but there are more than ten, or 100, you need to use the a make scripts to collect information, store in a global variable, to write to logfile. but which parameter we could use. 
    perl -I  include your lib dir. this is just like gcc -I drectory.  the scripts interpreter just combination compiler and runtime engine.
    
