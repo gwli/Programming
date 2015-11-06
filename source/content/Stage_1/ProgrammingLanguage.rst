@@ -213,7 +213,8 @@ thought is worth to look
  needing study
    * `function programming <http://www.oschina.net/news/27606/functional-programming-intro>`_  Python suppo
 rt this *yield* 产生器，它的好像是可以边走边算，这样可以
-减少内存的需求。并且是一个常值。
+减少内存的需求。并且是一个常值。但是能否保证元子操作。如果可以同步机制很容易了。
+
    * `关于流和缓冲区的理解 <http://www.cppblog.com/lucency/archive/2008/04/07/46419.html>`_  现在看来到处都实现了中断的机制，如何自己利用系统的信号来实现呢
 
    * `perf 性能调试工具 <http://www.ibm.com/developerworks/cn/linux/l-cn-perf1/index.html>`_  
