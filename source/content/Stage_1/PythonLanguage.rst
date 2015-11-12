@@ -22,6 +22,9 @@ there is two core module: *sys* and *os*. just like *info* in tcl.  sys is most 
 
 并且以后要把print都要换成`logging  <http://victorlin.me/posts/2012/08/26/good-logging-practice-in-python>`_来全用。 用python popen处理一些系统的命令它会返回一个对象，
 
+logging
+===
+
 .. code-block::
 
       import os
