@@ -10,3 +10,4 @@
 .. include:: Stage_1/Bash.rst
 .. include:: Stage_1/Racket.rst
 .. include:: Stage_1/Haskell.rst
+.. include:: Stage_1/QtDevelop.rst
