@@ -276,6 +276,20 @@ m/dragonpig/archive/2010/01/26/16570
 通过对 pandocfilter 的python 接口的实现对于函数试编程有了进一步的理解，函数可以嵌套定义，动态构造函数，可以输入来定制函数，
 而函数编程更是把函数的自由替换达到M4的水平，同时解决了M4 替换没有边界的问题。
 
+来实现一个最简单的C语言版本的field吧。
+
+.. code-block:: c
+
+   static int func()
+   {
+      static int i = 100;
+      if (i >0)
+      {
+         i --;
+      }
+      return i;
+   }
+
 
 
 思考
