@@ -5,8 +5,15 @@ HowToDebug
 Introduction
 ------------
 
-调试程序很多方法
+调试程序很多方法,解决问题的最重要的方法，那就是不断narrow down,直到减少范围，直到找到root cause, 用log,debug能快速得到callstack等等线索。 因为模式设计就那几种，自己停下来想想，按照概率最大蒙也蒙的出来。
+如果不能，选模块的分割，再了解流程再进一步narrow down. 就像修改那个 CMake 生成 Deploy 选项一样。 最终就只需要 else 语句就搞定了。
 
+如果能到源代码
+==============
+
+#. 添加编译选项使其具画出call_graphic. 或者直接使用 VS中智能分析出来的。
+#. 能否换成clang编译来优化一下代码。
+#. framework pipepline 查起。然后不断的narrow down.
 
 strace and sreplay
 ------------------
