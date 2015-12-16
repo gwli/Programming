@@ -118,12 +118,12 @@ C:\nvpack\android-ndk-r10\toolchains\arm-linux-androideabi-4.8\prebuilt\windows\
 
 XXdoc
 *****
+
 .. csv-table::  
    :header: Language,Usage,remark
     
     pydoc, topics
     cpandoc/perldoc, perlfunc/perl/perlcheat
-
 
 
 Build
@@ -171,7 +171,6 @@ PLINQ <http://msdn.microsoft.com/en-us/magazine/cc163329.aspx>`_  和 Futures
 执行了。是先于任何运行时代码。通过自己的debug来快速的深入底层。
    * `Debug <HowToDebug>`_ 
    * `MultiThread <MultiThreadProgram>`_ 
-
 
 Dylan and JAM
 -------------
@@ -235,8 +234,18 @@ ences.
    * `OOP 多重继承的死环问题 <http://en.wikipedia.org/wiki/Multiple&#95;inheritance>`_  
 
 
+OOP
+===
+
+现在才OOP的复用有了更深的认识。 现在对于继承的好处，那就是按需修改。需要什么修改什么。继承与重载。中间插入一个最长匹配查找功能。
+得到了非常灵活的应用，只要修改需要的部分代码就复用大部分代码。 跨平台的时候，再通过宏定义把抽象层与实现层的mapping对应上也就搞定的差不多了。
+大部分的代码就可以直接复用了。 OOP一部分是事物本身的逻辑，另一块那就是事务的功能。在整个继承关系中，这个函数放在哪一层实现最平衡呢。
+太接近基类，每个类的包袱有点大。 太接近低层，复用性得不到更更好的应用。 所以应用的分级分类也是类层次设计的参考基准之一。基类肯定是一些更基本
+的东东。这样就可以利用不少的代码。 
+
 函数式编程
 ----------
+
 函数的本质就是替换，再进一步步何时替换，这样就与变量的生命周期相关的。
 而一般的函数变量只能是局部一次性的,所以也就无法惰性求值。惰性求值就是替换的变量的
 生命周期。
@@ -318,14 +327,11 @@ IT is just like interrupt of the OS.
 
 -- Main.GangweiLi - 28 Oct 2012
 
-
 *debug* 在出了问题，最快的方法不是逐行debug,而是根据业务流
 程，然后进行二分法，在函数调用问题上，看一下函数的调用链。其实就是定位问
 题界限，是在函数范围内还是范围外。在调用路径上进行二分，这是最快的方法。
 
-
 -- Main.GangweiLi - 30 Oct 2012
-
 
 加强对于编程语言理论的学习，来提高自己能够快速应用各种语言的能力。而不是
 去学，而是去猜与查。
@@ -377,13 +383,11 @@ __的memory的大小。
 
 -- Main.GangweiLi - 18 Sep 2013
 
-
 *反向工程* 
 要充分利用语言的反射机制，与动态gdb的手段。例如动态加入断点。这样可以
 大大加快自己的反向速度。
 
 -- Main.GangweiLi - 30 Oct 2013
-
 
 *进程的输入输出* 以及working space,脚本本身的路径都是很
 重要的属性，而二者往往是不一样的。今天所解决的%CD%的问题，就是由经引
@@ -424,15 +428,16 @@ hell可以直接调用gcc来编译，然后直接执行。
 -- Main.GangweiLi - 14 Jan 2014
 
 
-*`弱引用 <http://zh.wikipedia.org/wiki/%E5%BC%B1%E5%BC%95%E7%94%A8>`_  可以用来
-实现缓存机制 
+`弱引用 <http://zh.wikipedia.org/wiki/%E5%BC%B1%E5%BC%95%E7%94%A8>`_  可以用来
+实现缓存机制,原理那就是什么时候删除那些不用数据。这个是垃圾回收策略，同时也对用过的数据处理模式。
+之前所谈都是预存取，对将要用到数据如何处理。垃圾回收是对用过的数据如何处理。两者很重要。
 
 -- Main.GangweiLi - 26 Apr 2014
 
 
-*`loop vs recursive <http://stackove
+`loop vs recursive <http://stackove
 rflow.com/questions/2651112/is-recur
-sion-ever-faster-than-looping>`_ *  
+sion-ever-faster-than-looping>`_  
 到底是哪种效率高，这个是要看环境与具体实现的，在C 语言是循环，而在函数
 式语言里是recursive,另外还要看最终实现是采用栈的方式还是直接j
 ump的方式来实现，这个是编译有关的，另外在并行环境是如何实现的。与实现
