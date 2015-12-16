@@ -109,6 +109,8 @@ http://book.51cto.com/art/200806/78862.htm.
 
 *代码的生成方式*
 --enable-static-link, --disable-shared -static
+对于是生成exe,或者.so
+只是编译的参数与链接的库不一样，完全可以同一套代码，生成多种格式。
 
 -- Main.GangweiLi - 15 Apr 2013
 
