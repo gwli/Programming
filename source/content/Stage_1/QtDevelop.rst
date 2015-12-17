@@ -145,8 +145,8 @@ shadow:    F:\Qt5\Examples\Qt-5.5\canvas3d\canvas3d\threejs\build-planets-Androi
 
 
 
-How to setup PentaK with Qt
-===========================
+How to setup Nsight Tegra with Qt
+=================================
 
 #. download QtCreator from http://www.qt.io/download/
 #. intall it to <your QT path>. mine is F:\Qt5
