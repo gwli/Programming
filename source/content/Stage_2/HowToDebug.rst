@@ -84,7 +84,11 @@ signal
 
 实际代码中在system("fadfa")就已经crash了，但已经还是想当然以为exit(0)执行了。
 
+如何在exception与handler里debug
+===============================
 
+特别是crash时，能够看到当前的callstack等等，并且来改变程序运行顺序，这个时候
+就需要debugger,来捕捉exception and signal了。 
 
 
 如何搭建环境
