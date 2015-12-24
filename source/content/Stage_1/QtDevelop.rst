@@ -149,7 +149,9 @@ How to setup Nsight Tegra with Qt
 =================================
 
 #. Download QtCreator from http://www.qt.io/download/
+
 #. Intall it to <your QT path>. for example ``F:\Qt5``
+
 #. Install android plugin
 
    - Open Maintain tool by startMenu>Qt>Qt MaintennanceTool
@@ -168,32 +170,36 @@ How to setup Nsight Tegra with Qt
 #. get build cmd from the project configuration.
 
    - qmake 
+
      :command:`qmake.exe F:\Qt5\Examples\Qt-5.5\canvas3d\canvas3d\threejs\planets\planets.pro -r -spec android-g++ "CONFIG+=debug" "CONFIG+=declarative_debug" "CONFIG+=qml_debug"`
    
    - make 
-     :command:`mingw32-make.exe in F:\Qt5\Examples\Qt-5.5\canvas3d\canvas3d\threejs\build-planets-Android_for_armeabi_GCC_4_9_Qt_5_4_2_0c4ce3-Debug`
+
+     :command:`mingw32-make.exe -C F:\Qt5\Examples\Qt-5.5\canvas3d\canvas3d\threejs\build-planets-Android_for_armeabi_GCC_4_9_Qt_5_4_2_0c4ce3-Debug`
    
    - package
-     Android build sdk: android-23.
-     QtDevelopment: Bundle Qt library in APK
-     use androiddeployqt.exe generate a package.
+
+     - Android build sdk: android-23.
+     - QtDevelopment: Bundle Qt library in APK
+     - Use androiddeployqt.exe generate a package.
+
      :command:`"F:\Qt5\5.5\android_armv7\bin\androiddeployqt.exe" --input F:/Qt5/Examples/Qt-5.5/canvas3d/canvas3d/threejs/build-planets-Android_for_armeabi_GCC_4_9_Qt_5_4_2_0c4ce3-Debug/android-libplanets.so-deployment-settings.json --output F:/Qt5/Examples/Qt-5.5/canvas3d/canvas3d/threejs/build-planets-Android_for_armeabi_GCC_4_9_Qt_5_4_2_0c4ce3-Debug/android-build --deployment bundled --android-platform android-23 --jdk C:/NVPACK/jdk1.7.0_71 --verbose --ant C:/NVPACK/apache-ant-1.8.2/bin/ant.bat`
 
-#. put these build cmd into windows .bat. for example compile.bat 
+   - put these build cmd into windows .bat. for example compile.bat 
 
-   .. code-block::
+   ..code-block:: python 
    
       "F:\Qt5\5.5\android_armv7\bin\qmake.exe" F:\Qt5\Examples\Qt-5.5\canvas3d\canvas3d\threejs\planets\planets.pro -r -spec android-g++ "CONFIG+=debug" "CONFIG+=declarative_debug" "CONFIG+=qml_debug"
       "F:\Qt5\Tools\mingw492_32\bin\mingw32-make.exe" -C F:\Qt5\Examples\Qt-5.5\canvas3d\canvas3d\threejs\build-planets-Android_for_armeabi_GCC_4_9_Qt_5_4_2_0c4ce3-Debug`
       "F:\Qt5\5.5\android_armv7\bin\androiddeployqt.exe" --input F:/Qt5/Examples/Qt-5.5/canvas3d/canvas3d/threejs/build-planets-Android_for_armeabi_GCC_4_9_Qt_5_4_2_0c4ce3-Debug/android-libplanets.so-deployment-settings.json --output F:/Qt5/Examples/Qt-5.5/canvas3d/canvas3d/threejs/build-planets-Android_for_armeabi_GCC_4_9_Qt_5_4_2_0c4ce3-Debug/android-build --deployment bundled --android-platform android-23 --jdk C:/NVPACK/jdk1.7.0_71 --verbose --ant C:/NVPACK/apache-ant-1.8.2/bin/ant.bat
-      
+
 #. Open VS and Create external build system for the project. 
 
-   *Additional C/C++ source Directories:* ``F:\Qt5\Examples\Qt-5.5\canvas3d\canvas3d\threejs\planets``
-   *Additional Library Symbols Directories:* ``F:\Qt5\Examples\Qt-5.5\canvas3d\canvas3d\threejs\build-planets-Android_for_armeabi_GCC_4_9_Qt_5_4_2_0c4ce3-Debug\android-build\libs\armeabi-v7a``
-   *GDB Working:* ``F:\Qt5\Examples\Qt-5.5\canvas3d\canvas3d\threejs\build-planets-Android_for_armeabi_GCC_4_9_Qt_5_4_2_0c4ce3-Debug\android-build\``
-   *Java Source Directories:*  ``F:\Qt5\Examples\Qt-5.5\canvas3d\canvas3d\threejs\build-planets-Android_for_armeabi_GCC_4_9_Qt_5_4_2_0c4ce3-Debug\android-build\src``
-   *Java Classes Directories:* ``F:\Qt5\Examples\Qt-5.5\canvas3d\canvas3d\threejs\build-planets-Android_for_armeabi_GCC_4_9_Qt_5_4_2_0c4ce3-Debug\android-build\libs``
+   - *Additional C/C++ source Directories:* ``F:\Qt5\Examples\Qt-5.5\canvas3d\canvas3d\threejs\planets``
+   - *Additional Library Symbols Directories:* ``F:\Qt5\Examples\Qt-5.5\canvas3d\canvas3d\threejs\build-planets-Android_for_armeabi_GCC_4_9_Qt_5_4_2_0c4ce3-Debug\android-build\libs\armeabi-v7a``
+   - *GDB Working:* ``F:\Qt5\Examples\Qt-5.5\canvas3d\canvas3d\threejs\build-planets-Android_for_armeabi_GCC_4_9_Qt_5_4_2_0c4ce3-Debug\android-build\``
+   - *Java Source Directories:*  ``F:\Qt5\Examples\Qt-5.5\canvas3d\canvas3d\threejs\build-planets-Android_for_armeabi_GCC_4_9_Qt_5_4_2_0c4ce3-Debug\android-build\src``
+   - *Java Classes Directories:* ``F:\Qt5\Examples\Qt-5.5\canvas3d\canvas3d\threejs\build-planets-Android_for_armeabi_GCC_4_9_Qt_5_4_2_0c4ce3-Debug\android-build\libs``
 
    
    
