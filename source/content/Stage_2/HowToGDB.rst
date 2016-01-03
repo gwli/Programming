@@ -5,6 +5,8 @@ GDB 调试
 Introduction
 ============
 
+gdb 操作，相当于直接操作CPU与内存。 CPU的状态是可以通过寄存器的状态来进行控制的。例如set next step, 相当于修改 PC,IP 寄存器值。 
+
 debug 的难点：
 ============
 

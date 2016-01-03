@@ -90,6 +90,13 @@ signal
 特别是crash时，能够看到当前的callstack等等，并且来改变程序运行顺序，这个时候
 就需要debugger,来捕捉exception and signal了。 
 
+SIGSEGV
+-------
+
+出现段错误，指针不对，
+http://stackoverflow.com/questions/1564372/what-is-sigsegv-run-time-error-in-c
+也就是adddress不对，读取不不该读取的地方。
+https://en.wikipedia.org/wiki/Segmentation_fault
 
 如何搭建环境
 ------------
@@ -99,3 +106,6 @@ signal
 大的应用程序，那就是保存其环境变量以及输入与输出。 就可以直接切入环境，而不需要从头运行需要大量的时间。
 
 对一个函数来说，也就是输入输出，以及相关的全局变量而己。而这些都是可以通过trace来得到。
+
+
+

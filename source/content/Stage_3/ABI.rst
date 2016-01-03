@@ -75,10 +75,10 @@ https://sourceware.org/gdb/onlinedocs/stabs/Symbol-Table-Format.html
    
    struct internal_nlist {
        unsigned long n_strx;         /* index into string table of name */
-       unsigned char n_type;         /* type of symbol */
-       unsigned char n_other;        /* misc info (usually empty) */
+       unsigned char n_type;         /* type of symbol * /
+       unsigned char n_other;        /* misc info (usually empty) * /
        unsigned short n_desc;        /* description field */
-       bfd_vma n_value;              /* value of symbol */
+       bfd_vma n_value;              /* value of symbol * /
     };
 
 然后再看看其是如何存储的。
@@ -91,6 +91,10 @@ https://sourceware.org/gdb/onlinedocs/stabs/Symbol-Table-Format.html
 
 每一行source code 至少对应一条指令，source line/asm code 比值是多少。其实一个逻辑块越大越容易优化。
 其实就像函数式编程。
+
+
+在汇编程序层来说，都是机器的执行是没有区别的。但是在操作系统层面就一样的。就会有各种各样的调用约定，如果程序执行输入
+与输出顺序，那就是参数传递机制。所以参数长度的检查很重要，过长就会靠成stackoverflow的问题。
 
 
 
