@@ -98,6 +98,12 @@ for install and manipulate the package of python, just like pkgIndex in tcl. the
 
 包管理的难点，在一个单一环境是容易的，难点各种包管理模式之间的冲突，但是apt-get 与pip 如何兼容的，包管理本身也需要一定的信息结构。例如依赖关系，linux讲究的相互共享，这就造成了，系统升级之后，就莫名其妙的不能用了，而windows采用的是自包含，所以现在windows会变非常大。`包管理的特点 <http://shzhangji.com/blog/2012/11/18/aosa-python-packaging/>`_  依赖关系，方便的查询操作，以及编译环境的准备。这个有perl，python,以及gentoo的包管理，都非常熟悉。
 
+
+pip 现在支持一次安装列表  pip -r requirements.txt 同时还支持zip,以及从git,或者svn直接安装。 而不需要每次手工来一条条来做了。
+
+https://pip.readthedocs.org/en/1.1/requirements.html
+
+
 namespace
 ---------
 
@@ -400,6 +406,12 @@ shutil
 
 
 读写二进制文件可以用，struct,以及unpack,pack函数。
+
+
+difflib
+=======
+
+python 有现成的diff库可以用，所以也可以在ipython 调用 difflib来当做命令来用。
 
 test framework of python
 ------------------------
