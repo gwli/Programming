@@ -93,6 +93,10 @@ in linux, you can use signal and /proc and some CPU interrupt do debug, don't ne
 
 几种方式是插入汇编asm(bkpt) 代码，或者采用指令替换的方式，例如在原理断点处插入跳转指令。把原来指令给换掉。
 
+
+gdb 主要是基于ptrace来实现，ptrace系统调用可以修改，进程的数据段与代码段的数据的，同时修改CPU的指令模模式。 进程是即有CPU的模型信息，又有代码与数据的信息。
+
+
 -- Main.GangweiLi - 16 Apr 2013
 
 变量的值
