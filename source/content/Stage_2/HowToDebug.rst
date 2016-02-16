@@ -10,8 +10,6 @@ Introduction
 
 一个难点，那就是搭建调试环境，只要方便。最好方法那就是能在出错地方停下来(例如像pdb.set_trace()这样的功能最方便)，即使不能可以打log.
 
-
-
 如果能到源代码
 ==============
 
@@ -42,7 +40,6 @@ strace and sreplay
 ----------------
 
 这个可以参考CUDA的并行调试。一个重要问题那就是对线程的控制，CUDA提供了基于lanes,warp,block,grid的,以及任意的frezen/thaw,以及支持与与或非的查询条件。可以方便过滤那些thread的查看。
-
 
 
 调试都需要信息
@@ -106,6 +103,14 @@ https://en.wikipedia.org/wiki/Segmentation_fault
 大的应用程序，那就是保存其环境变量以及输入与输出。 就可以直接切入环境，而不需要从头运行需要大量的时间。
 
 对一个函数来说，也就是输入输出，以及相关的全局变量而己。而这些都是可以通过trace来得到。
+
+
+还有那就是利用coredump与debug symbol来恢复现场。 例如gdb,先加载debug symbol,然后再打开coredump就可以了。
+
+NPE
+===
+
+NPE Null pointer exception.
 
 
 
