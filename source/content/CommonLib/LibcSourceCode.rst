@@ -116,3 +116,10 @@ sprintf,fprintf,等等不管是往哪输出，最终都是输出针对一段内�
 
 `VDSO <http://blog.csdn.net/juana1/article/details/6904932>`_ 
 *VDSO* veritual dynamic share object,采用文件系统的方式，可以不同的里程地址映射在同一块物理地址上。
+
+
+convert-__date__-to-unsigned-int
+--------------------------------
+
+__DATE__,__TIME__ 这些数据结构不像脚本语言是不能直接当字符串或者整数来处理的，需要自己转换一下。
+http://www.thecodingforums.com/threads/convert-__date__-to-unsigned-int.316565/
