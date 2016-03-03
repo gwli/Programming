@@ -10,6 +10,9 @@ Introduction
 
 一个难点，那就是搭建调试环境，只要方便。最好方法那就是能在出错地方停下来(例如像pdb.set_trace()这样的功能最方便)，即使不能可以打log.
 
+
+
+
 如果能到源代码
 ==============
 
@@ -30,7 +33,7 @@ strace and sreplay
 
 #. 在自己的代码中全用 *命令行参数处理* 以及 *logging等级处理* 例如syslog,以及NLOG等的使用。
 #. *C* 语言中可以采用 :c:func:`assert` 函数来定制调试，并且这些是通过宏控制的。打印出错信息。然后限出。
-#. 每一个系统都会支持各种event,在处理前后都加上hook来capture.
+#. 每一个系统都会支持各种event,在处理前后都加上hook来capture. 同时也可以利用signal自己生成coredump.或者等待debugger连接上来，就像windows这样，只是一个hook而己。
 #. 另一种方式那就是把内存当成一个存储系统并在上面加载一个文件系统。这样就可以高效的存储了。充分利用各种cache. 例如debugfs,tempfs,/proc/ 都是直接存储做到内存上。可以非常方便查询各种信息。
 #. 充分利用配制信息，windows与linux是越来越像,都开始在home目录下写各种配制了。
 
@@ -52,8 +55,7 @@ for apk, they need androidManifest.xml to get the package name to start it.
 signal
 ======
 
-也就是kernel发现在东东，来通知应用程序来处理， 例如键盘有了输入，硬件中断在软件就叫signal. 也不是操作系统告诉你发生了什么事情，至于你怎么处理那是你的事情，除了一些标准的消息kernel会强制处理之外，例如kill -9 等等。 exception，就是kernel发现你做错了来通知你。你丫搞杂了。
-
+也就是kernel发现在东东，来通知应用程序来处理， 例如键盘有了输入，硬件中断在软件就叫signal. 也不是操作系统告诉你发生了什么事情，至于你怎么处理那是你的事情，除了一些标准的消息kernel会强制处理之外，例如kill -9 等等。 exception，就是kernel发现你做错了来通知你。你丫搞杂了。可以用kill -l 就可以看到所消息。 kernel与进程的通信，就是靠这些signal中，这些是模枋interrupt的。有些标准的signal,也有些预留的。例如进程什么停止，kernel都是利用这些signal来通知进程的。
 
 条件断点使用
 ============
@@ -86,6 +88,9 @@ signal
 
 特别是crash时，能够看到当前的callstack等等，并且来改变程序运行顺序，这个时候
 就需要debugger,来捕捉exception and signal了。 
+一个最重要那就是拿到callstack,另外无非的情况那就是非法地址，首先是其owner是谁先打这个符号，例如oglContext这个值成为空词，自然对成员的访问会出错，所以这个值哪来的。我应该期望的值是多少。
+根据地址段来分析可能出错。是数据本身出错，函数回指针出错。
+然后根据地址来得符号表，这个地址是哪一段出现的。
 
 SIGSEGV
 -------
@@ -111,6 +116,5 @@ NPE
 ===
 
 NPE Null pointer exception.
-
 
 

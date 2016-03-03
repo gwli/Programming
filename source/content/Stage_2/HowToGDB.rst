@@ -19,6 +19,8 @@ debug 的难点：
 #. 变量声明的语句是没有，编译之后就没有了，所以不能在变量声明的地方设置断点。但是解释型好像就可以，例如在perl里是可以的，试一下java是否可以，以及其他语言。
 #. 多线程如何调试。
 
+#. gdb finish 执行完这个函数余下的部分，
+#. gdb until 执行到当前函数的某一位置。
 
 批量的添加断点
 --------------
@@ -47,6 +49,56 @@ profiling都是支持tree 的，调试也是一样的。自己可以设置一个
 
 Debug 的实现机理
 ================
+
+实现三部分，
+用户的输入
+----------
+user interface,除了CLI接口可用各种后端，例如ddd,以及VS的MIEngine. 可以利用 readline/history等库。
+
+gdb 可以当做后台，也可以直接使用，同时也支持vim 类似的分屏功能，利用layout的函数就可以实现。
+符号处理，symbol handling, 这里主要是由 BFD/opcodes来处理。
+
+要解决的在什么加载符号表，以及如何手工加载，一般情况下，在文件被调用的同时加载符号表，如果没有加载,可以load,unload重新做。 add-symbol-file/from memory
+同时在 命令行也是可以指的，  --symbols, --write 可以应用程序写入信息。
+目标系统控制层:  用ptrace类似的系统调用来实现。
+
+断点原理 
+--------
+通过查找输入的断点和具体代码位置对应起来，并在该位置替换为一条断点指令，并且保存以前的指令，到目标程序运行到该断点处时，产生SIGTRAP信号，该信号被GDB捕获，GDB查找断点列表来确定是否命中断点。继续执行的时候则会把保存的指令重新放回并执行。n/s/ni/si/finish/uitil也会自动设置断点。
+条件断点的实现，也就是对于SIGTRAP的event callback chain上的一个而己。
+
+断点插入的时机，
+gdb 将断点实际插入目标程序的时机：当用户通过 break 命令设置一
+个断点时，这个断点并不会立即生效，因为 gdb 此时只是在内部的断
+点链表中为这个断点新创建了一个节点而已。 gdb 会在用户下次发出
+继续目标程序运行的命令时，将所有断点插入目标程序，新设置的断
+点到这个时候才会实际存在于目标程序中。与此相呼应，当目标程序
+停止时， gdb 会将所有断点暂时从目标程序中清除。
+http://www.kgdb.info/wp-content/uploads/2011/04/GdbPrincipleChinese.pdf
+
+
+
+信号
+----
+
+内核传递给被调试进程所有的信号，都会先传递给GDB再由gdb采取定义的动作来和被调试进程之间进行相互协调操作。gdb暂停目标程序运行的方法是向其发送SIGSTOP信号，GDB对于随机信号（非GDB产生的）的处理包括，可以通过handle signals命令来预定义
+ 
+对于信号的处理，gdb如何反应，另一个那就是要不要传给debugee本身。
+
+`GDB的实现 原理 <http://www.kgdb.info/gdb/gdb_principle_ppt/>`_  以及如何手工操作 /proc*
+
+目标的系统的控制
+----------------
+
+而在对子进程数据访问过程中，ptrace函数中对用户空间的访问通过辅助函数write_long()和read_long()函数完成的。访问进程空间的内存是通过调用Linux的分页管理机制完成的。从要访问进程的task结构中读出对进程内存的描述mm结构，并依次按页目录、中间页目录、页表的顺序查找到物理页，并进行读写操作。函数put_long()和get_long()完成的是对一个页内数据的读写操作。
+
+除了修改数据，同时CPU的结构也是可以改的，各种寄存器值，以及堆栈的值，如何确定特定的位置呢。
+
+一种是通过寄存器，因为各个寄存器在ABI上有对应的分配,例如一般R3放返回值，PC程序寄存器值，SP,BP,是段值。 直接用汇编就可以任意的指定。
+
+虽然用汇编是灵活了，但是细节太多，太麻烦呢。如何在C语言达到汇编的效果呢。问题的关键是一些高级语言与低级语言没有直接mapping关系.其实也不是没有关系，而是以前不知道分配策略而己。一是可以用ASM接口而做，二是直接特殊变量的位置，来得到邻居的位置。
+例如 不同类型的变量，static,global变量，还有函数中第一个变量，它的地址进行加加减减就可以得到其他变量的值，例如最后一个变量地址+1就是return或者call之前的 寄存器的值，这时候只需要用指针来修改一下内存就行了。同时也可以用函数指针，就可以得到代码段的数据本身。
+
 
 研究编程这么久，从开始就把这一点给忽略了，从学习微机原理时候就知道CPU有单步执行的模式。其实也是通过中断的来实现的。在汇编语言中可以直接加入bkpt，或者trap 指令来实现。这也就是breakpoint与tracepoint的源头了。执行这个指令CPU就会停下，你可以查看CPU的各种信息。也就是所谓的调试。这个其实与python  pdb.settrace()的功能是一样的（今天才知道它是如何实现的）。其实就是bkpt 的功能。如果自己在代码的任何地方停，就可以在里面直接加入asm("bkpt;")就会断下来，这个然后再进程发一个 SIGCON来走下去。现在知道如何利用汇编直接操作硬件了。这也就是今天看CUDE asmdebug的代码的成果吧。如果这一下能停，可以查看或者硬件各种寄存器了。就是现在linux也只是利用CPU的部分功能。例如linux只用CPU的执行等级中二级。如果充分利用硬件功能，那就要是汇编了。
 
@@ -81,7 +133,6 @@ Debug 的实现机理
 这些可以非常方便让我来查看 ELF的生成格式，这个要比 objdump要直接有效的多。
 
 
-*`GDB的实现 原理 <http://www.kgdb.info/gdb/gdb_principle_ppt/>`_  以及如何手工操作 /proc*
 in linux, you can use signal and /proc and some CPU interrupt do debug, don't need the GDB.  for example on the production line. You can do like this.  send Pause signal to the process and check the /proc directory to get the status of the process.
 `Proc interrupts <http://www.crashcourse.ca/wiki/index.php/Proc_interrupts>`_ , 
 `/proc/interrupts 和 /proc/stat 查看中断的情况 <http://blog.csdn.net/richardysteven/article/details/6064717>`_ 
@@ -94,7 +145,10 @@ in linux, you can use signal and /proc and some CPU interrupt do debug, don't ne
 几种方式是插入汇编asm(bkpt) 代码，或者采用指令替换的方式，例如在原理断点处插入跳转指令。把原来指令给换掉。
 
 
-gdb 主要是基于ptrace来实现，ptrace系统调用可以修改，进程的数据段与代码段的数据的，同时修改CPU的指令模模式。 进程是即有CPU的模型信息，又有代码与数据的信息。
+gdb 主要是基于ptrace来实现，ptrace系统调用可以修改，进程的数据段与代码段的数据的，同时修改CPU的指令模模式。 进程是即有CPU的模型信息，又有代码与数据的信息。通用ptrace可以控制进程各种信息，例如加载什么包，调用过什么函数都可以用这个来进行控制调用。 http://www.spongeliu.com/240.html
+可以参考这本书GDB Pocket Reference。
+http://www.cnblogs.com/catch/p/3476280.html， 使用ptrace可以实现进程各种定制操作。
+http://www.linuxjournal.com/article/6100?page=0,1
 
 
 -- Main.GangweiLi - 16 Apr 2013
@@ -116,8 +170,22 @@ module列表
 ----------
 
 elf结构的哪一些块放着呢。
+module 加载的顺序采用深度优先的模式，并且得不断改写进程中GOT表，来进行重定位那些lib。这些module都是按照顺序加载的。逐section加载的。然后需要不断的调整各个.got表，以及.got.plt。 各个module就是通过自己.got 与.got.plt形成一个module链。
+这个列表是可以用:command:`info file` 来看到的。
+对于动态的链接库来说，第一个加载就应该是 /system/bin/app_linker. 
+在哪里寻找这些库，可以用set-solibsearchpath 来设置，原理path的一样的，不支持递归。 或者直接用 sysroot来进行统一的设置。
+同时加载 moudle还可以定制化，
 
-module 加载的顺序采用深度优先的模式，并且得不断改写进程中GOT表，来进行重定位那些lib。
+
+.. code-block:: sh
+   set stop-on-solib-events 0/1
+   show stop-on-solib-events
+   auto-solib-load
+
+来设置加载lib是否加载， lib.  当然也可以用sharelibrary来强制加载一个或者全部的symbol单独来做。
+
+http://visualgdb.com/gdbreference/commands/set_auto-solib-add
+http://visualgdb.com/gdbreference/commands/set_stop-on-solib-events
 
 
 .. image:: LLD.png
@@ -395,6 +463,22 @@ while 循环的汇编实现
 
 反向工程向来是个大课题，把C语言翻译成汇编，并反过来，就一定成立，因为语言之间不是一一切对应的关系。所以可读性会非常差。但是也是可以参考的。` 反汇编 <http://baike.baidu.com/view/637356.htm>`_    `IDA pro 5.2 反汇编代码转C语言插件 <http://download.csdn.net/detail/masefee/1255219>`_ 
 
+
+
+core dump 调试
+==============
+
+#. 开启core 文件的生成 :command:`ulimit -c unlimited`
+#. gdb 分析core文件 :command:`gdb debugme core.xyz`
+#. 动态生成core,   :command:`gcore pid`.
+#. 动态生成strace  :command:`strace -p pid` .
+#. 调试正在运行的程序 :command:`gdb debuggee pid`.
+http://linux.maruhn.com/sec/glibc-debug.html
+
+利用信用号来进行调试
+====================
+
+http://www.ibm.com/developerworks/cn/linux/l-sigdebug.html. 在代码里自己给发一个停下来的信号就行了，然后gdb在attach 上来就行了。
 .. seealso::
    * `jdb IBM web <http://www.ibm.com/developerworks/cn/java/joy-jdb/index.html>`_  %IF{" '' = '' " then="" else="- "}%
    * `VS 调试技巧 <http://blog.csdn.net/wojiushi3344/article/details/7960275>`_  VS 的immediately Window 就像tcl那个调试器的功能，也就是给你一个运行时环境，就像脚本语言的解释器一样。可以直接调用你的所有函数。`MSDN 参考命令 <http://msdn.microsoft.com/en-us/library/ms171362%28v=vs.100%29.aspx>`_ 
@@ -422,6 +506,8 @@ Thinking
 </verbatim>
 `Debugging an already-running process <http://www.ofb.net/gnu/gdb/gdb_22.html>`_  --attach function need system support. there is an process concept. how about the bare board target.
 
+
+其实也很简单， --tty是可以直接指tty的。
 -- Main.GangweiLi - 05 Feb 2013
 
 
