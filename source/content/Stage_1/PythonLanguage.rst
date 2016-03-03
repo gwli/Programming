@@ -23,7 +23,7 @@ there is two core module: *sys* and *os*. just like *info* in tcl.  sys is most 
 并且以后要把print都要换成`logging  <http://victorlin.me/posts/2012/08/26/good-logging-practice-in-python>`_来全用。 用python popen处理一些系统的命令它会返回一个对象，
 
 logging
-===
+=======
 
 .. code-block::
 
@@ -122,6 +122,7 @@ namespace
 类变量，同一个实例各个成员函数之间的通信变量。
 函数静态变量，这个在C中有，用于多次调用这个函数之间的通信。
 特别是在神经网络进行优画的时候这个用的最多。当然也可以把这些拿到其他的方式来实现。
+
 string,list,dict/hash and tuple
 -------------------------------
 
@@ -188,7 +189,7 @@ str-》list， bd.split(",")好像不行，因为split适用于把有一定界�
  dict-》str， str(dict) 我觉得不太行，还是硬转换。？？
 
  str->dict,   eval(str)很多网站说这个是字符串转换，但是我觉得并不能成为字符串转换吧。原意是evaluate。  
-
+rspr,这个用来反回对象的文本显示。 
 
 python  comments
 ----------------
@@ -792,3 +793,9 @@ StringIO 的实现原理
 
 直接使用一个buffer列表来实现，所谓的buffer最简单的理解那就是一个连续数组空间，并且每一次有一个大小等信息的记录。
 然后每一次进行查询也就行了。实现一下那些接口，read,write,tell,seek等等。
+
+
+string format
+=============
+
+https://docs.python.org/2/library/string.html，支持对齐与任意字符的填充。这个可以在vim 里用嘛。
