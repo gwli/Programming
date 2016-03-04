@@ -332,6 +332,8 @@ breakpoint
 ,不仅能够disable/enable以及one stop,还能设置回调函数，不仅可以使用gdb脚本还可以被调试对象函数，以及第三张通过环境变量shell=指定的脚本。是支持python的。
 
 
+
+
 watchpoint
 ----------
 
@@ -687,3 +689,15 @@ request 是具体的操作。
 然后，就可以通过各种PEEK和POKE操作来读/写进程的代码段，数据段，或各寄存器，每一次4个字节
 通过data 域传递，由addr 指明地址，或可全用PTRACE_SINGLESTEP,PTRACE_KILL,PTRACE_SYSCALL各
 PTRACE_CONT等操作来控制被追踪进程的运行，最后通过 PTRACE_DETACH与被追踪进程脱离关系。
+
+
+
+
+脚本扩展
+========
+
+简单可以用gdb的本的shell来做，while,for，if也都是支持的。复杂的可以用python来做。就像vim一样。 
+https://sourceware.org/gdb/onlinedocs/gdb/Python-Commands.html#Python-Commands
+
+
+
