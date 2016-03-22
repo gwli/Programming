@@ -40,13 +40,32 @@ data type
    `wchar_t <http://www.cppblog.com/jsjkandy/archive/2008/01/08/40688.html>`_  , 宽字符类型 ,
    ` 关于C结构体bit field的跨平台的教训 <http://www.cppblog.com/windcsn/archive/2006/09/08/12167.aspx>`_  , `Low Level Operators and Bit Fields <http://www.cs.cf.ac.uk/Dave/C/node13.html#ex:bin>`_  ,
 
-See also
-========
+预算理Macro
+===========
 
-#. `Programming in C UNIX System Calls and Subroutines using C. <http://www.cs.cf.ac.uk/Dave/C/>`_  
-#. `va&#95;list 详解 <http://www.cppblog.com/xmoss/archive/2009/07/20/90680.html>`_  
-#. `深度探索C语言函数可变长参数 <http://www.cnblogs.com/chinazhangjie/archive/2012/08/18/2645475.html>`_  
-   
+语言是一个功能全面语言，除了自身语言本身之外，还利用m4提供了宏定义，可以实现元编程，通过信用复杂宏定义来实现生成代码，并且Unreal
+就是依造实现反射，以及自身结构的实现。
+
+所以在使用C语言的宏的时候，直接参考m4 的语法就行了。 
+例如 
+#define PI 3.14  简单的常量定义
+#define foo(x,y) #x#y 把其拼写起来
+#define foo(...) 这种变长参数https://gcc.gnu.org/onlinedocs/cpp/Variadic-Macros.html, 这种用法有点类似于alias的做法。 ll = ls -l 
+
+
+do ... while(0)
+===============
+
+这种做法是借用这个结构来实现 try {} finally 的功能，从得到代码的整洁。http://www.cnblogs.com/flying_bat/archive/2008/01/18/1044693.html
+
+
+可变长参数函数的实现原理
+========================
+
+就是把参数在栈中地址记录ap中（通过一个确定的参数paramN确定地址），然后逐个读取值。
+
+`深度探索C语言函数可变长参数 <http://www.cnblogs.com/chinazhangjie/archive/2012/08/18/2645475.html>`_  
+
 .. ::
  
    1)   把2取反然后再－1 就可以直接得到。就取倍数了，也就是所谓的对齐。
@@ -57,6 +76,14 @@ See also
    #define va_arg(ap,t)    ( *(t *)((ap += _INTSIZEOF(t)) - _INTSIZEOF(t)) )
    5）VA_END宏，清空va_list可变参数列表：
    #define va_end(ap)      ( ap = (va_list)0 )
+
+
+
+See also
+========
+
+#. `Programming in C UNIX System Calls and Subroutines using C. <http://www.cs.cf.ac.uk/Dave/C/>`_  
+#. `va&#95;list 详解 <http://www.cppblog.com/xmoss/archive/2009/07/20/90680.html>`_  
    
 
 #. `fprintf、printf、sprintf、fscanf、scanf、sscanf 格式化输入输出  <http://blog.csdn.net/lmh12506/article/details/6631630>`_  
