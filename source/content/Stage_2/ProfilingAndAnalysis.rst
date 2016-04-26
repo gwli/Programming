@@ -62,14 +62,11 @@ where is the balance point
 
 follow the CUDA_Best_Practice.pdf and CUDA_Profiling_Guide.pdf这两个就够了。
 
- 
-
 
 如果各个性定制
 --------------
 
 如果Nsight Analysis提供的那些方法还不行，还有办法，那就是定制化。如GPU有profilingAPI的，例如最简单的`CuProfilingStart(),CuProfilingStop()`控制。当然你还可以取得另一些数据控制。让应用程序自身实现终身的优化。
-
 
 
 collection of Data
@@ -148,6 +145,10 @@ Occupancy研究的是使用率，相当于CPU的的使用率，如何CPU使用�
 
 一般source code 都会有各种宏，来控制代码的生成，例如opencl,还是cuda,以及是什么GPU，都是可以配置生成对应的代码来得到优化。
 
+对于一些策略的优化
+==================
+
+对于大的工程来说，每一次编译都需要挺长的时间，并且并不是很一个工程可以定制化做的很好。这个时候怎么办呢。那就是gdb中的或者ptrace来做性能测试。同时来修改程序的各个参数来生成对应的report.再加上gdb加上python的扩展，就可以相当shell可以重复使用。
 
 例子of jiuyin
 *************
