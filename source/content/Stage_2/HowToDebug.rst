@@ -24,6 +24,9 @@ Introduction
 strace and sreplay
 ------------------
 
+应用程序分两大部分，一个是自身的计算，另一个是外面的调用，error信息肯定会体现在下层的调用上。
+所以出错的时候，看一下一层的API log一般都会发现原因的。
+
 *strace* 与 *sreplay* 可以抓取系统调用并且能够回放。例子见[streplay]_
 
 .. [sreplay] http://people.seas.harvard.edu/~apw/sreplay/
@@ -36,7 +39,9 @@ strace and sreplay
 #. 每一个系统都会支持各种event,在处理前后都加上hook来capture. 同时也可以利用signal自己生成coredump.或者等待debugger连接上来，就像windows这样，只是一个hook而己。
 #. 另一种方式那就是把内存当成一个存储系统并在上面加载一个文件系统。这样就可以高效的存储了。充分利用各种cache. 例如debugfs,tempfs,/proc/ 都是直接存储做到内存上。可以非常方便查询各种信息。
 #. 充分利用配制信息，windows与linux是越来越像,都开始在home目录下写各种配制了。
+#. 对于windows还可以用debugView来查看这些调试log.
 
+process monitor可以实时显示文件系统，注册表和线程的活动。
 
 
 如何调试并行调试
@@ -113,6 +118,10 @@ https://en.wikipedia.org/wiki/Segmentation_fault
 
 
 还有那就是利用coredump与debug symbol来恢复现场。 例如gdb,先加载debug symbol,然后再打开coredump就可以了。
+另外那就是让crash的程序自动生成dump文件，或者发生特定的事件的情况下生成dump文件，在windows就要用debug diagnostic tools了。对于linux 可以用gcore来生成，或者gdb里面也可以生成。 也可以用ulimit来指定。或者用signal SIGBRT,或者调用abort()函数就可以直接生成。
+http://stackoverflow.com/questions/131439/how-can-a-c-program-produce-a-core-dump-of-itself-without-terminating/131539#131539
+http://stackoverflow.com/questions/318647/what-is-a-good-way-to-dump-a-linux-core-file-from-inside-a-process
+http://www.codeproject.com/Articles/816527/Writing-Custom-Information-in-Linux-Core-dump-usin
 
 NPE
 ===
