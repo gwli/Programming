@@ -123,6 +123,9 @@ http://stackoverflow.com/questions/131439/how-can-a-c-program-produce-a-core-dum
 http://stackoverflow.com/questions/318647/what-is-a-good-way-to-dump-a-linux-core-file-from-inside-a-process
 http://www.codeproject.com/Articles/816527/Writing-Custom-Information-in-Linux-Core-dump-usin
 
+同时glibc同时也开放一个backtrace的函数来得到callstack.
+http://skyscribe.github.io/blog/2012/11/27/linuxshang-ru-he-cong-c-plus-plus-cheng-xu-zhong-huo-qu-backtracexin-xi/
+
 NPE
 ===
 
