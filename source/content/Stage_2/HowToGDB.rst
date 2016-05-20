@@ -7,6 +7,23 @@ Introduction
 
 gdb 操作，相当于直接操作CPU与内存。 CPU的状态是可以通过寄存器的状态来进行控制的。例如set next step, 相当于修改 PC,IP 寄存器值。 
 
+debug都是基于debugsymbol中，这个symbol会存储debug与source code line num 的对应关系。
+断点不能hit,也就是没有dbgsymbol没有，或者你的源码位置与dymbols中是不一致的。
+
+如果首先看没有debugsymbol, :command:`sharelibs`. 然后 :command:`info lines`. 就知道了。
+如果不匹配，会发生在build的机器与调试机器的环境的不同。 或者当时生成不是相对路径，或者现在相对路径不对。
+
+可以修改相对路径，或者直接替换路径,例如下面
+
+.. code-block:: cpp
+   apt-get source linux-image-2.6.32-25-generic
+   apt-get install linux-image-2.6.32-25-generic-dbgsym
+   gdb /usr/lib/debug/root/vmlinux-2.6.32-25-generic
+   (gdb) list schedule
+   (gdb) set substitute-path /build/buildd/linux-2.6.32 /home/xxx/src/linux-26.3.32
+      
+
+
 debug 的难点：
 ============
 
@@ -698,6 +715,5 @@ PTRACE_CONT等操作来控制被追踪进程的运行，最后通过 PTRACE_DETA
 
 简单可以用gdb的本的shell来做，while,for，if也都是支持的。复杂的可以用python来做。就像vim一样。 
 https://sourceware.org/gdb/onlinedocs/gdb/Python-Commands.html#Python-Commands
-
 
 
