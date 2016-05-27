@@ -41,3 +41,10 @@ http://rosettacode.org/wiki/Execute_a_System_Command#Racket
 parallel-execute过程。直接实现函数体的并行执行。
 
 关键的就是这种符号替换执行。这个是难点是如何实现的。
+
+对于现实仿真的问题，那就是如实现tick函数，同时也要保持依赖的问题。 
+后台调用的是 phyx car 来模拟的, 采用最简单的迭代做法，每一个基本过程，然后不断迭代的过程。
+就是每一个tick函数如何写的问题。 可以用recket 把迭代与传递链结合起来。
+
+这也就是微分与与数值计算的模型。 
+
