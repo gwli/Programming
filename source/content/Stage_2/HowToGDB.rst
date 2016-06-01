@@ -45,9 +45,11 @@ debug 的难点：
 在gdb 中直接用info source 或者info functions 就看到全部函数名，并且还可以用python来操作，就像vim中一样。要把gdb练成vim 一样熟悉。
 这样就可以直接用trace命令来收集数据。
 VS中对于immediate Windows是可以执行一些调试命令，并且提供运行时库的相互环境，就像一个脚本语言解释环境一样。
-另一种方法，那就是利用event来收集数据。
+另一种方法，那就是利用event来收集数据。还有那就是系统的signal.
+https://xpapad.wordpress.com/2009/05/18/debugging-and-profiling-your-cc-programs-using-free-software/ 关键就是检查了symbol table了。
 
 gdb,attach 意味着你进入这个进程的空间，可以方便它的一切。
+
 
 调试器的用途
 ============
@@ -699,8 +701,8 @@ gdb 主要原理就是动态修改的进程的所有状态与内容，还有寄�
 .. code-block:: c
     
    #include <sys/ptrace.h>
-   Long ptrace(enum_ptrace_request request,pid_t pid, void *addr,void *data)
-
+   Long ptrace(enum_ptrace_request request,pid_t pid, void *addr, void *data)
+   /**/
 
 request 是具体的操作。 
 
@@ -719,3 +721,47 @@ PTRACE_CONT等操作来控制被追踪进程的运行，最后通过 PTRACE_DETA
 https://sourceware.org/gdb/onlinedocs/gdb/Python-Commands.html#Python-Commands
 
 
+如何用gdb来收集数据
+===================
+
+tracepoint一个一个加太麻烦，有什么更快的一点方法，那就用gdb来做，最灵活。
+具体某几个点可以用直接用tracepoint来做。
+大面积可以用event,以及signal来做。
+http://stackoverflow.com/questions/2281739/automatically-adding-enter-exit-function-logs-to-a-project
+
+对于gdb.event可以python来做https://sourceware.org/gdb/onlinedocs/gdb/Events-In-Python.html
+gdb.events.inferior_call_pre/post 事件。
+
+对于SIGNAL直接用`handle SIGUSER` 来实现https://sourceware.org/gdb/onlinedocs/gdb/Events-In-Python.html 
+
+一些其他的事件，http://visualgdb.com/gdbreference/commands/set_stop-on-solib-events
+http://stackoverflow.com/questions/7481091/in-gdb-how-do-i-execute-a-command-automatically-when-program-stops-like-displ
+https://sourceware.org/gdb/current/onlinedocs/gdb/Hooks.html#Hooks
+
+最终看代码实现 https://sourceware.org/gdb/current/onlinedocs/gdb/Hooks.html#Hooks
+
+.. code-block:: cpp
+   define hook-stop
+
+如果只是看stack,有这样的工具https://github.com/yoshinorim/quickstack
+http://poormansprofiler.org/
+http://readwrite.com/2010/11/01/using-gdb-as-a-poor-mans-profi/
+https://github.com/Muon/gdbprof
+
+用gdb来进行测试
+===============
+
+起真实的进程是最好的环境。如果能起app然后在这个context里，利用gdb来直接执行。
+http://stackoverflow.com/questions/16734783/in-gdb-i-can-call-some-class-functions-but-others-cannot-be-resolved-why
+
+但是一些编译复杂的结构，gdb是没有办法直接编译的，这个时候就需要JIT来帮忙了。
+
+另外把测试的函数单独放在一个dll中，然后 dlopen来加载。
+http://stackoverflow.com/questions/2604715/add-functions-in-gdb-at-runtime
+
+即使没有，也可以临时写一个，只要编译的时候加上一个 :command:`-fPIC` 就可以了。
+
+先生成一个coredump,然后再coredump中来进行各种各样的测试。
+
+在crash直接调用gdb.
+http://stackoverflow.com/questions/22509088/is-it-possible-to-attach-gdb-to-a-crashed-process-a-k-a-just-in-time-debuggin
