@@ -43,7 +43,9 @@ debug 的难点：
 --------------
 
 在gdb 中直接用info source 或者info functions 就看到全部函数名，并且还可以用python来操作，就像vim中一样。要把gdb练成vim 一样熟悉。
+这样就可以直接用trace命令来收集数据。
 VS中对于immediate Windows是可以执行一些调试命令，并且提供运行时库的相互环境，就像一个脚本语言解释环境一样。
+另一种方法，那就是利用event来收集数据。
 
 gdb,attach 意味着你进入这个进程的空间，可以方便它的一切。
 
@@ -293,7 +295,7 @@ debug_info表与 符号表是不同的两表，符号是要程序动态加载的
 
    这些都通过查看online help来得到更多的信息
 
-例如遇到了中途遇到crush,但是此时没有debug 信息怎么办，这里可以要求重新加载一下 lib,重新进行一次解析就可以。 这时候就需要用到
+例如遇到了中途遇到crash,但是此时没有debug 信息怎么办，这里可以要求重新加载一下 lib,重新进行一次解析就可以。 这时候就需要用到
 
 :command:`symbol-reloading  symbol-reload` 
 
