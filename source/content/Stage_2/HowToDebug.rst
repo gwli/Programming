@@ -131,4 +131,20 @@ NPE
 
 NPE Null pointer exception.
 
+Can't Find resource
+===================
+
+经常遇到这样的问题，例如undefined symbols,找不到的库。例如C#遇到找不到XX14.0.dll. 
+这样的原因有以下几种:
+#.  确实不存在对应的库
+#.  所依赖的库存在，只是依赖库的Error处理的不好，没有正确的显示
+#.  库确实存在，但是版本不对，有些依赖是版本要求的，所以搜索的条件也不一样。所以要仔细看它的搜索条件。 
+#.  由于不同版本之间不兼容，例如函数名的改变，或者编译器不同而导致的格式改变。
+
+解决办法
+#. 最简单的办法，在对应的目录里直接搜索，然后查看其版本信息等等。
+#. 用LDD 查看其依赖。 windows下用dumpbin 来查看。
+#. 对于C#可以用FusionLogViewer来查看。
+http://www.hanselman.com/blog/BackToBasicsUsingFusionLogViewerToDebugObscureLoaderErrors.aspx
+#. 最差写一个wraper来测试，直接debugger来查。
 
