@@ -99,7 +99,8 @@ Thinking
 寄存器的分配方法
 ================
 
-其实就是一个解整数方程组的过程，以及多面体的问题，可以从http://cloog.org/ 来看到。从扫描多面体生成能达到每个顶点代码。自动编写loop.
+其实就是一个解整数方程组的过程，以及多面体的问题，可以从http://cloog.org/ 来看到。从扫描多面体生成能达到每个顶点代码。自动编写loop. 但是解决一维线性方程组的整数解。
+
 
 自动添加代码
 ============
@@ -109,6 +110,12 @@ Thinking
 https://gcc.gnu.org/onlinedocs/gcc/Instrumentation-Options.html#Instrumentation-Options
 https://mcuoneclipse.com/2015/04/04/poor-mans-trace-free-of-charge-function-entryexit-trace-with-gnu-tools/
 https://mcuoneclipse.com/2015/04/04/poor-mans-trace-free-of-charge-function-entryexit-trace-with-gnu-tools/
+这个功能在clang中同样支持http://wengsht.github.io/2014/03/16/Function+Tracer+Using+clang+++--+application+and+principle.html 
+
+对Clang中还可以这样
+
+:command:`-ftrap-function=[name]` http://clang.llvm.org/docs/UsersManual.html#controlling-code-generation
+http://clang.llvm.org/docs/UsersManual.html#profile-guided-optimization
 
 debugging Options
 =================

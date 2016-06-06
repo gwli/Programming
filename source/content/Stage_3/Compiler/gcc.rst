@@ -82,3 +82,4 @@ https://gcc.gnu.org/onlinedocs/gcc-4.3.4/gcc/Code-Gen-Options.html
 ===============
 
 不同的系统中 char的定义是不一样的。分为signed 或者unsigned.
+
