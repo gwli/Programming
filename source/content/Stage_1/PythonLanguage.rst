@@ -799,3 +799,13 @@ string format
 =============
 
 https://docs.python.org/2/library/string.html，支持对齐与任意字符的填充。这个可以在vim 里用嘛。
+
+getpass
+=======
+
+可以用于密码的login处理等等。
+
+shlex
+=====
+
+如果想实现一个简单的语法分析，用shlex就足够了。
