@@ -19,3 +19,8 @@ MSBuild 用法
 
 :commmand:`msbuild  "+ self.projPath + "/android_app/project/android_app.sln /t:executables\\android_app_standalone /p:Configration=Debug /p:Platform=Tegra-Android /p:BuildProjectReference=false`
 
+
+CodeMap
+=======
+
+在VS中实时动态生成CodeMap,并且在debugging时直接在callstack中调出动态的CodeMap.
