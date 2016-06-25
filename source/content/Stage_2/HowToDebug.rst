@@ -148,3 +148,4 @@ Can't Find resource
 http://www.hanselman.com/blog/BackToBasicsUsingFusionLogViewerToDebugObscureLoaderErrors.aspx
 #. 最差写一个wraper来测试，直接debugger来查。
 
+

@@ -299,7 +299,8 @@ debug_info表与 符号表是不同的两表，符号是要程序动态加载的
 
 例如遇到了中途遇到crash,但是此时没有debug 信息怎么办，这里可以要求重新加载一下 lib,重新进行一次解析就可以。 这时候就需要用到
 
-:command:`symbol-reloading  symbol-reload` 
+:command:`symbol-reloading  symbol-reload`   当然自动加载的时候，也要注意库的名字，名字不一样的时候，也是找不到的。
+这样时候ln 就可以来帮忙了。当然也可以直接改名换路径。当然如加载的lib不对时，会报linkzip error.
 
 GNU GDB
 -------

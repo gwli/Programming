@@ -1,3 +1,11 @@
+DebugDiag utility
+=================
+
+debugdiag调试工具使用汇总  http://blog.csdn.net/tpriwwq/article/details/18987371
+当然这些OS自带的一些功能，你可以直接修改注册表来实现。
+例如生成dump文件 修改HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\Windows Error Reporting\LocalDumps 就可以实现。
+https://msdn.microsoft.com/en-us/library/bb787181(VS.85).aspx
+
 Visual Studio
 =============
 
