@@ -72,6 +72,7 @@ Debug 的实现机理
 ================
 
 实现三部分，
+
 用户的输入
 ----------
 user interface,除了CLI接口可用各种后端，例如ddd,以及VS的MIEngine. 可以利用 readline/history等库。
@@ -96,7 +97,6 @@ gdb 将断点实际插入目标程序的时机：当用户通过 break 命令设
 点到这个时候才会实际存在于目标程序中。与此相呼应，当目标程序
 停止时， gdb 会将所有断点暂时从目标程序中清除。
 http://www.kgdb.info/wp-content/uploads/2011/04/GdbPrincipleChinese.pdf
-
 
 
 信号
@@ -179,6 +179,23 @@ http://www.linuxjournal.com/article/6100?page=0,1
 
 我们在调试器里看到的变量的值，都是从哪里来的呢。是在内存里，还是在寄存里。对于CPU这种时分复用的机器，变量基本上就都存在内存里，而寄存上只是短暂的时间片的瞬间，
 所以说这些值是内存的哪一段放着，并且它的邻居是谁呢，这样同样会大大影响存取的性能的。如何得到这个变量的赋值表呢，就是简单的bss段以及.data段吗。
+
+一种是全局变量，文件静态变量，函数的静态变量如何查看,通过
+
+.. code-block:: cpp
+   file::variable
+   function::variable
+
+同时 gdb创建了 variable object 这个是为 frontend与gdbserver之间同步信息使用。哪些内容我关系，我发一个variable object过去。有更新变化就得通知我的方式。
+http://ftp.gnu.org/old-gnu/Manuals/gdb/html_node/gdb_231.html
+https://sourceware.org/gdb/onlinedocs/gdb/GDB_002fMI-Variable-Objects.html
+
+经常看到些结构是欠套的，所以经常看到 -var-create next的东东。
+
+为了减少数据的传输，也做了各种优化。例如 :command:`trust-readonly-sections`. 只读数据不就需要从传输了，从本地取就可以了。
+
+这是同步一种方式，相当于双方建立同样的符号表状态表，server那些有变化就通知client,没有的话就只用保持同步的heartbeat了。 当然client自身还是可以做别的事情。
+那就是通过event来同步，可以是同步，也可是异步的。例如step in/out/over应该是同步。 其他的就可以是异步的。
 
 进程表与线程表
 --------------

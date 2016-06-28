@@ -149,3 +149,12 @@ http://www.hanselman.com/blog/BackToBasicsUsingFusionLogViewerToDebugObscureLoad
 #. 最差写一个wraper来测试，直接debugger来查。
 
 
+如果查看内存分配
+================
+
+如果精确查看进程的内存分配呢，在linux下有强大的 :file:`/proc` 可以用，另一个方法，自己根据结构直接读内存。
+从memoryWindow可以直接查看各个地址，并且还可以转换基本格式，像graphic debugger里那样显示texture
+都是读取内存数据来得到的。同时还可以用来研究自动变量的分配。并且一些数据转换，例如整型，浮点型的转换，format
+这些都是可以在memoryWindow直接做的。直接修改内存值。
+
+进程数据存放无非两种，放在内存里，或者寄存器里。
