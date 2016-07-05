@@ -43,7 +43,6 @@ strace and sreplay
 
 process monitor可以实时显示文件系统，注册表和线程的活动。
 
-
 如何调试并行调试
 ----------------
 
