@@ -6,6 +6,14 @@ debugdiag调试工具使用汇总  http://blog.csdn.net/tpriwwq/article/details/
 例如生成dump文件 修改HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\Windows Error Reporting\LocalDumps 就可以实现。
 https://msdn.microsoft.com/en-us/library/bb787181(VS.85).aspx
 
+
+can't runup
+===========
+
+如何APP起不来，一般情况是缺东西，因为现在大部分APP采用是动态链接。这就意味着可能缺库或者版本兼容。
+这个可以用 dumpbin,以及dependency walker. 来解决这个问题。
+http://blog.csdn.net/swort_177/article/details/5426848
+
 Visual Studio
 =============
 
@@ -18,7 +26,6 @@ VS 本身的调试
 
 CPS
   Common Project System.
-
 
 
 对于 Viusal Studio 的技巧有一本 Visual Studio Hacks. 
