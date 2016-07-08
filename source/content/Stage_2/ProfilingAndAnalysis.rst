@@ -2,6 +2,7 @@
 ProfilingAndAnalysis
 ####################
 
+
 为什么优化
 ----------
 *程序慢* ，首先要看系统的资源使用的如何，如果系统还是比较空，那就要改程序来充分利用系统资源，系统资源已经很紧张，那就优化程序本身
@@ -21,6 +22,23 @@ ProfilingAndAnalysis
 同时大家所谓的80/20原则。也就是20%时间就解决了80%功能。80%的时间用在解决那20%的性能。
 
 如果对于性能要求不高的，你的solution的选择就会很多，会有各种各样的库可以供你用。但是考虑到性能化那就未必了。那就是为什么相同的功能为什么会有这么多库。并且基本上大的项目，很多东东都是自己实现的，而非用一些语言本身的实现或者库的实现。最明显的例子，就是那些队列，以及reference count之类的东东都基本上都上是自己实现的。根据性能要求，来做不同编译，例如满足精度的情况下，尽可能用硬件浮点计算。或者换用不同库会有质的变化。
+
+优化的目标
+==========
+
+#. 算法本身的优化，减少计算量
+#. 指令优化，减少指令条数
+
+硬件的优化
+==========
+
+尽可能大的利用硬件资源。
+改变读取pattern提高cache的命中率。
+可以把整数部分换成浮点数，
+提高系统的利用率
+
+终级优化人工优化汇编指令
+
 
 
 where is the balance point
@@ -80,6 +98,7 @@ collection of Data
 
 How to sampling
 ---------------
+
 this system should support approach to make Snapshot quickly, may this is supported by dedicated hardware. for example, snapshot all the registe and state to somewhare, how to use the info is descided by user how to analysiz these.  the sampling frequency is resticted by two things:
 
 #. *offline analyise* , it is simple, only the speed of snapshot and store the info.
@@ -200,3 +219,39 @@ Please request them to change APP_ABI to armeabi-v7a.
 
 
 
+动态的得到callstack
+===================
+
+.. code-block:: cpp
+   sudo gdb -ex "set pagination 0" -ex "thread apply all bt" --batch --pid `pidof python`
+
+https://github.com/springmeyer/profiling-guide
+
+各种profiling的核心在于数据格式交换，后期可以采用数据可视化的工具来做各种显示。
+`perf data format <https://openlab-mu-internal.web.cern.ch/openlab-mu-internal/03_Documents/3_Technical_Documents/Technical_Reports/2011/Urs_Fassler_report.pdf>`_
+
+
+运行框架
+========
+
+instruction, counter, trace.
+不同级别的profiling方法，在性能与灵活性是不一样的。把这些数据收集上来了，后面就分析了。
+counter可是硬件，也可以是软件的。
+
+
+android的profiling
+==================
+
+https://developer.android.com/studio/profile/index.html
+
+
+profiling
+=========
+https://selenic.com/hg/file/tip/contrib/perf.py
+https://docs.python.org/2/library/hotshot.html
+
+
+Yoctoproject tools usage 
+========================
+
+https://wiki.yoctoproject.org/wiki/Tracing_and_Profiling
