@@ -8,3 +8,8 @@
 而些工作是完全可以有编译器再加一个+自定义的库来实现的。
 例如 VS Code contract的用法一样。http://www.cnblogs.com/yangecnu/p/The-evolution-of-argument-validation-in-DotNet.html
 
+同时把参数检查，同时把log结合起来，例如
+
+DEBUG_IF(assert_condition, "massge", "metadata such as time,pid")
+
+并且契约式设计，也就是在使用者与设计者之间的之些约定。

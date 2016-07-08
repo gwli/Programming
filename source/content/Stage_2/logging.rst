@@ -14,6 +14,7 @@ https://logentries.com/doc/best-practices-logs/
 
 其实把logging与profiling是紧密相连的，把logging的结果结构化的展示出来就成了profiling.
 
+
 内容的要求
 ==========
 
@@ -44,8 +45,6 @@ NLog
 
 https://github.com/nlog/nlog/wiki/Tutorial
 
-
-
 logging
 =======
 
@@ -59,3 +58,12 @@ python 的logging的用起来很方便,完全不用自己重新设计，并且�
    gtl_log = logging.FileHander("file/path")
    logger.addHandler(gtl_log)
    logger.removeHandler(gtl_log)
+
+
+NVTX的实现原理
+==============
+
+只是打了stub函数，二是支持marker,range,catagory的功能。 就是一种 source anotation 的方式。
+相当于你于开了一个门，当然在后台的执行的时候可以换掉原来那些实现。做另外的事情。
+例如是实时接收，还是采样式的接收，还是如何都是可以做的。并且只要接口不变。就不需要重新代码。
+并且NVTX的自由度与颗粒度也都是很灵活的。
