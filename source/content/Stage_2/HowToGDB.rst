@@ -163,7 +163,7 @@ in linux, you can use signal and /proc and some CPU interrupt do debug, don't ne
 
    info dos gdt/ldt/idt/pde/pte     ;info w32 info dll 
 
-几种方式是插入汇编asm(bkpt) 代码，或者采用指令替换的方式，例如在原理断点处插入跳转指令。把原来指令给换掉。
+几种方式是插入汇编asm(bkpt) 代码，或者采用指令替换的方式，例如在原理断点处插入跳转指令。把原来指令给换掉。 BP的插入也是代码注入的一种。
 
 
 gdb 主要是基于ptrace来实现，ptrace系统调用可以修改，进程的数据段与代码段的数据的，同时修改CPU的指令模模式。 进程是即有CPU的模型信息，又有代码与数据的信息。通用ptrace可以控制进程各种信息，例如加载什么包，调用过什么函数都可以用这个来进行控制调用。 http://www.spongeliu.com/240.html
@@ -171,8 +171,13 @@ gdb 主要是基于ptrace来实现，ptrace系统调用可以修改，进程的�
 http://www.cnblogs.com/catch/p/3476280.html， 使用ptrace可以实现进程各种定制操作。
 http://www.linuxjournal.com/article/6100?page=0,1
 
+ptrace是通过发送SIGSTOP让进程挂起的,ptrace也是通过系统信号来与进程交互的。ptrace是通过修改断点处的指令为trap指令来实现的。ptrace采用SIGCHLD的编程模型，即目标进程发送SIGCHLD，调试器调用waitpid来等进程。
 
--- Main.GangweiLi - 16 Apr 2013
+但是ptrace也有很多的缺点，例如一个进程只能被ptrace attach一次。将来会用utrace来取代。
+http://www.ibm.com/developerworks/cn/linux/l-cn-utrace/index.html
+
+
+并且虚拟机也是通过ptrace,来实现的，现在可以用utrace来实现。
 
 变量的值
 --------
