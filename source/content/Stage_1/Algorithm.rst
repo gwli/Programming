@@ -70,3 +70,17 @@ A Semantical Change Detection Algorithm for XML http://www.inf.ufpr.br/carmem/pu
 
 可以采用样式表的方法，决定对比方法。 看一下html中样式表是如何添加的。就可以实现了。或者采用xpath的方式。
 
+KFIFO
+=====
+
+linux kernel是一个大宝藏，如果想找各种实现，去kernel的source tree 里找一找吧。
+例如ring buffer一个实现。ring buffer 实现的原点，如何实现下标的循环，但是由于自计算机整数的溢出来实现，再加取模计算，再把大小变成2的n次幂， 这样取模就又变成了取与计算。 http://www.cnblogs.com/Anker/p/3481373.html
+
+
+quicksort
+=========
+
+这个是其实分段排序方法，与二分法是对应的。如果上千万排序怎么的办。
+直接发分段，然后再逐段的拼接呢。 中间再字符串搜索功能。
+
+Practice.of.Programming at Page 46.
