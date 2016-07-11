@@ -291,3 +291,10 @@ http://www.zhihu.com/question/20506693
 .. code-block:: bash
    diff -u <(ls |sort ) <(ssh -i ~/my.key dove@myhost grep amazon mp3.urltxt)
 
+
+如何得到精确的CPU时间
+=====================
+
+一种是采用 getconf CLK_TCK 再加/proc/pid/stat 来实现。 另一个那就是top -bn 1 就行了。
+https://straypixels.net/getting-the-cpu-time-of-a-process-in-bash-is-difficult/
+
