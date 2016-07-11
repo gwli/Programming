@@ -255,3 +255,65 @@ Yoctoproject tools usage
 ========================
 
 https://wiki.yoctoproject.org/wiki/Tracing_and_Profiling
+
+
+分层优化
+========
+
+每一层的优化
+#. Number of memory allocation
+#. Number of system calls
+#. Concurrency model
+
+optimization should focus on the critical path.
+optimize where it makes difference. Optimizing pieces of code that are not on the critical path is wasted effort.
+
+不同的操作对于scale关系是不一样的。并不是一个简单线性关系。 所以在优化的时候，不要假定只有一个最佳方案。
+是要根据约束来进行解决方程的。
+所以profiling一定弄清楚配置情况来进行。 例如copy 文件的大小，对性能影响也是不一样的。
+copy方便，还是传指针方便，最终体现是指令数，例如小于2个字节。传个指针也得四个四字节吧。
+
+
+同步的方法
+===========
+
+信号，或者atomic CPU operations. 
+
+
+
+profiling也是分层模块化
+=======================
+
+http://www.brendangregg.com/linuxperf.html 看其图。
+硬件层，一般都会对应PMUdriver与之对应。 例如CPU cycles, instructions retired, memory stall cycles, level2 cache missing.
+
+OSkernel层
+==========
+
+
+tracepint
+---------
+#. system calls,TCP events, file system I/O, disk I/O, 
+#. Dynamic Tracing kprobes and uprobes.
+#. Timed Profiling. with CPU usage.
+#. process create/statechange/terminal.
+#. thread create/statechange/terminal
+#. IO event
+#. resource allocation
+
+software
+========
+
+#. event message
+
+可视化工具
+==========
+
+CPU flame graph,http://www.brendangregg.com/flamegraphs.html
+heat map,
+timeline. 
+
+tuning
+======
+
+通过/sys/kernel/...来调整配置。
