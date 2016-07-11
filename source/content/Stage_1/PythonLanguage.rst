@@ -53,6 +53,8 @@ logging
         64 bytes from 203.208.37.99: icmp_seq=0 ttl=245 time=36.798 ms
         64 bytes from 203.208.37.99: icmp_seq=1 ttl=245 time=37.161 ms
 
+直接使用VS2015 PSVT的功能，可以条件断点等等功能，非常的的方便。
+
 Python 内在函数
 ---------------
 
@@ -508,6 +510,7 @@ http://pyist.diandian.com/?tag=ipython
 支持用iptyhon，尽可能，只要离开就要提出一个bug.这样就可以大大的提速了。直接继承一个magic class就可以简单，然后直接loadext就可以了，实现起来简单。自己也慢慢往里边添加自己的东东。可以参考在python里直接执行c的插件。看来这个扩展还是很容易的，把知识代码化，而不再只是文本描述。
 
 并且ipython提供了类似于tcl中多解释器的方式，来实现多进程与kernel的并行，可以让并行计算随手可得，并且解决了GIL的问题，并且能够与MPI直接集成。%px 这个插件，看来是要升级自己的shell从bash到ipython了。
+
 .. code-block:: bash
    
    `if expand("%") == r"|browse confirm w|else|confirm w|endif"`
@@ -522,6 +525,10 @@ http://www.linuxfromscratch.org/lfs/view/6.2/chapter07/inputrc.html
 
 
 配色同样也是支持的可以查看 :command:`%color_info` 以及 :command:`%colors`. 
+
+同时为了把python变成shell, 还有一个专门的库，plumbum 来做了这件事。
+https://plumbum.readthedocs.io/en/latest/,但是还没有shell本身简练。
+
 
 .. seealso::
 
@@ -809,3 +816,9 @@ shlex
 =====
 
 如果想实现一个简单的语法分析，用shlex就足够了。
+
+读取大文件的某几行
+==================
+
+seek到位，然后反向搜索。 换行符来实现。
+http://chenqx.github.io/2014/10/29/Python-fastest-way-to-read-a-large-file/
