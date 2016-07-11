@@ -27,6 +27,13 @@ VS 本身的调试
 CPS
   Common Project System.
 
+You can enable VS diagnostics logging by adding the section
+<system.diagnostics>
+  <switches>
+    <add name="CPS" value="Verbose" />
+  </switches>
+</system.diagnostics>
+  
 
 对于 Viusal Studio 的技巧有一本 Visual Studio Hacks. 
 
@@ -42,6 +49,19 @@ devenv.exe 本身也是很多的起动参数的，参可以参考 https://msdn.m
 Tools>Options>Debugging>Symbols.
 
 可以是远程http.
+
+how-to-investigate-rebuilding-in-visual-studio-when-nothing-has-changed
+========================================================================
+
+So, to get some information about VS fast up-to-date checker, set this registry key:
+Windows Registry Editor Version 5.00
+[HKEY_CURRENT_USER\Software\Microsoft\VisualStudio\12.0\General]
+"U2DCheckVerbosity"=dword:00000001
+
+Then after building, rebuilding or F5-ing pay attention to the Output window (Build pane):
+VS will display diagnostic information about why it chose to rebuild a given project.
+
+https://blogs.msdn.microsoft.com/kirillosenkov/2014/08/04/how-to-investigate-rebuilding-in-visual-studio-when-nothing-has-changed/
 
 
 
