@@ -111,6 +111,7 @@ bash 有最好用重定向
 更好完的重定向要属端口应用功能 了。
 
 :command:`mknod /dev/tcp c 30 36` 就可以STDIN/STDOUT/STDERR一样重定向了。
+
 进程替换
 ========
 
@@ -248,8 +249,11 @@ exec /usr/bin/flex -l "$@" 以前不知道为什么要有这些用法。现在�
 
 
 
----+++多进程
- {} & 就可以直接把这块代码放在了后台运行。
+多进程
+======
+`Bash script parallel processing (concurent exec) <http://ubuntuforums.org/showthread.php?t=382330>`_ 
+
+ {} & 就可以直接把这块代码放在了后台运行。 直接用wait来进行同步，并且如何等可以用 man wait 来查参数。
    
 .. ::
  
@@ -274,6 +278,16 @@ exec /usr/bin/flex -l "$@" 以前不知道为什么要有这些用法。现在�
    }
    
 
- * `Bash script parallel processing (concurent exec) <http://ubuntuforums.org/showthread.php?t=382330>`_ 
+为什么那么语言没有替代bash的原因
+================================
 
--- Main.GangweiLi - 12 Feb 2014
+http://www.zhihu.com/question/20506693 
+就在于其精练，这也为什么DSL语言存在的原因，shell是对内核与操作系统最直接的交互。最简练的表达。
+主要体现在一切都是文件的哲学上。 同时对于输入输出随意控制与并行的进程并行的随心所欲。
+用<来指定输入，用()来进程，直接用 {} 合并输入输出。 并且shell 讲的CLI(command line interface).
+
+对于管道使用大家可能早就熟悉，但是使用以及多个管道呢。
+
+.. code-block:: bash
+   diff -u <(ls |sort ) <(ssh -i ~/my.key dove@myhost grep amazon mp3.urltxt)
+

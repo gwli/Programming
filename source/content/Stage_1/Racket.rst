@@ -40,7 +40,7 @@ http://rosettacode.org/wiki/Execute_a_System_Command#Racket
 
 parallel-execute过程。直接实现函数体的并行执行。
 
-关键的就是这种符号替换执行。这个是难点是如何实现的。
+关键的就是这种符号替换执行。这个是难点是如何实现的。代码执行像数学公式一样。
 
 对于现实仿真的问题，那就是如实现tick函数，同时也要保持依赖的问题。 
 后台调用的是 phyx car 来模拟的, 采用最简单的迭代做法，每一个基本过程，然后不断迭代的过程。
@@ -48,3 +48,5 @@ parallel-execute过程。直接实现函数体的并行执行。
 
 这也就是微分与与数值计算的模型。 
 
+racket的发展史。
+https://www.zhihu.com/question/22785256
