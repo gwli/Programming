@@ -13,6 +13,12 @@ ProfilingAndAnalysis
 
 其实这些就是所谓的用户体验的一部分吧。最终反应终端用户面前的，一个是流程本身的合理性，另一部分则操作的流畅性。而所有的这些都是技术指标的。例如视频本身fps.不同的应用会有不同的需求。对于破解会对破解速度有要求。对于仿真对于仿真的精度有要求。对于计算机的不可靠性很大一部分就是指的其精度的问题。这个对于大型科学计算尤为重要。
 
+#. Reduce IT spend, find and eliminate waste,find areas to tune, and do more with less. 
+#. Build scalable architectures - understand system limits and develop around them
+#. Solve issues -locate bottlenecks and latency outliers
+
+
+
 对于产品的需求一般是两部分:
 ***************************
 
@@ -313,7 +319,33 @@ CPU flame graph,http://www.brendangregg.com/flamegraphs.html
 heat map,
 timeline. 
 
+从哪里寻找工具
+==============
+
+#. Who is causing the load? PID,UID,IP addr,...
+#. Why is the load called? code path
+#. What is the load? IOPS,tput,direction,type
+#. How is the load changing over time?
+
+#. Best performance wins are from eliminating unnecessary work
+
 tuning
 ======
 
 通过/sys/kernel/...来调整配置。
+
+优化的过程就是资源重新分配的过程。也就是对数据结构重构的过程。
+对于大数据结构的实现，都是基于array,list,hash,tree. 以及对应的操作。修改代码也改这些并与之相应的操作，来应对算法输入的scale要求。profiling的理论基础是计算复杂度理论。
+
+
+对于操作系统的优化
+==================
+
+#. 2-20%  wins, I/O or buffer size tuning, NUMA config,etc
+#. 2-200x wins: bugs, disable features, perturbations causing latency outliers.
+#. Kernels change, new devices are added, workloads scale, and new perf issue are encountered
+#. Analyze application perf from kernel/system context
+   2-2000x wins, identifing and eliminating unnecessary work.
+
+
+iostat,ionice
