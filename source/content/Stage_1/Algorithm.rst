@@ -6,6 +6,8 @@
 
 时间复杂度并不是表示一个程序解决问题需要花多少时间，而是当问题规模扩大后，程序需要的时间长度增长得有多快。 http://www.matrix67.com/blog/archives/105
 
+the design of a program is rooted in the layout of its data. The data structures don't define every detail. but they do shape the overall solution.
+
 树
 ==
 
@@ -84,3 +86,42 @@ quicksort
 直接发分段，然后再逐段的拼接呢。 中间再字符串搜索功能。
 
 Practice.of.Programming at Page 46.
+
+
+
+基本结构对比
+============
+
+初级结构
+--------
+int, float, string,enum
+
+
+中级结构
+--------
+
+array,list,hash,tree
+
+#.array, 固定，但是存储效率高，采用动态的数据，可能会引起大量的数据搬运，所以初始空间的设置，以及增长方式是要考虑的重点。
+#. list 最灵活，但是只能顺序用link来存取，所有二分法，排序算法等等基本上没有什么效果，因为其只能知道与其相关的信息。 
+   对其profiling就要操作的效率。例如每一个查询，修改花了多久。
+   例如在STL的时候，例如把deque, 换成list的效率的明显变化。
+#. hash 把结合array,list的优点，也是优化空间最大的地方，就像一个矩形，面积恒定。但是如何分配长宽才能达到高效。而决定长宽分配是与存储对象本身的特性以及hash函数
+   共同决定的。使其存储上更像array.
+   所以对其性能分析，就要查看其结构利用率。
+#. tree 结合list,array,使其更像list,但是操作效率尽可能像array. 因为在树的排序，就可以用二叉树，平衡树，来加速寻找的过程。
+   用于分树的key,相当于array中index.
+
+高级结构 
+--------
+#. struct, 可以根据需求来定制，但是结构固定，也是为什么python的对象中固定元数据部分要struct表示。而动态部分用class来表示。
+           同时也可以把相应的操作函数相联起来，这个是比中级结构更强一些点，
+#. class,  添加了数据本身的存取进行权限定义，另外通过继承可以添加，重写原来的struct.
+
+而所有的这些变化点都是根据需要来的。
+
+
+当把你的问题搞清楚了，采取的数据结构也搞清楚了。这个时候采用什么样语言与库就一目了然了。
+
+
+
