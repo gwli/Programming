@@ -349,3 +349,22 @@ tuning
 
 
 iostat,ionice
+
+
+
+Utrace,systemtap,Dtrace
+-----------------------
+
+http://landley.net/kdocs/ols/2007/ols2007v1-pages-215-224.pdf
+为了提高profiling本身性能以及灵活性，人们已经不断探索之后。
+
+Dtrace 采用的是 expect的  expect/action模式，并且采用D语言来实现脚本。
+http://www.ibm.com/developerworks/cn/linux/l-cn-systemtap2/
+
+
+
+可视化
+======
+
+最好的可视化，就像示波器一样，有一个系统的原理框图，并且各个模块的数据演示在上面，例如热图的变化等等。
+系统图就像http://www.brendangregg.com/usemethod.html 方法里提到的一样。USE是一种比较可行的方法。

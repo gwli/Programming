@@ -86,6 +86,7 @@ gdb 可以当做后台，也可以直接使用，同时也支持vim 类似的分
 
 断点原理 
 --------
+
 通过查找输入的断点和具体代码位置对应起来，并在该位置替换为一条断点指令，并且保存以前的指令，到目标程序运行到该断点处时，产生SIGTRAP信号，该信号被GDB捕获，GDB查找断点列表来确定是否命中断点。继续执行的时候则会把保存的指令重新放回并执行。n/s/ni/si/finish/uitil也会自动设置断点。
 条件断点的实现，也就是对于SIGTRAP的event callback chain上的一个而己。
 
@@ -164,6 +165,7 @@ in linux, you can use signal and /proc and some CPU interrupt do debug, don't ne
    info dos gdt/ldt/idt/pde/pte     ;info w32 info dll 
 
 几种方式是插入汇编asm(bkpt) 代码，或者采用指令替换的方式，例如在原理断点处插入跳转指令。把原来指令给换掉。 BP的插入也是代码注入的一种。
+汇编的bkpt指令是一个字节，然后把第一个字节换掉，然后把原始指令保存下来。有两种做法,single-stepping inline,Single-step out of line.
 
 
 gdb 主要是基于ptrace来实现，ptrace系统调用可以修改，进程的数据段与代码段的数据的，同时修改CPU的指令模模式。 进程是即有CPU的模型信息，又有代码与数据的信息。通用ptrace可以控制进程各种信息，例如加载什么包，调用过什么函数都可以用这个来进行控制调用。 http://www.spongeliu.com/240.html
