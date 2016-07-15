@@ -5,6 +5,44 @@ HowToDebug
 Introduction
 ------------
 
+调试程序方法有很多，但最重要的是自己的思考。再好的工具的工具都不能取代你的思考。 gdb step 也是为了你的思考验证来准备的。通过log来分析，search才及动态的分析工具
+都是为了你的思考。思考要用事实来验证，并且要基于事实，并且事实来突破自己的思维局限。 最难的那就是 mental model bugs. 在你认为最不可能出错的地方出错了。并且这种
+错误一般都是由引低级的错误引起来，例如 语言中逻辑操作码的一些优先级引起的。 当遇到这种问题，要寻求外部的帮助。同时要意识可能是mental model 出错了。
+
+原则  debugging is an art that we will practice regularly, The first thing to do is to think hard about the clues it presents. If there aren't good clues, hard 
+thinking is still the best step, to be followed by systematic attemps to narrow down the location of the problem. 
+
+-- The Practice of Programming Page 145
+
+#. Examine the most recent change. 如果使用vs2015的话，内部集成这些git可以快速查看修改。
+#. Don't make the same mistake twice. 修改的时候，最好用重构代替copy，并且进行搜索查看。反复的修改同一个问题，例如同一个问题提交很多版本会令人沮丧的。
+#. Debug it now, not later. 尽可能修复当前所有遇到crash以及己知问题。 因为这为后来提供更干净的环境。根据复利的计算，bug的修复越及时，成本越低。最起码不用
+   再手工清理恢复环境。
+#. Get a stack trace.  最重要的信息。
+#. read before typing. 多思考后动手。再没有思路的时候停下来，休息，然后再进行。
+#. Explain your code to someone else.  帮助自己理思路
+#. 发现别人的bug时，确定这个在最新version能够重现。 一般不会在一个老的版本中去修一个问题。
+#. 当给别人提bug时，站在owner的角度想想需要什么东东。
+
+当遇到没有线索bugs时
+#. Make the bug reproducible. 然后统计分析规律(study the numerology of failures)，然后narrow down问题。
+#. Divid and conquer, 采用二分法来narrow down.例如利用vim的undo功能，特别适合这个。 例如加入log, 例如执行到这里了。 并且记录这个过程。 当然git也支持2分法在版本之间查找。 即使是一时不出来原因，做好记录也可以为以后分析做积累。
+
+当然这些原则再加上debugger会加速你的问题。 
+#. 另外添加一些有用的self-checking code。也会加速你的问题解决。 并且能够把你的收集信息可视化，会大大加快你的速度。 这一点vs2015中可以在debug时生成codemap，并且随着step不断更新你的这个图。 把callstack不断可视化。 这个也可以用gdb + graphviz 来自己实现一个。
+
+#. 写好log，是你解决问题时信息的最大来源。当然对于大的工程没有现成的log可用时，可以debugger的trace功能以及profiling来产生规范的log,然后再加上自己的可视化分析。尤其是可视化可以大大地加快你的思索。
+
+
+当代码在一个机器时正常，而在另一台机器不正常。 这个一般是由于环境引起的。 例如查看环境变量，以及依赖的库的版本。一些相关配置文件。 还有的那就是一些随机输入。
+还有那就是共享变量，一些全局变量，无意中被不相关的东东给改掉了。 这是你采用链式逻辑推导不出来的。 这个时候就要用trace 变化来实现了。例如可以定时或者实时从
+/proc/envinron 中获取这些信息。  
+
+#. 要知道什么是对的，每一步中。 排除不确定因素。 特别是一些变量，指针没有初始化。使其处于未定状态。变量作用域的传递问题。 这些都是极其容易出问题的地方。
+
+#. 遇到sometimes问题，最好的办法，详细的log或者直接生成coredump,这样就能清晰的context了。 再加上合适的工具grep,diff,以及可视化工具等等。 
+
+
 调试程序很多方法,解决问题的最重要的方法，那就是不断narrow down,直到减少范围，直到找到root cause, 用log,debug能快速得到callstack等等线索。 因为模式设计就那几种，自己停下来想想，按照概率最大蒙也蒙的出来。
 如果不能，选模块的分割，再了解流程再进一步narrow down. 就像修改那个 CMake 生成 Deploy 选项一样。 最终就只需要 else 语句就搞定了。
 
@@ -71,7 +109,7 @@ signal
 
 所以快速的解决应该最多三步就能搞定。
 
-#. 搭建环境,只需要重新编译一个代码加载symbols,。
+#. 搭建环境,只需要重新编译一个代码加载symbols。
 #. 明确断点信息。 然后利用trace 的功能，来打印各种想要的信息，而不需要再改动代码。对于大的工程build是需要很长的赶时间的
 #. 停到最佳位置。直接用条件断点停到这个位置。是一部分到位。或者直接让gdb来hook signal或者exception是同样的道理。
 
@@ -172,3 +210,9 @@ http://www.hanselman.com/blog/BackToBasicsUsingFusionLogViewerToDebugObscureLoad
 这些都是可以在memoryWindow直接做的。直接修改内存值。
 
 进程数据存放无非两种，放在内存里，或者寄存器里。
+
+
+strings的使用
+=============
+
+在二制文件中查找error信息时会很有用。为什么呢，因为代码中一些字符串信息也都存储在binary中。只是编码不同的而己。
