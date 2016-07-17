@@ -5,6 +5,7 @@ ProfilingAndAnalysis
 
 为什么优化
 ----------
+
 *程序慢* ，首先要看系统的资源使用的如何，如果系统还是比较空，那就要改程序来充分利用系统资源，系统资源已经很紧张，那就优化程序本身
 
 *程序占的资源太多* ，首先要保证速度的情况下，优化程序内部结构。
@@ -29,11 +30,14 @@ ProfilingAndAnalysis
 
 如果对于性能要求不高的，你的solution的选择就会很多，会有各种各样的库可以供你用。但是考虑到性能化那就未必了。那就是为什么相同的功能为什么会有这么多库。并且基本上大的项目，很多东东都是自己实现的，而非用一些语言本身的实现或者库的实现。最明显的例子，就是那些队列，以及reference count之类的东东都基本上都上是自己实现的。根据性能要求，来做不同编译，例如满足精度的情况下，尽可能用硬件浮点计算。或者换用不同库会有质的变化。
 
+优化的前提 是保证正确性，在编译器的一些激进的优化，可能会出错，同时采用近似的计算。
+
 优化的目标
 ==========
 
 #. 算法本身的优化，减少计算量
 #. 指令优化，减少指令条数
+#. 删除掉不必要的负载，看看是不是加载不了不必要的库，以及是不是有更优化的库可以用。
 
 硬件的优化
 ==========
@@ -51,6 +55,8 @@ where is the balance point
 **************************
 
 这个是最难的，对于每一个具体问题，都会有一个很多很好的solution.但是所有问题放在一块，就不见得有了。所以要在保证效率的情况下来提高效用性.
+
+
 
 如何使用timeline
 ----------------
@@ -184,11 +190,6 @@ Usign armeabi-v7a, you will by default get those compiler settings " -march=armv
 Both "softfp" and "hard" (for mfloat-abi) are using hardware floating,  here is a link for your reference:
 https://wiki.debian.org/ArmHardFloatPort/VfpComparison#FPU_selection 
 
------Original Message-----
-From: Xuan Wang [mailto:xuwang@nvidia.com] 
-Sent: Wednesday, July 23, 2014 11:19 PM
-To: An Yan; Jerry Cao
-Subject: jiuyin issue
 
 Please request them to change APP_ABI to armeabi-v7a.
 
@@ -292,6 +293,12 @@ profiling也是分层模块化
 
 http://www.brendangregg.com/linuxperf.html 看其图。
 硬件层，一般都会对应PMUdriver与之对应。 例如CPU cycles, instructions retired, memory stall cycles, level2 cache missing.
+#. 找到bottleneck可以考虑是替换算法，以及数据结构
+#. 减少overhead. 例如函数调用的。
+#. 从callstack看到函数后，要从框架上看，从哪里动手最合理。 而不是简单只要找到最大的函数直接优化本身。有可能这个函数使用最大是由于上一层算法的调用问题。
+   找到真正的原因。从flat模式可以看哪一个函数用的最多。  TOP-Bottom,有利于分解，bottom-top快速看到最大值，并且都是调用的。
+   找到最大值，一般有两种方法: 换一个更好的算法与数据结构，或者重写surrouding program 把这个函数给扔掉。 具取于为什么它这么大。
+
 
 OSkernel层
 ==========
@@ -337,6 +344,36 @@ tuning
 优化的过程就是资源重新分配的过程。也就是对数据结构重构的过程。
 对于大数据结构的实现，都是基于array,list,hash,tree. 以及对应的操作。修改代码也改这些并与之相应的操作，来应对算法输入的scale要求。profiling的理论基础是计算复杂度理论。
 
+#. Collect common subexpressions. 尽可能让计算只做一次，但到底是用时间换空间，还是空间换时间。
+   
+   .. code-block:: cpp
+      sqrt(dx*dx + dy*dy) +((sqrt(dx*dx + dy*dy)>0)....)
+   像这种采用一次的计算,还是多次，取决于指令的速度。 变量赋值意味着大量的move操作，一个是move本身的速度，还有move的位置，不同存储bandwith也是不一样的。
+
+#. Replace expensive operations by cheap ones.  这个计算的机指令周期了。 不同硬件对不指令周期也都是不同。 例如精度要求不高，可以用单精度指令来计算。
+   除法，尽可能用移位来计算来进行近似计算。
+ 
+#. Unroll or elminate loops, 这样可以大大减少overhead. 但是这样加大代码的长度。或者降低loop的次数与层数。
+#. 提高cache 的命中率，通过局部化算法来提高。
+#. 根据操作overhead,要考虑是批处理或者二分级处理。 例如内存分配，一次分配个大大。自己来做二次分配。因为默认内存管理方式可能对你应用程序来说可能并不高效。
+#. 批处理的作法，那是用buffer input and output.所以在printf的时候，在不需要 \n的时候，没有必要习惯性的加。
+#. Handle special sperately. 没必要完全大一统。 特殊的地方，特殊处理。 就像内存分配方法，可以同时支持几种不同分配方法。例如动态array的增长方法，没有都采用一个方法。
+   用参数来指定不同的算法。
+
+#. Precompute result. 算算数据依赖需不需要动态，不需要的话，完成可以提前计算，然后查表。但是特别容易算的，也就没有必要存了，因为读取也是要时间的。
+#. Rewrite in a lower language. 在分层实现的时候可以用。机器生成代码的效率与人优化的代码指令精减度是不一样的。
+
+#. 对于空间效率来说，尽量采用少的数据类型，这也是为什么arm中他们经常使用thunder指令集的一个原因。空间效率也是有代价的，例如要在内存解压。也是要时间的。
+
+
+#. 提前评估各个单元时间效率  这个表在Pactice of Programming Page 193.
+   #. 指令本身
+       不同类型指令，同样是+,-等等不同data type也是不一样的。
+   #. 存取速度
+       array的一维，二维，三维
+       hash,以及数据类型的影响。 
+   #. 各层API本身
+   当然可以读各家的数据手册，得到这些数据。 各个硬件厂商都会提供这些数据的。
 
 对于操作系统的优化
 ==================
@@ -346,6 +383,13 @@ tuning
 #. Kernels change, new devices are added, workloads scale, and new perf issue are encountered
 #. Analyze application perf from kernel/system context
    2-2000x wins, identifing and eliminating unnecessary work.
+
+对优化的策略
+=============
+
+#. 要方便可重复，保存相关元数据，例如版本，配置文件等等。并且要保持往前走，而不是回退。 
+   保存数据，并且利用可视化工具来推动往前走。
+
 
 
 iostat,ionice
