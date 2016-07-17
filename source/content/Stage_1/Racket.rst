@@ -50,3 +50,9 @@ parallel-execute过程。直接实现函数体的并行执行。
 
 racket的发展史。
 https://www.zhihu.com/question/22785256
+
+
+列表的模式匹配
+==============
+
+原来没有明白，scheme中,cd,cdr用途，也就是头:余下的。 就是各种模式匹配的基本模式啊。
