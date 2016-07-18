@@ -4,6 +4,28 @@
 其实移值，其实也很简单，也就相当于你代码已经写好了，只要没有语法错误，能够编译通过。其实就是考试的时候做编程改错题一样。所以完成建立好一个工程就像自己写代码，改语法错误是一样的。
 #. prepare the toolchain,例如gcc,ld这些工具，以及头文件，以极相关的库等。例如就是这个头文件 这些工具的设置主要通过环境变量来改变，主要在configure 脚本之前设置。
 
+可移植性可以大大节省人们的时间与精力，并且解决重复造轮子的问题。
+
+#. 可以减少maintain的工作量。
+#. 不依赖于环境的变化
+
+一般来说，Binaries很难移值，但是source code却很方便。
+
+在写代码的原则:  Don't fix every portability problem by adding sepecial code:
+instead, adapt the software to work within the new constraints.
+
+#. 尽可能用标准的语法，标准库, 并且Program in the mainstream. 这意味着支持多。 尽可能用一些通用的语法，这样大部分人在用相对有保证。
+#. 注意各个平台的基本数据类型的区别，例如int,char,string,float的定义，长度，字节序，对齐方式。
+#. 平台相关的代码尽可能避免条件编译，因为这样容易被忽略。并且比较混乱与难以维护。 最好是隔离开来，一个平台一个目录或者文件，这样一目了然。出了问题也好查。
+#. 数据交换尽可能用text这样会比较通用，或者用protobuf之类来帮你隔离. 字切序，对齐方式的区别。或者固定的字节序。可以使用移位直接与得到数据。
+#. 如果有标准的情况下，你如果你改变标准的API，最好用一个新名字。这样可以保持兼容。
+#. 国际化，注意 Don't assume ASCII and English.
+
+
+一般有两种做法
+==============
+
+
 .. csv-table:: 
 
    compiler ,
