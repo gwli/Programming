@@ -622,3 +622,9 @@ http://baike.baidu.com/view/965131.htm
 http://blog.csharplearners.com/tag/directory-enumeratefiles/
 http://msdn.microsoft.com/en-us/magazine/cc163329.aspx   Running Queries On Multi-Core Processors
 
+
+Element of programming
+=======================
+
+程序的设计就是一种迭代过程，研究有用的问题，发现处理它们的高效的算法，精炼出算法背后的概念，再讲这些概念和算法组织为完满协调的数学理论
+
