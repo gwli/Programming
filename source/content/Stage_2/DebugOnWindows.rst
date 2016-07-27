@@ -40,7 +40,13 @@ You can enable VS diagnostics logging by adding the section
 devenv.exe 本身也是很多的起动参数的，参可以参考 https://msdn.microsoft.com/en-us/library/ms241272.aspx
 例如 visual studio 本身也支持 diff功能 ， :command:`devenv.exe /Diff` 2013有的新功能。
 
+https://code.msdn.microsoft.com/Writing-type-visualizers-2eae77a2
 
+debugging a visutal studio crash
+=================================
+
+关键是快速提练关键字，能够一句话说明，基本上问题就都可以解决了。 能够一句中要害，基本上都能google出相关的结论。
+http://blog.masterdevs.com/debugging-a-visual-studio-crash/
 
 
 
@@ -62,6 +68,26 @@ Then after building, rebuilding or F5-ing pay attention to the Output window (Bu
 VS will display diagnostic information about why it chose to rebuild a given project.
 
 https://blogs.msdn.microsoft.com/kirillosenkov/2014/08/04/how-to-investigate-rebuilding-in-visual-studio-when-nothing-has-changed/
+
+
+遇到问题
+========
+
+就要快速得到其callback之类，知道其依赖关系，知道其事物的因果链，然后按照概率最大，二分法查找。
+当然使用debugger或者各种SDK来查看其信息。
+例如 UE4.10的debugger不能，就说明，其注册的debugger没有注册上去，看看什么时候注册的，这之间发生什么。
+是不是调的时候，没有注册等等。只要能快速找到原因。
+对于VS工程本身，可以Microsoft.Build.Evaluation.Project 来快速读取些xml的内容，而非自己手工的解读。
+另外一个原因，那就是xml的layout order不对造成的。 layout order可以参考
+https://blogs.msdn.microsoft.com/visualstudio/2010/05/14/a-guide-to-vcxproj-and-props-file-structure/
+
+
+对于依赖本身检查
+================
+
+Fushion, 用来检查 C# .dll的依赖。
+www.npdends.com 可以https://msdn.microsoft.com/zh-cn/library/ms235265.aspx 查看Visual C++ 的应用程序依赖。
+
 
 
 

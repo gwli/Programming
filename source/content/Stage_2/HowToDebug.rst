@@ -5,9 +5,15 @@ HowToDebug
 Introduction
 ------------
 
-调试程序方法有很多，但最重要的是自己的思考。再好的工具的工具都不能取代你的思考。 gdb step 也是为了你的思考验证来准备的。通过log来分析，search才及动态的分析工具
-都是为了你的思考。思考要用事实来验证，并且要基于事实，并且事实来突破自己的思维局限。 最难的那就是 mental model bugs. 在你认为最不可能出错的地方出错了。并且这种
-错误一般都是由引低级的错误引起来，例如 语言中逻辑操作码的一些优先级引起的。 当遇到这种问题，要寻求外部的帮助。同时要意识可能是mental model 出错了。
+调试程序方法有很多，但最重要的是自己的思考。再好的工具的工具都不能取代你的思考。 
+gdb step 也是为了你的思考验证来准备的。通过log来分析，search才及动态的分析工具
+都是为了你的思考。思考要用事实来验证，并且要基于事实，并且事实来突破自己的思维局限。 
+最难的那就是 mental model bugs. 在你认为最不可能出错的地方出错了。并且这种错误一般都是由引低级的错误引起来，
+例如 语言中逻辑操作码的一些优先级引起的。 当遇到这种问题，要寻求外部的帮助。同时要意识可能是mental model 出错了。
+
+思考什么呢，因果联系，这是最重要也是最基本的联系。 可以通过自己的常识不断细化这种因果联系。当然也可以即时从google上学习来的。
+例如能够can't break on sigfpe,就要能够快速学习相关知识来进一步的推理，能够判断出这个是硬件的问题。
+https://devtalk.nvidia.com/default/topic/832136/nsight-tegra-visual-studio-edition/cannot-break-on-sigfpe/
 
 原则  debugging is an art that we will practice regularly, The first thing to do is to think hard about the clues it presents. If there aren't good clues, hard 
 thinking is still the best step, to be followed by systematic attemps to narrow down the location of the problem. 
@@ -216,3 +222,17 @@ strings的使用
 =============
 
 在二制文件中查找error信息时会很有用。为什么呢，因为代码中一些字符串信息也都存储在binary中。只是编码不同的而己。
+
+
+如何Goto
+========
+
+在大的工程里，因为一个小错误在重头来过，有点得浪费，怎么办呢，直接修改了，然后直接跳过去，这个是函数调用不能解决的。
+只能goto才能解决的。 goto解决方法，当然用指令，另一种那就是直接修改PC寄存器值。 在Visual Studio中，那就是set Next Instruction的功能。
+http://www.cprogramming.com/tutorial/visual_studio_tips.html。 
+
+
+利用python plugin
+=================
+
+以自定的命令，再加上各种command的hooks来实现 各种测试与与调试信息。 充分利用这些可以大大减少harness的准备的工作。

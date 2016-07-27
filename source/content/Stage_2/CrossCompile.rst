@@ -151,6 +151,16 @@ GNU Toolchain
 
    `M4 <M4Template>`_  ,
 
+
+How to Build FFmpeg for Android
+=================================
+http://www.roman10.net/2011/07/17/how-to-build-ffmpeg-for-android/
+
+#. set standalone toolchain
+#. set NDK,PLATFORM,PREBUILD
+
+如果没有源码的情况下，可能在二制层直接进行转换，可以直接用objcopy来进行转换。
+http://www.thegeekstuff.com/2013/01/objcopy-examples/
 See also
 ========
 

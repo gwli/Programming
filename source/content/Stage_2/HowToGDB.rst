@@ -21,6 +21,8 @@ debug都是基于debugsymbol中，这个symbol会存储debug与source code line 
    gdb /usr/lib/debug/root/vmlinux-2.6.32-25-generic
    (gdb) list schedule
    (gdb) set substitute-path /build/buildd/linux-2.6.32 /home/xxx/src/linux-26.3.32
+
+同时可以用 objdump -Wl <lib> 来查看其path是否正确，特别//,\\ 这些分界符还有的那就是相对路径。
       
 
 
@@ -178,6 +180,7 @@ ptrace是通过发送SIGSTOP让进程挂起的,ptrace也是通过系统信号来
 但是ptrace也有很多的缺点，例如一个进程只能被ptrace attach一次。将来会用utrace来取代。
 http://www.ibm.com/developerworks/cn/linux/l-cn-utrace/index.html
 
+当然主要是也sigtrap信号的实现，不管CPU的硬件实现，还是软件实现。原理都是一样的，因为在于速度:http://stackoverflow.com/questions/3475262/what-causes-a-sigtrap-in-a-debug-session
 
 并且虚拟机也是通过ptrace,来实现的，现在可以用utrace来实现。
 
