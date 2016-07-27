@@ -2,6 +2,7 @@ Introduction
 =============
 
 符号表在编译的重中之中。符号表构造的好与坏，直接有关系着优化与调试。
+这里符号表不是debug symbol,这里的符号表，起着重定位的功能。
 #. `GCC 符号表 调试信息 <http://wenku.baidu.com/view/333dc0553c1ec5da50e2703e.html>`_ 
 #. `symbol table course <http://wenku.baidu.com/view/0ce247d7b9f3f90f76c61be0>`_   目前的组成，符号地址，类型与范围，符号,这些记录表在符号表里，而与源码中行号，以及引用的行号。这些都是记录在debug_info 中的。
 
@@ -22,6 +23,24 @@ Introduction
 操作采用的第一次使用的时候加载。并且按照一个搜索顺序来查找。这个寻找顺序很很重要，很影响效率。所以代码运行不起来，要么自身的逻辑不对，要么就是输入条件不对。要么就是库找不到。或者格式不一致。
 `linux下动态链接实现原理 <http://www.cnblogs.com/catch/p/3857964.html>`_ ， 这个技巧的原理在于进行函数调用时要将返回地址压到栈上，此时通过读这个栈上的值就可以获得下一条指令的地址了，
 
+
+动态加载的核心就在于符号表，动态链接，不管是编译时，还是运行时的都是基于符号表来进行信息的传递。
+
+当然在解析符号表策略，什么时候解析，如何寻找定义，寻不到怎么办。特别是最寻不到怎么办。
+一般情况下当然是直接报错，但是有一些情况下，你只是用了第三方的一个库，某几个函数，而这个库却因为几个不相关的符号定义找不到，
+而无法编译。 这个时候怎么办。
+#. 编译时，可以用 LOCAL_ALLOW_UNDEFINED_SYMBOLS 来进行。 或实现fake 定义，编译的时用头文件的空声明来解决，在链接时，使用一个空的函数体的库来骗过linker. 当然也可以用编译选项 Reported Undefined Symbols to "No".
+#. 运行时。 dll_open, 采用RTLD_LAZY 来进行控制。
+
+
 Thinking
 ========
+
+如何查看 .so的symbols
+----------------------
+
+.. code-block:: bash
+   objdump --dwarf=decodeedline yourlib.so
+   nm -laC yourLib.so
+
 

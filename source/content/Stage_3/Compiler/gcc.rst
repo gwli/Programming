@@ -2,6 +2,18 @@
 GCC
 ===
 
+编译过程，主要分为两大块，把C语言翻译成ASM代码，然后ASM编译成机器码。
+
+GCC优化集中C到—>ASM这一段。
+
+同时c++也是这一层。 而LLVM把每一层通用化，就可以层层优化。GCC在语言之前用M4
+对c代码，进行一次优化定制。解决写重复代码的机制。 
+
+所以这个翻译的过程，基本都是这样的过程，这一本身的优化，以及往下一层的翻译功能。
+同时还要有一个linker的机制，如何一个个的小文件单元合成一个大的小文件单元。
+
+https://en.wikibooks.org/wiki/Category:GNU_C_Compiler_Internals
+
 目标
 ====
 
@@ -29,6 +41,7 @@ GCC
            assembly   ->  OBJFile [ label = "gcc -c"];
            linking -> exeFile ;
    }
+
 
 
 优化实例
@@ -83,3 +96,8 @@ https://gcc.gnu.org/onlinedocs/gcc-4.3.4/gcc/Code-Gen-Options.html
 
 不同的系统中 char的定义是不一样的。分为signed 或者unsigned.
 
+
+-inline
+=======
+
+在一些版本上格式的有一些要求，不然会报错。http://10.19.226.116:8800/trac/ticket/6132#no6

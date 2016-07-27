@@ -1,6 +1,9 @@
 Introduction 
 =============
 
+libc 就是对操作系统API做了一层全面系统的封装。相当于更低层次的DSL。同时又添加了一些自己功能。例如对于打印的功能，系统API提供了中断输入。不管是格式码，还是内容本身都是祼码输入，但是libc库提供一些控制格式的控制输出。当然它没有提供对颜色的配置。 就像你用bash echo可以输入控制字符来实现一样。 其实最终都是那段01字节流的不同编译。 数据传来传去，都是01在传。各种层式的不同就在于01的章法不同。不同的层面实现一级级的来实现字词句的解析。
+
+http://www.gnu.org/software/libc/manual/html_node/
 libc 都实现哪些功能，在链接的时候是否可以对其裁减,看完C库，什么脚本都是浮云，我们常常用到脚本的功能，对于文件目录日期操作，在C库里都有。对于基本的字符串的处理，C库都有。所以用C来实现各种脚本语言，实现各种功能都是很简单的，很多大部分只需要做一个接口转接。因为在C库里平方根都直接有hyot，以及gamma的统计函数都是直接有的。太强大了。同时也C语言也提供了对变长参数的支持。如果只需要一个基本系统一个C库已经足够了。
 其实libc把内核给封装了一遍，另外内核也在演化生成有utilities.而libc那功能却并没有增加，这也就是为什么随着内核的发展，还会更多的库，来提供更多的更层面的抽象。什么时候抽象到就haskell
 这样的水平就才算是达到水平。
@@ -30,6 +33,20 @@ index,知道了这个index,
    
    The macro __BEGIN_DECLS and __END_DECLS are defined at cdefs.h file.
    
+profiling on libc
+==================
+
+libc的内存分配是由现成的probes可以用来profiling的中具体可以查看。
+http://www.gnu.org/software/libc/manual/html_node/
+
+libc 是采用 sbrk系统调用来申请内存的。
+
+所谓heap与stack只是操作系统对内存区域功能划分而己。每一个大应用程序都会有自己的划分。
+http://www.gnu.org/software/libc/manual/html_node/
+
+对于各种配置文件的操作有NSS module来提供。http://www.gnu.org/software/libc/manual/html_node/
+
+
 
 data type
 =========
@@ -150,3 +167,80 @@ convert-__date__-to-unsigned-int
 
 __DATE__,__TIME__ 这些数据结构不像脚本语言是不能直接当字符串或者整数来处理的，需要自己转换一下。
 http://www.thecodingforums.com/threads/convert-__date__-to-unsigned-int.316565/
+
+libc支持 backtrace的查询的
+===========================
+
+http://www.gnu.org/software/libc/manual/html_node/Backtraces.html#Backtraces，所以在写log时，以及处理异常的时候把这个用上。
+
+signal.h
+==========
+
+实现原理，采用软中断，按照自己的算法修改PC值来实现的。然后调用pthread_kill来实现。
+
+对于进行的精确操作来可以用signal来实现，这是每一个应用程序都预留的接口，除了我们经常用的kill -9 之外还有很多可以用，当然默认系统不是允许KILL and Stop进行操作的。
+
+一般signal一部分是与GPR,指令指针（NIP),机器状态寄存器(MSR),Trap,数据地址寄存器,DAR等等操作。
+raise:
+0x4069BA54  push         {r4, lr} 
+0x4069BA56  mov          r4, r0 
+0x4069BA58  blx          0x40693764 <pthread_self@plt> 
+0x4069BA5C  mov          r1, r4 
+0x4069BA5E  blx          0x4069365c <pthread_kill@plt> 
+0x4069BA62  mov          r4, r0 
+0x4069BA64  cbz          r0, 0x4069ba72 <raise+30> 
+0x4069BA66  blx          0x40692b58 <__errno@plt> 
+0x4069BA6A  str          r4, [r0, #0] 
+0x4069BA6C  mov.w        r0, #4294967295 
+0x4069BA70  pop          {r4, pc} 
+0x4069BA72  pop          {r4, pc} 
+
+
+pthread_create@plt:
+0x40693644  add          r12, pc, #0, 12 
+0x40693648  add          r12, r12, #401408	; 0x62000 
+0x4069364C  ldr          pc, [r12, #892]!	; 0x37c 
+pthread_gettid_np@plt:
+0x40693650  add          r12, pc, #0, 12 
+0x40693654  add          r12, r12, #401408	; 0x62000 
+0x40693658  ldr          pc, [r12, #884]!	; 0x374 
+pthread_kill@plt:
+0x4069365C  add          r12, pc, #0, 12 
+0x40693660  add          r12, r12, #401408	; 0x62000 
+0x40693664  ldr          pc, [r12, #876]!	; 0x36c 
+pthread_setname_np@plt:
+0x40693668  add          r12, pc, #0, 12 
+0x4069366C  add          r12, r12, #401408	; 0x62000 
+0x40693670  ldr          pc, [r12, #868]!	; 0x364 
+__timer_delete@plt:
+0x40693674  add          r12, pc, #0, 12 
+0x40693678  add          r12, r12, #401408	; 0x62000 
+0x4069367C  ldr          pc, [r12, #860]!	; 0x35c 
+__timer_gettime@plt:
+
+pthread_kill:
+0x406BF304  push         {r3, r4, r5, r6, r7, lr} 
+0x406BF306  mov          r5, r0 
+0x406BF308  mov          r7, r1 
+0x406BF30A  blx          0x40692b58 <__errno@plt> 
+0x406BF30E  ldr          r6, [r0, #0] 
+0x406BF310  mov          r4, r0 
+0x406BF312  mov          r0, r5 
+0x406BF314  bl           0x406bf080 <_Z23__pthread_internal_findl> 
+0x406BF318  mov          r5, r0 
+0x406BF31A  cbz          r0, 0x406bf330 <pthread_kill+44> 
+0x406BF31C  blx          0x40693068 <getpid@plt> 
+0x406BF320  ldr          r1, [r5, #8] 
+0x406BF322  mov          r2, r7 
+0x406BF324  blx          0x40694538 <tgkill@plt> 
+0x406BF328  adds         r0, #1 
+0x406BF32A  bne.n        0x406bf334 <pthread_kill+48> 
+0x406BF32C  ldr          r0, [r4, #0] 
+0x406BF32E  b.n          0x406bf336 <pthread_kill+50> 
+0x406BF330  movs         r0, #3 
+0x406BF332  b.n          0x406bf336 <pthread_kill+50> 
+0x406BF334  movs         r0, #0 
+0x406BF336  str          r6, [r4, #0] 
+0x406BF338  pop          {r3, r4, r5, r6, r7, pc} 
+0x406BF33A  movs         r0, r0 
+

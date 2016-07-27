@@ -30,11 +30,42 @@ ABI的发展，也就是ELF的发展，也就是计算机发展史，同时也�
 
 .got 用于数据变量的重定向，而.plt用于函数调用的，好像也不完全是。 就是通过这两个表来实现的调用依赖，并且在链接的时候也是在不断更新这两个表。
 https://www.technovelty.org/linux/plt-and-got-the-key-to-code-sharing-and-dynamic-libraries.html
+这里采用两级表，首先，GOT里记录一个起点，例如libc.so 的起点在哪里， .plt记载了当前这个函数或者变量在偏移量，libc.so的偏移量为20地方。
+所以在plt表时经看到 最后相当于拿到起点值，再加上移值量，基本上三条指令。 第一条从r12得到全局表，第二条得到起点值，第三条得到需要的值。正好pc值，这也就跳转对应的代码了。而下面这表就是当前.o文件plt. 根据这个表找到libc.so 中 raise:的位置。
+
+.. code-block:: asm
+   pthread_create@plt:
+   0x40693644  add          r12, pc, #0, 12 
+   0x40693648  add          r12, r12, #401408	; 0x62000 
+   0x4069364C  ldr          pc, [r12, #892]!	; 0x37c 
+   pthread_gettid_np@plt:
+   0x40693650  add          r12, pc, #0, 12 
+   0x40693654  add          r12, r12, #401408	; 0x62000 
+   0x40693658  ldr          pc, [r12, #884]!	; 0x374 
+   pthread_kill@plt:
+   0x4069365C  add          r12, pc, #0, 12 
+   0x40693660  add          r12, r12, #401408	; 0x62000 
+   0x40693664  ldr          pc, [r12, #876]!	; 0x36c 
+   pthread_setname_np@plt:
+   0x40693668  add          r12, pc, #0, 12 
+   0x4069366C  add          r12, r12, #401408	; 0x62000 
+   0x40693670  ldr          pc, [r12, #868]!	; 0x364 
+   __timer_delete@plt:
+   0x40693674  add          r12, pc, #0, 12 
+   0x40693678  add          r12, r12, #401408	; 0x62000 
+   0x4069367C  ldr          pc, [r12, #860]!	; 0x35c 
+   __timer_gettime@plt:
 
 .got 主要用于模块间的符号调用，表格中放的是数据全局符号的地址，该表项是在动态库被加载后由动态加载器进行初始化，动态库内所有对数据全局符号的访问都到该表中取出相应的地址。即可做到与具体地址了，而该作为动态库的一部分，访问起来与访问模块内的数据是一样的。 所以每一个模块对外部的需求都放在got中，这样就可以实现了自包含了，你给我一个正确的地址就行了。
 代码的链接过程，包括代码本身的代码的共享与数据的共享机制，并且还有还要冲突的问题。
 
 延迟加载的实现，就用了GOT.PLT,这样只需要在第一次使用外部函数的进行解析，而需要事先解析全部的函数地址。
+
+
+.rel.dyn 主要是为了全局变量，.rel.plt 主要是为函数的跳转。
+http://stackoverflow.com/questions/11676472/what-is-the-difference-between-got-and-got-plt-section
+LD_BIND_NOW 环境变量可以控制， 在应用程序加载的时候就解析，而非等到使用时再解析。
+http://refspecs.linuxfoundation.org/ELF/zSeries/lzsabi0_zSeries/x2251.html
 
 .. code-block::
    fun@plt:
