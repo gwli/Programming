@@ -6,6 +6,8 @@ Introduction
 ------------
 
 调试程序方法有很多，但最重要的是自己的思考。再好的工具的工具都不能取代你的思考。 
+调试的速度与精确度 思考 + 经验+实践+良好的系统知识。
+
 gdb step 也是为了你的思考验证来准备的。通过log来分析，search才及动态的分析工具
 都是为了你的思考。思考要用事实来验证，并且要基于事实，并且事实来突破自己的思维局限。 
 最难的那就是 mental model bugs. 在你认为最不可能出错的地方出错了。并且这种错误一般都是由引低级的错误引起来，
@@ -236,3 +238,7 @@ http://www.cprogramming.com/tutorial/visual_studio_tips.html。
 =================
 
 以自定的命令，再加上各种command的hooks来实现 各种测试与与调试信息。 充分利用这些可以大大减少harness的准备的工作。
+
+
+对于大的并行程序，有专门的profiling与debugging工具，例如
+http://www.roguewave.com/products-services/totalview

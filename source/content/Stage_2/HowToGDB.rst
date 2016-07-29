@@ -739,6 +739,8 @@ request 是具体的操作。
 通过data 域传递，由addr 指明地址，或可全用PTRACE_SINGLESTEP,PTRACE_KILL,PTRACE_SYSCALL各
 PTRACE_CONT等操作来控制被追踪进程的运行，最后通过 PTRACE_DETACH与被追踪进程脱离关系。
 
+但是当多线程的时候，有可能PTRACE_CONT有可能会失败。http://stackoverflow.com/questions/16360366/ptraceptrace-cont-cannot-resume-just-attached-processes
+
 
 
 
@@ -793,3 +795,5 @@ http://stackoverflow.com/questions/2604715/add-functions-in-gdb-at-runtime
 
 在crash直接调用gdb.
 http://stackoverflow.com/questions/22509088/is-it-possible-to-attach-gdb-to-a-crashed-process-a-k-a-just-in-time-debuggin
+
+尽可能不要在头文件中下断点，这样可能造成n多断点，在n多地方。 是由于断点寻找机制造成。
