@@ -43,4 +43,11 @@ Thinking
    objdump --dwarf=decodeedline yourlib.so
    nm -laC yourLib.so
 
+Stack frame unwinding on Arm
+============================
 
+在ARM ABI 中没有规定 frame pointer,并且也没有 .eh_frame section.但是有 .ARM.extab 与.ARM.exidx两个
+可以借用libunwind来进行解析。
+https://wiki.linaro.org/KenWerner/Sandbox/libunwind?action=AttachFile&do=get&target=libunwind-LDS.pdf
+
+callstack的解析主要是看ABI的规定，一般编译的时候会用上-funwind-tables 选项。

@@ -1,6 +1,7 @@
 什么是ABI
 =========
 
+
 ABI 的发展史也是程序发展史，从最初的打点卡，一步步地解决执行的效率的问题，另一个那就是复用的问题，还有编程复杂度的问题。
 
 符号修饰标准，变量内存布局，函数调用方式等这些跟可执行代码二进制兼容性样相关的内容称为 Application Binary Interface.
@@ -328,5 +329,47 @@ ABI 是什么
 
 函数调用约定，以及寄存器分配策略。这个是ABI要解决有事情。
 
+所以做优化时候要看ABI，而不是瞎想。
 
+例如http://www.x86-64.org/documentation_folder/abi-0.99.pdf 主要内容
+#. Machine Interface
+#. Function Call Sequence
+#. Operating System Interface
+#. Process Initialization
+#. Coding Examples
+#. Object Files 
+    - ELF Header
+    - Sections
+    - Symbol Table
+    - Relocation
+#. Program Loading and Dynamic Linking
+#. Libraries.
+   - C lib
+   - Unwind lib
+#. Execution Environment
+#. Conventions.
+
+所以变量声明也是对分配寄存器有影响。
+
+为什么可以omit-frame-pointer 
+============================
+
+http://m.blog.csdn.net/article/details?id=49154509，因为只要参数固定，栈的大小是固定的，在编译的时候可以直接计算出
+栈的大小的，直接加减就可以搞定 你看到
+
+.. code-block:: asm
+   subq $8 $rsp
+   addq $8 $rsp
+就是直接计算好了，而不需要在额外 pushl,popl指令了，毕竟差异还是很大的。
+
+参数传递
+========
+
+在寄存器少时，是通过内存的入栈来进行参数传递，而当寄存器数量多时候，直接使用寄存器来进行参数传递，一般来说x86-64是6通用寄存器。
+当多于6个时，还是用入栈的传递。 所以用函数参数尽好不要超过通用寄存器的数量。
+
+
+
+具体还得查看硬件的手册，使其达到满速运行。
+http://infocenter.arm.com/help/index.jsp?topic=/com.arm.doc.ddi0488d/BIICDBDF.html
 
