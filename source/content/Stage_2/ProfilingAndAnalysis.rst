@@ -325,6 +325,14 @@ https://www.ibm.com/developerworks/cn/linux/l-systemtap/
 
 https://wiki.ubuntu.com/Kernel/Systemtap
 
+要想底层的支持
+#. kernel本身支持， 查看 /proc/config.gz 查看其编译选项是否打开，如果没有打开，是不是可以通过补丁来解决，或换一个更新的kernel.
+#. 对应的debug info是否有，其原理也是添加断点hook来实现的。
+#. module的build 环境要有， probe的实现原理，也是当写一个.ko 插入内核，只不过内核补丁自己提供一些函数，例如systemtap，你的probe可以调用这些内部函数。
+   例如打印pid,tid,callstack等等。例如systemtap会提供一个DSL，然后JIT编译直接使用。断点的插入在register module中实现，所以当你insmod时，就插入了。
+#. 对应kernel的工具的perf 工具，例如linux-tools-$(uname -r) . 没有的话，就得自己下载 kernel编译的环境，工具本身的source code来进行编译了。
+#. DUT本身的source code, 方便hack使用。
+#. 对应平台的 debugger 方便出现问题的时候，快速troubleshot.
 software
 ========
 
