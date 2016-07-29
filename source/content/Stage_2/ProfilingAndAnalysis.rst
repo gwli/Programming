@@ -317,6 +317,14 @@ tracepint
 #. IO event
 #. resource allocation
 
+可以使用systemtrap生成kprobe hooks,只是在需要检查的指令的第一个字节中插入一个断点指令，当调用该指令时，将执行对探针的特定处理函数，执行完成之后接着执行
+原始的指令（从断点开始）。就是一个中断的过程。
+http://blog.csdn.net/wudongxu/article/details/6345481
+先用脚本生成C语言，然后再编译插入 ko.
+https://www.ibm.com/developerworks/cn/linux/l-systemtap/
+
+https://wiki.ubuntu.com/Kernel/Systemtap
+
 software
 ========
 
