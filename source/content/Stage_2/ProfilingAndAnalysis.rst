@@ -95,6 +95,28 @@ CUDA Analaysis 对于每一类的指令分析的用途了
 
 follow the CUDA_Best_Practice.pdf and CUDA_Profiling_Guide.pdf这两个就够了。
 
+看了那这么多，至少从前下一层来看。所谓的优化，也是资源的使用率是不是符合预期。 而基本现在系统都是分层模块的设计。
+由于计算机的透明性，每一层都是系统资源的一种抽象，要想知道当前使用的是否合理，至少下一层去看了。
+这也就是为各级probe了。  微内核模式的，每一级都可以是指令集，而非微内核的模式。一般是函数为边界。
+想到函数更小一级，那就是利用nvtx之类东东，或者到指令集的，直接用模拟器或者PMU硬件来得到。
+这也是各种profiler工具存在的原因。
+
+当然为了减少overhead,人们是想进各种办法，使用独立的硬件。 独立的线程。 减少context切换，例如内核态与用户态的切换。
+当然使用JIT动态插入断点的办法来提高灵活性。
+
+要想底层的支持
+#. kernel本身支持， 查看 /proc/config.gz 查看其编译选项是否打开，如果没有打开，是不是可以通过补丁来解决，或换一个更新的kernel.
+#. 对应的debug info是否有，其原理也是添加断点hook来实现的。
+#. module的build 环境要有， probe的实现原理，也是当写一个.ko 插入内核，只不过内核补丁自己提供一些函数，例如systemtap，你的probe可以调用这些内部函数。
+   例如打印pid,tid,callstack等等。例如systemtap会提供一个DSL，然后JIT编译直接使用。断点的插入在register module中实现，所以当你insmod时，就插入了。
+#. 对应kernel的工具的perf 工具，例如linux-tools-$(uname -r) . 没有的话，就得自己下载 kernel编译的环境，工具本身的source code来进行编译了。
+#. DUT本身的source code, 方便hack使用。
+#. 对应平台的 debugger 方便出现问题的时候，快速troubleshot.
+#. API层的probe,就是通过inject实现，实际上在动态链接的inject lib api来实现。利用LD_PRELOAD来实现。
+
+如何手工uprobe, 能有现成的binary,版本都能对应上直接用，没有的话，就要从源码来了，先看内核 +硬件支持不。然后再按照流程来进行就可以了。可以独立编译或者在
+源码树中进行编译。
+
 
 如果各个性定制
 --------------
@@ -325,14 +347,6 @@ https://www.ibm.com/developerworks/cn/linux/l-systemtap/
 
 https://wiki.ubuntu.com/Kernel/Systemtap
 
-要想底层的支持
-#. kernel本身支持， 查看 /proc/config.gz 查看其编译选项是否打开，如果没有打开，是不是可以通过补丁来解决，或换一个更新的kernel.
-#. 对应的debug info是否有，其原理也是添加断点hook来实现的。
-#. module的build 环境要有， probe的实现原理，也是当写一个.ko 插入内核，只不过内核补丁自己提供一些函数，例如systemtap，你的probe可以调用这些内部函数。
-   例如打印pid,tid,callstack等等。例如systemtap会提供一个DSL，然后JIT编译直接使用。断点的插入在register module中实现，所以当你insmod时，就插入了。
-#. 对应kernel的工具的perf 工具，例如linux-tools-$(uname -r) . 没有的话，就得自己下载 kernel编译的环境，工具本身的source code来进行编译了。
-#. DUT本身的source code, 方便hack使用。
-#. 对应平台的 debugger 方便出现问题的时候，快速troubleshot.
 software
 ========
 
