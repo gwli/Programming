@@ -32,6 +32,12 @@ thinking is still the best step, to be followed by systematic attemps to narrow 
 #. 发现别人的bug时，确定这个在最新version能够重现。 一般不会在一个老的版本中去修一个问题。
 #. 当给别人提bug时，站在owner的角度想想需要什么东东。
 
+同时快速修复一个别人的bug时，也是根据这个原则来的。 
+#. 看一个修改的时候历史。
+#. 查找一个变量的引用到的地方。
+#. 查看一下函数引用到地方。 就差不多，可以确定如何修改了。所以修一个bug,没有重构那么难。
+#. 看了解一下整体结构，看看要不要重构。 整个过程不要超过两个小时。
+
 当遇到没有线索bugs时
 #. Make the bug reproducible. 然后统计分析规律(study the numerology of failures)，然后narrow down问题。
 #. Divid and conquer, 采用二分法来narrow down.例如利用vim的undo功能，特别适合这个。 例如加入log, 例如执行到这里了。 并且记录这个过程。 当然git也支持2分法在版本之间查找。 即使是一时不出来原因，做好记录也可以为以后分析做积累。
@@ -40,7 +46,6 @@ thinking is still the best step, to be followed by systematic attemps to narrow 
 #. 另外添加一些有用的self-checking code。也会加速你的问题解决。 并且能够把你的收集信息可视化，会大大加快你的速度。 这一点vs2015中可以在debug时生成codemap，并且随着step不断更新你的这个图。 把callstack不断可视化。 这个也可以用gdb + graphviz 来自己实现一个。
 
 #. 写好log，是你解决问题时信息的最大来源。当然对于大的工程没有现成的log可用时，可以debugger的trace功能以及profiling来产生规范的log,然后再加上自己的可视化分析。尤其是可视化可以大大地加快你的思索。
-
 
 当代码在一个机器时正常，而在另一台机器不正常。 这个一般是由于环境引起的。 例如查看环境变量，以及依赖的库的版本。一些相关配置文件。 还有的那就是一些随机输入。
 还有那就是共享变量，一些全局变量，无意中被不相关的东东给改掉了。 这是你采用链式逻辑推导不出来的。 这个时候就要用trace 变化来实现了。例如可以定时或者实时从
@@ -55,9 +60,6 @@ thinking is still the best step, to be followed by systematic attemps to narrow 
 如果不能，选模块的分割，再了解流程再进一步narrow down. 就像修改那个 CMake 生成 Deploy 选项一样。 最终就只需要 else 语句就搞定了。
 
 一个难点，那就是搭建调试环境，只要方便。最好方法那就是能在出错地方停下来(例如像pdb.set_trace()这样的功能最方便)，即使不能可以打log.
-
-
-
 
 如果能到源代码
 ==============
