@@ -1,6 +1,32 @@
 LLVM的流程
 ==========
 
+IR这是LLVM核心， LLVM为了保证与现有编译系统，可以采用前端工具例如C/C++/python变成IR. 然后经过llvm自己的优化。
+然后还可以自己的bc 字节码，然后用bc生成汇编，然后再gcc来生成binary. 但是现在已经有CLang来解决GCC的toolchain了。
+IR能够实现自包含，从指令，到函数，再到代码块。并且把整编译chain 模块化，抽象化。 并且变成类库，方便每个人可以
+根据自身的需求进行定制。 
+
+opt 就是一个optimizer manager, 你可以指定哪些pass要用，并且什么时候用。同时可以做全时优化。所谓的优化就是把根据
+资源的特征来进行正确的分配。但是并不是所有的资源信息都是在编译时就能知道的。有些信息是链接时才能获取的。
+有些信息只有在安装时才能获取的。有些信息是根据只有在运行时，才能获取的。
+
+LLVM怎么做到这一点呢，LLVM把自己.o格式代码写在ELF中，当程序运行时，退到LLVM代码自动进行编译优化。同时可以也可以能够把
+需要用到优化器抽取到应用程序中，让应用程序自身能够不断的优化。
+
+
+LLVM 能够实现自动profiling优化，进一个目标那就是代码的自动演化。自我演化的关键是我自完备。
+http://www.aosabook.org/en/llvm.html
+代码生成的模块做的还不是很好，还在发展。
+
+
+#. Frontend 语法检查
+#. Optimizer
+#. Backend
+   - instruction selection,
+   - register allocation
+   - instruction scheduling. 
+   tbl的用途，就是用来生成目标代码的。
+
 .. graphviz::
 
    digraph llvm {
@@ -39,6 +65,8 @@ LLVM来提供。 而传统编译器只是起到了翻译的过程。没并且起
 #. `SSA Static_single_assignment_form <http://en.wikipedia.org/wiki/Static_single_assignment_form>`_ ,在`这里 <http://www.lingcc.com/2011/08/13/11685/#more-11685>`_  讲解，主要是对于变量的赋值只有一个次。这个类似于GTL中做法对于文件只写一次，然后就是读的工作量。对于以后每一次读进行版本控制。对于分支定义新的变量。这样变量的值改变就有了版本控制的作用。这样就可以精确的进行数据流分析。以及各种依赖分析。并且很容易跟踪版本的改变。这样就大大简化了后面的优化算法。因为所有的东西都具有了GUID,也就是全局唯一性。很方便跟踪定位。
 #. `llvm大事记 <http://www.lingcc.com/2010/04/30/10822/>`_ 通过这篇文章看到，目前llvm性能还是不很好，但是架构清晰明了。前途很好。同时也可以看看编译技术的最前沿的论文。
 #. `LLVM 与ANTLR <http://www.antlr.org/wiki/display/ANTLR3/LLVM>`_ 一般编译器分两部分，前端与后端，前端进行进行语法分析，建立符号表与中间代码。后端来根据这些信息进行优化，例如画出流程调用图。在写解释新的语言时一个偷懒的做法，前端把处理成已知语言的中间代码，然后利用现有的编译器进行后端的处理。例如cfront是把c++变成c的中间代码。然后利用c的后端来进行操作的。
+
+
 
 
 LLDB
@@ -136,3 +164,30 @@ http://clang.llvm.org/docs/UsersManual.html#profile-guided-optimization
 
 debugging Options
 =================
+
+JIT
+===
+
+每一种JIT都会对应一种计算对象模型，如果你的计算模型与之相差很远，自然优化的效果也不会好。
+
+GCC很难当做lib来复用。
+
+
+优化的过程
+==========
+
+#.  Look for a pattern to be transformed.
+#.  Verify that the transformation is safe/correct for the matched instance.
+#.  Do the transformation, updating the code.
+
+
+LLVM 代码单位
+==============
+
+#. 指令集
+#. 函数集
+#. BB 块集
+
+优化时候，也是以基本单位来进行的。 采用是match/replace的方式，相当于原址替换。
+
+所以优化是可以叠加的，但顺序不同，可能效果会不同。
