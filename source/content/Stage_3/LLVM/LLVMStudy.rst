@@ -9,6 +9,15 @@ LLVM的流程
     edge [fontsize=8,arrowhead="empty"]
     rankdir=LR;
     XXX_Language-> LLVM_IR->TargetLanguange;
+    LLVM [
+   	label="{LLVM PASS  | \
+   	        ModulePass | \
+   			CallGraphSCCPass | \
+   			FunctionPass | \
+   			LoopPass | \
+   			RegionPass | \
+   			BasicBlockPass}" 
+    ]
    }
    
 

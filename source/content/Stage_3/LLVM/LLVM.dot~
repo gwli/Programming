@@ -1,7 +1,0 @@
-digraph llvm {
- nodesep=0.8;
- node [fontname="bitStream Vera Sans",fontsize=8,shape="record"]
- edge [fontsize=8,arrowhead="empty"]
- rankdir=LR;
- XXX_Language-> LLVM_IR->TargetLanguange;
-}
