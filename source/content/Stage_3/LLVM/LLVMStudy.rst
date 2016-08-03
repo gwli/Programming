@@ -118,14 +118,12 @@ Thinking
      filesize -> { duplicate function, sharelibcall,abandant call};
      parrelel -> { data depandant path}
      instruments -> execution unit,minimus instrument number, max occupancy, but if the issue is not enough, the occupancy is hard to acheived. 
-
      speed -> {branch,divergence,HowToUseInstrumentsLatency};
      resourceAssignment-> {register,Various_memory};
      accucuracy -> {howtoKeep Mapping debugg line info};
     
    }
 优化原则会限制代码规则的。出现异常的时候，一般都是代码使用规则是随意的与优化规则冲突了。gcc-strict-aliasing
--- Main.GangweiLi - 23 Jun 2014
 
 
 用gcc来进行测试
@@ -191,3 +189,143 @@ LLVM 代码单位
 优化时候，也是以基本单位来进行的。 采用是match/replace的方式，相当于原址替换。
 
 所以优化是可以叠加的，但顺序不同，可能效果会不同。
+
+
+clang
+=====
+支持gcc 的流程, -E,-c 等等。 同时还有 -emit-ast,-emit-llvm
+
+clang 同gcc 一样，是一个前端，同时自己实现了一个AST把C代码生成 LLVM IR。
+
+同时可以可以通过命令行参数 -fxxsanitize-xx=xxxx,xxxx来控制优化。并且还有blacklist的机制。
+
+
+如何做优化
+----------
+
+#.  通过gcc一样的参数控制
+#.  直接生中间过程，然后管道传输了给opt了。
+    lvm-as < /dev/null | opt -O3 -disable-output -debug-pass=Arguments
+    http://stackoverflow.com/questions/15548023/clang-optimization-levels
+
+    http://clang.llvm.org/docs/UsersManual.html#profile-guided-optimization
+
+
+如何使用Polly在clang/opt中
+==========================
+
+http://polly.llvm.org/docs/UsingPollyWithClang.html
+在 clang 中只在O3中支持。
+
+.. code-block:: bash
+   
+   clang -O3 -mllvm -polly file.c
+
+把编译的过程，可以通过 -mllvm把参数传递给 llvm. 
+
+clang 不需要invoke opt, clang与opt采用相同的LLVM infrastructure, opt只是优化器的wrapper.
+LLVM设计本身就是模块化的，opt只是一个exe的wrapper.
+
+例如手工生成callgraph
+=====================
+
+https://github.com/gwli/CompilingDebugingProfiling/tree/master/experiments/clang_callgraph
+   
+
+JIT
+===
+
+想在自己的应用程序中使用JIT也可以直接使用了LLVM来实现。
+https://pauladamsmith.com/blog/2015/01/how-to-get-started-with-llvm-c-api.html
+
+主要过程就是创建一个Module,然后添加变量函数。再创建编译环境。
+Module->Function->Block->Instruction. 
+当然通过API是可以看到IR的所有信息的。
+
+当然自己在实现代码的时候，可以写一个AST来生成IR，也可以直接生成IR来做算法分析。
+
+例如python来说，从4.0之后，llvm有自己python api wraper.
+或者使用llvmlite，llvmpy,但是版本依赖很严重，要严格版本对应。
+http://llvmlite.pydata.org/en/latest/install/index.html
+https://llvmlite.readthedocs.io/en/latest/
+
+自己手工实现pass
+================
+
+http://llvm.org/docs/WritingAnLLVMPass.html#multithreaded-llvm
+具体每个数据结构，就可以看例子。
+
+IR结构
+======
+
+http://llvm.org/docs/LangRef.html#introduction 语言设计本身要具有完备性，它会结合高级语言，汇编语言以及ABI，ELF标准来定义。
+
+把汇编label提升到函数。 
+
+#. comdat 其实就是直接操作ELF,来分配 data-section.
+
+特别之处，那就IR还有各种attribute,parameter本身有，函数也有。 另外还有metadata,可以用来存储额外的东东。
+这样方便进行一步优化。
+
+变量
+====
+
+分为全局变量与局部变量，还有临时变量，并且采用SSA的分析变量的用途。对于全局变量用comdat方式操作ELF的data-section进行。
+也就是申请资源。
+而于寄存器，分配还要化简
+
+函数
+====
+
+prefix data, 是不是可当于 function static 变量
+另外那就是数据对齐填充。
+prologueData，用enabling function hot-pathing and instrumentation. 这个正是自己想要功能。
+
+PersonalityFunction,用于exception handle.
+
+#. Attribute Groups, 可以后attribute合并分组，当然是一个module范围内。
+
+Function Attributes, 主要是
+#. noinline, alwaysinline, optize,cold,"patchable-function",readonly 
+
+Funclet Operand Bundles,相当于闭包运算了。
+
+Data Layout, 来规定不同平台的数据定义， 相当于C语言的种 typedef  short int SUINT 
+Target Triple,描述主机信息
+Pointer Aliasing Rules,指针的用法
+Memory Model for Concurrent Operations
+
+Use-list Order directives 相关指令的关系。有点NEON的味道。
+
+Type System
+===========
+
+IR 是类型安全的语言。
+指针还是*表示， Vector <4 x i32> Vector of 4 32-bit integer values.
+
+Array Type: 类似C语言的数组，支持embeded 结构。
+Structure Type: C的结构体
+Opaque Structure, 相当于 C nontion of a foward declared structure. 相当于符号推导中符号。
+
+Constants, Complex Constants
+
+Global Variable and Function Address.
+
+Undef values, Poison Values, 相当于
+
+Addresses of Basic BLocks, 相当于GOT，PLT的功能。
+
+还有一些特征编译单元指令
+DICompileUNit/DIFile/DISubgrance/DIEnumerator/DILocalVariable/DILocation./DIExpression. 
+#. DIExpression nodes 来表示 DWARF expression sequences.
+基本上LLVM采用图论的方式来进行优化。这些都相当于是一个node.
+
+invoke
+------
+
+相当于goto 对于exception处理以及状态机来使用。
+
+各种指令
+<result> = shl <ty> <op1> <op2>
+
+LLVM 这个原语树与Theano 的图的方式应该差不多。 
