@@ -76,6 +76,7 @@ http://stackoverflow.com/questions/98650/what-is-the-strict-aliasing-rule
 只要自己知道 其内部的layout pack了。
 
 
+
 fwrapv 
 ======
 
@@ -101,3 +102,12 @@ https://gcc.gnu.org/onlinedocs/gcc-4.3.4/gcc/Code-Gen-Options.html
 =======
 
 在一些版本上格式的有一些要求，不然会报错。http://10.19.226.116:8800/trac/ticket/6132#no6
+
+
+.o 与.so 的区别
+===============
+
+本质的区别，.so .a 都是.o ar包，区别在于地址形式的不同。libtool工具同时解决库依赖的问题。 用libtool和生成库会自动管理依赖。
+并且不同平台的库的搜索方式是细微的不同的。
+
+http://www.eetop.cn/blog/html/40/202640-8862.html
