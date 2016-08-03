@@ -797,3 +797,6 @@ http://stackoverflow.com/questions/2604715/add-functions-in-gdb-at-runtime
 http://stackoverflow.com/questions/22509088/is-it-possible-to-attach-gdb-to-a-crashed-process-a-k-a-just-in-time-debuggin
 
 尽可能不要在头文件中下断点，这样可能造成n多断点，在n多地方。 是由于断点寻找机制造成。
+
+shared object 在加载之前，是加不上断点的。 这也就是为什么我们hack lib-loaded event的原因。
+
