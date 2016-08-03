@@ -18,7 +18,6 @@ LLVM 能够实现自动profiling优化，进一个目标那就是代码的自动
 http://www.aosabook.org/en/llvm.html
 代码生成的模块做的还不是很好，还在发展。
 
-
 #. Frontend 语法检查
 #. Optimizer
 #. Backend
@@ -193,12 +192,13 @@ LLVM 代码单位
 
 clang
 =====
+
 支持gcc 的流程, -E,-c 等等。 同时还有 -emit-ast,-emit-llvm
 
-clang 同gcc 一样，是一个前端，同时自己实现了一个AST把C代码生成 LLVM IR。
+clang 同gcc 一样，是一个前端，同时自己实现了一个AST把C代码生成 LLVM IR。然后再IR上进行各种优化
+然后再用ABI生成对应用平台binary.或者汇编代码，然后再成binary.
 
 同时可以可以通过命令行参数 -fxxsanitize-xx=xxxx,xxxx来控制优化。并且还有blacklist的机制。
-
 
 如何做优化
 ----------
@@ -210,21 +210,6 @@ clang 同gcc 一样，是一个前端，同时自己实现了一个AST把C代码
 
     http://clang.llvm.org/docs/UsersManual.html#profile-guided-optimization
 
-
-如何使用Polly在clang/opt中
-==========================
-
-http://polly.llvm.org/docs/UsingPollyWithClang.html
-在 clang 中只在O3中支持。
-
-.. code-block:: bash
-   
-   clang -O3 -mllvm -polly file.c
-
-把编译的过程，可以通过 -mllvm把参数传递给 llvm. 
-
-clang 不需要invoke opt, clang与opt采用相同的LLVM infrastructure, opt只是优化器的wrapper.
-LLVM设计本身就是模块化的，opt只是一个exe的wrapper.
 
 例如手工生成callgraph
 =====================
@@ -241,6 +226,8 @@ https://pauladamsmith.com/blog/2015/01/how-to-get-started-with-llvm-c-api.html
 主要过程就是创建一个Module,然后添加变量函数。再创建编译环境。
 Module->Function->Block->Instruction. 
 当然通过API是可以看到IR的所有信息的。
+
+
 
 当然自己在实现代码的时候，可以写一个AST来生成IR，也可以直接生成IR来做算法分析。
 
@@ -329,3 +316,16 @@ invoke
 <result> = shl <ty> <op1> <op2>
 
 LLVM 这个原语树与Theano 的图的方式应该差不多。 
+
+
+
+Super Optimizer
+===============
+
+让每个应用程序自主的优化，现在已经有人开始实现，现在叫Supper Optimizer. 
+
+让进程像一样具有一定自主性，而优化算法可以是共享。每一个应用程序规定一下自己特征，PM过滤器采集哪些系统信息与自身信息，优化算法过滤器，本程序本身采用会哪用哪些优化算法。所以当进程闲的时候把开始自己做优化。其实就有点像GC的功能。
+因为LLVM IR 可以存有大量的MetaData 来做这些事情。
+
+
+
