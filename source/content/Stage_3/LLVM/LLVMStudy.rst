@@ -66,8 +66,6 @@ LLVM来提供。 而传统编译器只是起到了翻译的过程。没并且起
 #. `LLVM 与ANTLR <http://www.antlr.org/wiki/display/ANTLR3/LLVM>`_ 一般编译器分两部分，前端与后端，前端进行进行语法分析，建立符号表与中间代码。后端来根据这些信息进行优化，例如画出流程调用图。在写解释新的语言时一个偷懒的做法，前端把处理成已知语言的中间代码，然后利用现有的编译器进行后端的处理。例如cfront是把c++变成c的中间代码。然后利用c的后端来进行操作的。
 
 
-
-
 LLDB
 ====
 
@@ -302,6 +300,8 @@ Undef values, Poison Values, 相当于
 
 Addresses of Basic BLocks, 相当于GOT，PLT的功能。
 
+指针是什么，就是申请资源时的，资源的url. 用到指针，就要资源的分配。
+
 还有一些特征编译单元指令
 DICompileUNit/DIFile/DISubgrance/DIEnumerator/DILocalVariable/DILocation./DIExpression. 
 #. DIExpression nodes 来表示 DWARF expression sequences.
@@ -328,4 +328,27 @@ Super Optimizer
 因为LLVM IR 可以存有大量的MetaData 来做这些事情。
 
 
+llc
+====
 
+可以用于生成目标机器码，同时还能生成反向的cpp 代码。
+http://richardustc.github.io/2013-07-07-2013-07-07-llc-cpp-backend.html
+llc -march=cpp test.o  / llc -march=cpp test.s 相当于反向工程了。
+
+
+lli
+===
+
+虚拟机，直接运行llvm bytecode
+
+
+LLVM  当前的问题
+================
+
+#. wide abstraction gap between source and LLVM IR
+#. IR isn't suitable for source-level analysis
+#. CFG lacks fidelity
+#. CFG is off the hot path
+#. Duplicated effort in CFG and IR lowering
+
+并且SWIFT在LLVM实现一个SIL,同时加强了IR这些功能。
