@@ -373,3 +373,28 @@ http://m.blog.csdn.net/article/details?id=49154509，因为只要参数固定，
 具体还得查看硬件的手册，使其达到满速运行。
 http://infocenter.arm.com/help/index.jsp?topic=/com.arm.doc.ddi0488d/BIICDBDF.html
 
+
+ABI 四方面内容
+==============
+
+#. Low Level System Info
+   AMD_64 地址指针虽然是64位，但实现上只有48位，并有三个逻辑段，text,data,stack.
+   内存 Page对齐为4KB-64KB之间。
+
+#. OBJfile
+#. 程序动态加载
+#. lib
+
+
+VMA的分配
+=========
+
+#. The system reservera a configuration dependent amount of verual space.
+#. Small code model. 方便程序跳转，因为跳转就要为PC赋值，采用立即数当然是最快的。
+   但是立即数的大小有限的。只能从0-2^31-2^24-1
+#. Kernel code model.  2^64-2^31到2^64-2^24.
+#. Medium code model.  data section is split two path: .ldata,.lrodata,.lbss.
+#. Large code model.
+#. Small/medium/Large (PIC).
+ABI 也要定义DWARF (Debug with Arbitrary Format).中寄存器的对应关系。·
+PIC code,必然用到GOT表。
