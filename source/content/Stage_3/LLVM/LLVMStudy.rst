@@ -176,17 +176,6 @@ GCC很难当做lib来复用。
 #.  Do the transformation, updating the code.
 
 
-LLVM 代码单位
-==============
-
-#. 指令集
-#. 函数集
-#. BB 块集
-
-优化时候，也是以基本单位来进行的。 采用是match/replace的方式，相当于原址替换。
-
-所以优化是可以叠加的，但顺序不同，可能效果会不同。
-
 
 clang
 =====
