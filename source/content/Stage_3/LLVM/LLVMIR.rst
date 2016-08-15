@@ -1,5 +1,8 @@
 LLVM IR 的核心是SSA-based(Static Single Assignment) representation.
+为了实现这一目的，采用加下标的树做法，第一次用 var,以后就 XX.1 XX.2来标识。需要合并的的时候，phi,或者select来进行。 当然都是简单变量能够实现这些，而对于复杂结构体，可好像也是无能为力。
 Commdat 主要于指示如何链接，例如ELF，COFF文件的哪些段，如何寻找那些在本module中没有定义的symbol.
+
+另一个好像那就是IR自身信息的完备集，这一点不是很一个编程语言能做到的很好的。
 
 
 通过 llvm.o 文件结构
@@ -111,3 +114,9 @@ meta
 ====
 
 也有大量的定义，例如DIFile来代表文件。并且支持BasicType,也支持SubrontineType,以及DerivedType.为了节省空间，支持相互引用。
+
+
+blockaddress
+============
+
+这个就有点GOT的意思了，在哪一个module的中哪一函数。用于形成GOT,PLT的表的内容。
