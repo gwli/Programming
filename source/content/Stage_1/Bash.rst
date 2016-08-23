@@ -15,6 +15,9 @@ Bash 编程
 
 而shell之类的语言来做集成测试是最方便与灵活的。
 
+shell 最强大的地方，那就是对外部命令的支持，混然天成的，只要你放PATH下面，就自动的识别。 并且只要你的脚本支持命令行参数。
+就可以传递任意的参数。
+
 优点与缺点
 ==========
 
@@ -44,10 +47,12 @@ Bash 编程
 并且随着 bash的升级，4.3之后已经可以 自动补全 参数了。看来是越来越强了。如果是想自定义可以使用
 http://kodango.com/bash-competion-programming
 
+这一点zsh 做更灵活，各种补全，尽可能tab. 并且支持** 来递归。
+
 串行与并行计算与同步
 --------------------
 
- 简单的管道是串行，而并行就要用() 再加上这些与列表与或者表了。不过bash实现都是进程级的并行了。
+简单的管道是串行，而并行就要用() 再加上这些与列表与或者表了。不过bash实现都是进程级的并行了。
 ()&&()|tee log.txt
 
 而简单的语列表与或列表是串行的，如果加()就是并行了，同并与或之间也就具有同步的机制。
@@ -57,8 +62,6 @@ http://kodango.com/bash-competion-programming
 并且bash 命令回显机制是做的最好的，-verbose以及打印命令回显呢。
 
 所以对于bash来说，直接看其执行的log就可以了。这样就可以利用gentoo把整个启动过程完全搞明白了。
-
-
 
 对于文件的读写
 --------------
@@ -79,7 +82,6 @@ bash 是最简化的， read 指定就可以，写可以用echo也可以write以
 
 不仅支持 timeout还支持 列表输入，就像 a,b,c=1,2,3这样。并且自动把多余给最后一个。
 还可以指令一行，还是一个字符，还是指定分界符。还可以设置不回显等等。
-
 当然如果想读入特定几行，并且放在一个数据组里，有readarray,mapfile.都是这些功能。
 http://omicron2012.blog.163.com/blog/static/236148083201442483739536/
 
@@ -188,9 +190,6 @@ bash 有最好用重定向
    add //sw/Machine.pm#none
    Change 19006994 files shelved.
    -------------
-
-
-
 
 
 
@@ -303,7 +302,7 @@ http://www.zhihu.com/question/20506693
 对于管道使用大家可能早就熟悉，但是使用以及多个管道呢。
 
 .. code-block:: bash
-   diff -u <(ls |sort ) <(ssh -i ~/my.key dove@myhost grep amazon mp3.urltxt)
+   diff -u < (ls | sort ) <(ssh -i ~/my.key dove@myhost grep amazon mp3.urltxt)
 
 
 如何得到精确的CPU时间
@@ -311,4 +310,45 @@ http://www.zhihu.com/question/20506693
 
 一种是采用 getconf CLK_TCK 再加/proc/pid/stat 来实现。 另一个那就是top -bn 1 就行了。
 https://straypixels.net/getting-the-cpu-time-of-a-process-in-bash-is-difficult/
+
+
+zsh
+===
+
+如果实现在VS中写代码的感觉使用shell的话，那就用zshell,强大的自动补全，以及自动拼写检查。
+还能添加各种提示。 zsh都有。
+
+终极shell应该是editor + shell + brower. 
+
+对于编辑模式的改变 bindkey -v vi vi模式。
+https://www.ibm.com/developerworks/cn/linux/shell/z/
+http://wdxtub.com/2016/02/18/oh-my-zsh/
+
+现在明白了，sh 的了些限制，sh 直接用空格当做分隔符，并且调用也这样。 也就是为什么赋值，不能分开写的原因。
+如果替换就得用 `` , 或者$()
+
+http://zsh.sourceforge.net/FAQ/zshfaq01.html#l3
+
+#. Command line editing
+   print -z 直接生成命令执行。 
+
+命令的模型 
+http://www.jianshu.com/p/3687e12b8d48
+#. Globbing.
+zsh 对于重定向的multios 特别适合异构神网的开发。输入与输出直接这样来实现。
+当于输出文件，也可以多输出命令。 当然也就是实现一个pipeline. 
+zsh 对于cd 有层的 d 可以查看九层的目录，然后 cd -n 就进入n个目录。
+
+
+扩展
+====
+
+http://aosabook.org/en/bash.html
+
+使用起来非常的方便。
+
+.. code-block:: bash
+   pro{a,b,c}cddd{h,j}
+   proacdddh proacddj ....
+
 
