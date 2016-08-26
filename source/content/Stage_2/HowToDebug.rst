@@ -244,3 +244,9 @@ http://www.cprogramming.com/tutorial/visual_studio_tips.html。
 
 对于大的并行程序，有专门的profiling与debugging工具，例如
 http://www.roguewave.com/products-services/totalview
+
+如果调查crash
+=============
+
+查看log时， 有很多error,一定要找到第一个error. 就是编程时，要从第一个error来解决开始。
+在查看error时，最简单的办法，那就用时间戳来决定。
