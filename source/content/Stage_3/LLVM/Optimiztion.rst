@@ -53,6 +53,8 @@ Control flow
 
 CFG 的优化，主要是基于图论与拓扑，找到环路与边界。来进一步优化。
 
+控制流图，每BB块，对应的原码块，可以看到依赖关系。并且有前向与后向的关系。
+http://www.valleytalk.org/wp-content/uploads/2011/10/%E6%8E%A7%E5%88%B6%E6%B5%81%E5%88%86%E6%9E%90.pdf
 
 循环
 ====
