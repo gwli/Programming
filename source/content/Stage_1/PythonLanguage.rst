@@ -128,6 +128,7 @@ namespace
 string,list,dict/hash and tuple
 -------------------------------
 
+
 *String* is Object itself, so when you manipulate string. you do it like this "XXXX".append("XXX"); one of important is regular expression. for python you use *`re <http://www.cnblogs.com/huxi/archive/2010/07/04/1771073.html>`_* 
 
 +-------------+------------------------------------------------------------------------------------+
@@ -142,6 +143,7 @@ string,list,dict/hash and tuple
    match = pattern.match('hello world!')
    match.group()
 
+   match 必须是从头开始匹配，search是不必的。
 dictionary{}必须是key-value对，核心是哈希，内容可以使任何元素，可是实现删除，del and
 d.clear()。里面的key是虚幻的。
 
@@ -183,6 +185,11 @@ Python 中 的class
 
 各种字符串之间的转换（dictionary->str，list->str）
 -------------------------------------------------
+
+string ->list split,splitlines
+list ->string, join
+list -> dict,  dict((key,value)....) or dict(key=value,,,,,)
+
 
 list->str 可以通过"".join(li)实现， 但是不要通过str(),这种属于硬转换(只是在外面加了一个“”).
 
@@ -772,10 +779,9 @@ lazy evluation
 列式推导 直接加map,filter 会更有效.http://www.ibm.com/developerworks/cn/linux/sdk/python/charm-17/index.html 这样会更有效
 
 
-currying, Partial Argument, 可以用lambda 来实现，或者使用 :command:`from functools import partial;add_five=partial(add_numbers,5)`
+currying, Partial Argument, 可以用lambda 来实现，或者使用 :command:`from functools import partial;add_five=partial(add_numbers,5)` 
 
-其本质就是又封装了一层函数。也就是alias 的一种实现而己。在函数调用之前添加了一次的简单替换，或者再一次wrap函数就行了。
-
+其本质就是又封装了一层函数。也就是alias 的一种实现而己。在函数调用之前添加了一次的简单替换，或者再一次wrap函数就行了。 什么时候用呢，修改与扩展原来的库函数的特别方便。 另外在参数固定的情况下，这可以用偏函数来减少参数的传递。 高阶函数，利用基本函数形成复杂的功能。http://blog.windrunner.info/python/functools.html。 因为在python里的一切皆为对象，而在C语言里，函数就是一个函数指针，只要把指针地址改了就行了，在python里，只要直接复值 就行了，a.fooc = new_fooc 就搞定了，只要在其后面加载module都会使用new_fooc
 
 参数的传递
 ==========

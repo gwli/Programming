@@ -124,4 +124,8 @@ array,list,hash,tree
 当把你的问题搞清楚了，采取的数据结构也搞清楚了。这个时候采用什么样语言与库就一目了然了。
 
 
+队列
+====
 
+Queue, 先入先出的队列, LioQueue,PriorityQueue,Qeueue,deque,heapq. 
+以及 namedtuple, Counter,OrderedDict,defaultDict. 
