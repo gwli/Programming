@@ -347,7 +347,7 @@ http://blog.csdn.net/songrongu111/article/details/4409022 其本质还是闭包�
 
 
 
-`functools <http://www.cnblogs.com/twelfthing/articles/2145656.html>`_提供了对于原有函数进行封装改变的方便方式。也就是各种样的设计模式加到语言本身中。
+`functools <http://www.cnblogs.com/twelfthing/articles/2145656.html>`_ 提供了对于原有函数进行封装改变的方便方式。也就是各种样的设计模式加到语言本身中。
 
 
 
@@ -356,7 +356,7 @@ map,reduce机制，例如NP就经常有这样的操作，例如
 
 reduce,map与函数只是构造计算中的apply函数一种。 例如自己实现那个累乘也是一样的。
 
-reduce,只一次只取列表两个值，而map每一次只能取一个值。
+reduce,只一次只取列表两个值，而map每一次只能取一个值。对于取多值的，可以用ireduce,imap
 
 .. code-block::
     def reduce(function,iterable,initialzer=None):
@@ -370,6 +370,7 @@ reduce,只一次只取列表两个值，而map每一次只能取一个值。
 
 
 其实这样的函数就相于一个神经元。 python iteral_tool 就相于一个个神经元。
+
 .. code-block::
 
    x,y,z=np.random.random((3,10) 每一个一行。
@@ -490,7 +491,7 @@ pylab,VTX以及直接利用opengl来计进行。
 
 但是python本身也自身的缺点，一个方面那就是GIL，并且他的效率是依赖C或者其他。不过python的一切皆对象方式不是错。可以把python当做一个描述语言。
 具体让编译器来做翻译。
-一个软件好用不好用的关键，是不是大量相关的库，在科学计算领域python是无能比了。自己尺可能用高阶函数来表达核心的东东，而不必纠结实现细节，其实道理都是一样的。
+一个软件好用不好用的关键，是不是大量相关的库，在科学计算领域python是无能比了。自己尽可能用高阶函数来表达核心的东东，而不必纠结实现细节，其实道理都是一样的。
 对于python的扩展这里提到cffi来扩展。以及bitey. 以及用distutils功能完全可以用来实现gradle所具有一切功能。
 例如强大的 c++ boost库，同样也有python的接口 见 http://www.boost.org/doc/libs/1_55_0/libs/python/doc/。
 
@@ -792,7 +793,7 @@ currying, Partial Argument, 可以用lambda 来实现，或者使用 :command:`f
 
 .. code-block::
 
-   self.env.set_warfunc(lambda *args:warnings.append(args))
+   self.env.set_warfunc(lambda * args:warnings.append(args))
 
 __getattr__ 用法
 ================
