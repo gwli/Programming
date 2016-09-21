@@ -829,3 +829,39 @@ shlex
 
 seek到位，然后反向搜索。 换行符来实现。
 http://chenqx.github.io/2014/10/29/Python-fastest-way-to-read-a-large-file/
+
+
+单行命令
+========
+
+python 的module有两种模式，一种是当做module来调用，另一种是当做脚本来使用。
+这个主要是通过
+
+.. code-block:: python
+   if __name__ == "__main__":
+        #do someting
+
+由于python有众多的库，可以直接搭建各种server.
+例如: HTTP
+python -m SimpleHTTPServer
+python -m SimpleXMLRPCServer
+
+.. code-block:: python
+
+   from simpleXMLRPCServerr import SimpleXMLRPCServerr
+   s = SimpleXMLRPCServer(("",4242))
+   def twice(x):
+   return x*x
+   
+   s.register_function(twice) #向服务器添加功能
+   s.serve_forever() #启动服务器
+   然后在启动一个命令行，进入pyhon。 输入：
+   from xmlrpclib import ServerProxy s = ServerProxy('http://localhost:4242') s.twice(2) #通过ServerProxy调用远程的方法，
+   
+同时python支持从标准输入直接读入代码:
+例如
+
+.. code-block:: bash
+   echo "print 'helloworld'" |python -
+
+这样就可以动态的生成各种代码组合来执行了。
