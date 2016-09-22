@@ -105,7 +105,6 @@ pip 现在支持一次安装列表  pip -r requirements.txt 同时还支持zip,�
 
 https://pip.readthedocs.org/en/1.1/requirements.html
 
-
 namespace
 ---------
 
@@ -183,13 +182,14 @@ Python 中 的class
 
 另外python中class 中各种特殊的属性，可以class具有各种功能，例如__call__这样就可以把class变成了函数，并且可以有各种状态。另外还有各种操作符。
 
+python 本身没有抽象类的概念，实现这些约束：如果子类不实现父类的_getBaiduHeaders方法,则抛出TypeError: Can't instantiate abstract class BaiduHeaders with abstract methods  异常 则需要from abc import ABCMeta, abstractmethod 来添加这些依赖。 主要是实现 抽象方法与抽象属性这两个关键字。
+
 各种字符串之间的转换（dictionary->str，list->str）
 -------------------------------------------------
 
 string ->list split,splitlines
 list ->string, join
 list -> dict,  dict((key,value)....) or dict(key=value,,,,,)
-
 
 list->str 可以通过"".join(li)实现， 但是不要通过str(),这种属于硬转换(只是在外面加了一个“”).
 
@@ -267,7 +267,6 @@ mutli-thread of python
 
 现在对于C语言可以直接操作硬件，这种说法的错误。同为一种语言凭什么说C可以操作硬件。原因在于好多的硬件直接C语言的编译器而己尽可能复用以前的劳动成果而己。只要你能把perl,python,各种shell变成汇编都能直接操作硬件的。
  
-
  
 现代语法
 --------
@@ -345,11 +344,7 @@ http://blog.csdn.net/songrongu111/article/details/4409022 其本质还是闭包�
 而不用知道函数要有固定的参数，修饰变长函数。这个直接看源码的函数调用那一张，采用的命名空间嵌套的用法，原则最里优先。
 
 
-
-
 `functools <http://www.cnblogs.com/twelfthing/articles/2145656.html>`_ 提供了对于原有函数进行封装改变的方便方式。也就是各种样的设计模式加到语言本身中。
-
-
 
 python对于循环进行了优化。所以写循环的时候就不要再以前的方式了，采用计算器了，要用使用yield的功能。来进行简化。 yield就相当于部分的C函数中static变量的功能。并且 比他还强的功能。另外也可以global的机制来实现。
 map,reduce机制，例如NP就经常有这样的操作，例如
@@ -423,6 +418,10 @@ difflib
 =======
 
 python 有现成的diff库可以用，所以也可以在ipython 调用 difflib来当做命令来用。
+
+
+python的标准库比较全面，有点类似于libc，网络，tty,以及系统管理等等相应的库。
+http://python.usyiyi.cn/python_278/library/index.html
 
 test framework of python
 ------------------------
