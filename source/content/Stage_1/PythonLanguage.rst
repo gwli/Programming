@@ -70,7 +70,7 @@ Python 内在函数
 Python 包管理与开发环境
 -----------------------
 
-Python的包管理就像perl 的CPAN一样。 `easy_install 与pip 新替 <http://pypi.python.org/pypi][ pypi]] 就是python 的CPAN。[[http://jiayanjujyj.iteye.com/blog/1409819>`_ egg文件就是python的打包文件。
+Python的包管理就像perl 的CPAN一样。 `easy_install 与pip 新替 <http://pypi.python.org/pypi][ pypi]] 就是python 的CPAN。[[http://jiayanjujyj.iteye.com/blog/1409819>`_ egg文件就是python的打包文件。 可以用setup.py 打包，同时也可以pbr 生成setup.cfg的配置文件。这个在包本身比较复杂的情况下会非常有用，就像gnu libtool一样。
 #. `打包机制 <http://woodpecker.org.cn/diveintopython3/packaging.html>`_ .egg文件
 #. `perlbrew <http://blog.caokee.com/2012/02/pythons-virtual-environment-and-multi-version-programming-tools-virtualenv-and-pythonbrew.html][python virtual environment and multi-version]] ,[[https://github.com/gugod/App-perlbrew#readme>`_perl的虚拟环境。ruby也有。
 #. `pythonbrew online document <http://pythonbrew.readthedocs.org/en/latest/>`_
