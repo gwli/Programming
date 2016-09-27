@@ -53,9 +53,36 @@ C++ 11 新特性
 #. 支持了lambda 表达式
 #. 类型推导关键字 auto,decltype
 #. 模板的大量改进
+   - 模板别名
+   - 外部模板实例
 #. nullptr 解决原来C++中NULL的二义性。
 #. 序列for 循环，有点类似于foreach. 
 #. 变长参数的模板，tuple.
+   
+
+new/delete 与malloc/free
+========================
+
+new /delete 在后台也是调用的malloc,free,但是多一些封装与检查。
+https://github.com/lattera/glibc/blob/a2f34833b1042d5d8eeb263b4cf4caaea138c4ad/malloc/malloc.c   glibc的实现。
+主要是内存管理方式的不同。 
+http://blog.csdn.net/hzhzh007/article/details/6424638
+#. 分配的速度。 
+#. 回收的速度。 
+#. 有线程的环境的行为。 
+#. 内存将要被用光时的行为。 
+#. 局部缓存。 
+#. 簿记（Bookkeeping）内存开销。 
+#. 虚拟内存环境中的行为。 
+#. 小的或者大的对象。 
+#. 实时保证。 
+
+著名的内存管理方式
+==================
+
+　　Doug Lea Malloc：Doug Lea Malloc 实际上是完整的一组分配程序，其中包括 Doug Lea 的原始分配程序，GNU libc 分配程序和 ptmalloc。 Doug Lea 的分配程序有着与我们的版本非常类似的基本结构，但是它加入了索引，这使得搜索速度更快，并且可以将多个没有被使用的块组合为一个大的块。它还支持缓存， 以便更快地再次使用最近释放的内存。 ptmalloc 是 Doug Lea Malloc 的一个扩展版本，支持多线程。在本文后面的 参考资料 部分中，有一篇描述 Doug Lea 的 Malloc 实现的文章。 
+　　BSD Malloc：BSD Malloc 是随 4.2 BSD 发行的实现，包含在 FreeBSD 之中，这个分配程序可以从预先确实大小的对象构成的池中分配对象。它有一些用于对象大小的 size 类，这些对象的大小为 2 的若干次幂减去某一常数。所以，如果您请求给定大小的一个对象，它就简单地分配一个与之匹配的 size 类。这样就提供了一个快速的实现，但是可能会浪费内存。在 参考资料部分中，有一篇描述该实现的文章。 
+　　Hoard：编写 Hoard 的目标是使内存分配在多线程环境中进行得非常快。因此，它的构造以锁的使用为中心，从而使所有进程不必等待分配内存。它可以显著地加快那些进行很多分配和回收的多线程进程的速度。在 参考资料部分中，有一篇描述该实现的文章。 
 
 函数调用实现
 ============
@@ -88,6 +115,7 @@ C++的原理自己想实现的DSL的原理是一样，只是更加复杂了。�
 
 不能在元函数中使用变量，编译期显然只可能接受静态定义的常量。
 
+
 内存结构 
 ========
 
@@ -98,6 +126,8 @@ c++的内存结构解析类似于TCP/IP协议包的解析结构，都是采用�
 
 泛型编程
 ========
+
+http://blog.csdn.net/lightlater/article/details/5796719
 
 泛化编程，相当于在编译当做运行了，只过其输出是代码，还需要进一步编译。 其实简单就像现在自己经常写的log,格式规整一点，直接就是另一种语言。 相当于让编译器帮你写代码的过程。
 也就是进一步的符号编程。  变量/对象 -> 类/类型-> 符号
@@ -119,13 +149,40 @@ c++的内存结构解析类似于TCP/IP协议包的解析结构，都是采用�
 
 STL 还只是小儿科，而BOOST则是高级篇。
 
+
+模板的编译
+==========
+
+也是类似于C的宏吗，还是编译自身的支持。
+#. 包含模板编译模式。（这个是主流）。
+#. 分离模板编译模式。
+
+flow
+====
+
+#. C++ source code
+#. Template Compiler
+#. c++ Compiler
+#. MachineCode
+
 模板元编程
 ==========
 
-另一个那就是模板元编程，特别是模板的递归，它利用模板特化的能力。
+另一个那就是模板元编程，特别是模板的递归，它利用模板特化的能力。可以参考haskell的模式匹配，利用多态加模式匹配写状态机，不要太爽，用模式匹配解决了goto的问题，并且更加灵活，同时又解决避免了函数调用，有去有回的问题。
 http://blog.csdn.net/mfcing/article/details/8819856，其实TypeList 也是一种模板元编程。 当然编译的是会限制递归的深度的，通用-ftemplate-depth来控制。
 
-元编程模型也采用的函数式编程范式。 
+元编程模型也采用的函数式编程范式。 这里有框图http://www.cnblogs.com/liangliangh/p/4219879.html
+#. metainfo
+   - Member Traits
+   - Traits templates
+   - Traits Classes
+   - Lists and Trees as nested templates
+#. Metafunction
+   - Computing Numbers
+   - Computing Types  IF<>,SWITCH<>,WHILE<>,DO<>,FOR<>.
+   - Computing Code  EWHILE<>,EDO<>,EFOR<>
+
+#. Expression Template
 
 作用
 -----
@@ -138,6 +195,8 @@ http://blog.csdn.net/mfcing/article/details/8819856，其实TypeList 也是一�
    - Typelist
    - 提取Typelist中的类型
 # 自动生代码
+
+
 
 非类型模板参数
 ==============
@@ -158,6 +217,11 @@ http://blog.csdn.net/win2ks/article/details/6737587
 对于模板参数也像位置参数一样，具有自变量推导(argument deducation)机制。
 
 
+type_traits
+===========
+
+http://blog.csdn.net/hpghy123456/article/details/7370522, 用了管理模板参数，往往参数之间会相一定的依赖有关系。可以相互的推导依赖，而根据这些信息可以生成更高效，更有针对性的代码。
+
 
 STL库
 =====
@@ -168,4 +232,10 @@ STL库
 
 如何添加汇编代码
 ================
+
 如何手工写一个汇编函数, 只需要写个函数直接调用gcc来生成片断，直接直接插入就行。
+其实也不需要只要掌握转换规则，直接利用LLVM 来进行代码分析。来优化生成汇编。
+
+模板实例化
+==========
+隐式实例化时，成员只有被引用到才进行实例化。

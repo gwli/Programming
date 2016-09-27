@@ -18,6 +18,13 @@ Introduction
    libskia.so ,Skia是Google一个底层的图形、图像、动画、SVG、文本等多方面的图形库，它是Android中图形系统的引擎。 ,
 
 
+poco
+=====
+
+C++ 的跨平台函数库,并且完成采用现代语法写的。当出现c++版本不兼容的时候，可以考虑这个库来替换。
+
+https://pocoproject.org/features.html   
+
 See also
 ========
 

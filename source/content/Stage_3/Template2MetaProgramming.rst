@@ -13,6 +13,7 @@ http://www.ibm.com/developerworks/cn/linux/l-metaprog1.html
 例如c++ 模板匹配方式与haskell的中匹配方式是一样的。
 
 .. code-block:: 
+
    template<int N>
    struct Factorial
    {
@@ -41,13 +42,14 @@ http://www.ibm.com/developerworks/cn/linux/l-metaprog1.html
 
 .. csv-table:: 
 
-   `VIM的列编辑技巧 <http://www.ibm.com/developerworks/cn/linux/l-tip-prompt/tip15/>`_ , `VisIncr 这个插件来分成各种各样序列 <http://www.vim.org/scripts/script.php?script_id=670>`_ ,
+   `VIM的列编辑技巧 <http://www.ibm.com/developerworks/cn/linux/l-tip-prompt/tip15/>`_ ,
+   `VisIncr 这个插件来分成各种各样序列 <http://www.vim.org/scripts/script.php?script_id=670>`_ ,
    用perl的赋值再加一些小技巧实现各种序列或者 `PerlClip 小工具 <http://www.softpedia.com/get/Programming/Other-Programming-Files/PerlClip.shtml>`_  , 
 
 text search
 ===========
 
- `sphinx <http://sphinxsearch.com/>`_ sphinx 全文搜索工具， `简介 <http://www.oschina.net/p/sphinx/>`_ 
+`sphinx <http://sphinxsearch.com/>`_ sphinx 全文搜索工具， `简介 <http://www.oschina.net/p/sphinx/>`_ 
    
 
 SGML/HTML/XML parser
@@ -59,7 +61,7 @@ there is two way, one is DOM module. the other SAX.
 `xml namespace <http://www.w3school.com.cn/xml/xml_namespaces.asp>`_  is used to resolve conflict with same name in diffrent file circumstances.
 `SAX与DOM之间的区别 <http://www.sf.org.cn/article/base/200707/20374.html>`_  this one is best one. there are only several events. what you need process event. *Characters* event is value of the element. 
 with xml.dom.minidom you can't get NodeValue. you can regard it as child node. use node.firstchild.toxml to get the nodeValue. or, you can the Regular Expression. 
-一个更好玩的库那就是`BeautifulSoup <http://www.crummy.com/software/BeautifulSoup/bs3/documentation.zh.html>`_ 
+一个更好玩的库那就是 `BeautifulSoup <http://www.crummy.com/software/BeautifulSoup/bs3/documentation.zh.html>`_ 
 在python有好几种库可以用see http://www.ibm.com/developerworks/cn/xml/x-hiperfparse/
 http://outofmemory.cn/code-snippet/914/python-kinds-parse-xml-bao-usage-method-summary
 
