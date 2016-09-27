@@ -3,8 +3,6 @@ introduction
 
 `haskell offical web <http://www.haskell.org/haskellwiki/Haskell>`_
 
-
-
 debug and profiling
 ===================
 
@@ -281,3 +279,8 @@ Composite objects
 =========
 
 通过在集合的序的重要性。https://en.wikipedia.org/wiki/Total_order
+
+模式匹配
+========
+
+一个列表的模式匹配，来自然的实现语法分析。另一个那就是多态。来实现运行的状态转移，也就解了goto的用途。
