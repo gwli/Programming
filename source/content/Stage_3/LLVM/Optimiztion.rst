@@ -105,3 +105,23 @@ InstCombine
 #. llvm-stress 可以filter,各种function的IR code. 
 #. obj2yaml/yaml2obj 相当于机器码的直接修改了，再不用各种麻烦的解析工作了。
 #. llvm-symbolizer convert address into source code location
+
+如何利用profiling data来优化编译
+================================
+
+代码指令的读取也是pipline也有cache,跳转会破坏预读取的数据。现在我们可以根据profiling的结果来进行编译。
+
+如何在代码中利用profiling的数据里，这个数据接口是__builtin_expect来读取。
+
+.. code-block:: bash
+   if (__builtin_expect (x,0))
+      foo ();
+   // -fprofile-arcs
+
+
+原理 -fprofile-generate生成收集指令，并且生成*.gcda文件。 重新编译的时候 -fprofile-use 就会读取这些文件来生成条件语句。
+
+Link time optimization (LTO)
+============================
+
+最常见的干法那就是只链接那用到代码与数据，如何到这一点，编译的时候加-ffunction-sections与-fdata-sections这样生一个函数与数据都会单独成section 然后链接的时候 ld --gc-sections就会把多余的section给删除了。

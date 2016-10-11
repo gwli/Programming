@@ -381,3 +381,6 @@ scan-build
 http://clang-analyzer.llvm.org/scan-build.html 静态分析工具，直接分析代码。
 
 直接在编译命令之前加上scan-build 通过改变一些环境变量与编译的参数来实现相关的检查。
+
+
+
