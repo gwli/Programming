@@ -5,6 +5,7 @@ How to Trace
 #. 生成callgraph,
 #. 在各个边界点进行check,在不同的level api检查，并且在函数级别的，我们可以随时用各种 probe来实现，trace,而对于原码级，小于函数级别，就要用NVTX,或者log的功能实现。 其实把trace放在log中实现也是一种方式。
 当然在函数级别的或者llvm IR级别，也是通过hook来实现一些东东的。
+
 什么优算是最好的
 ================
 
@@ -92,8 +93,6 @@ InstCombine
 
 同时再加上不断的Inliner.
 
-
-
 优化本身的问题
 ==============
 
@@ -128,3 +127,29 @@ Link time optimization (LTO)
 
 c++的template与重载都是链接时实现的，有两种方式，一种是利用虚表来查询，或者采用原来直接用同一个函数地址，只过前面添加一些offset量，然后用根据参数类型与变量与进行进一步的跳转。 每一个函数都有只有唯一个的地址，这一点是不变的。 template则需要编译的时候同时生成多个版本的函数，例如类型的变化。 但在表面多个函数实现是同一个函数，这个叫做IFC,Identical-instruction-comdat-folding.  ld.gold --icf=safe就是干这个事情。
 http://stackoverflow.com/questions/15168924/gcc-clang-merging-functions-with-identical-instructions-comdat-folding
+
+unloop
+======
+
+并不是所有循环展开是有效的，例如下面这种展开就是无效的，并且逻辑也可能是错误的因为两者并非是等价的。 这也是优化难的原因，因为transfor有可能并非完全等价的，优化的另一个步骤就是验证结果的有效性。
+
+.. code-block:: c
+   
+   for(i=0;i<10;++i){
+    if(something==3){
+        do_something;
+    }
+    else{
+        do_something_else;
+    }
+    unswitched loop(according to what I've been able to gather from the clang documentation(gcc's crap).
+    
+    if(something=3){
+     for(i=0;i<10;++i){
+        do_something;
+    }
+    else{
+     for(i=0;i<10;++i){
+       do_something_else
+     }
+    }
