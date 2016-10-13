@@ -250,3 +250,9 @@ http://www.roguewave.com/products-services/totalview
 
 查看log时， 有很多error,一定要找到第一个error. 就是编程时，要从第一个error来解决开始。
 在查看error时，最简单的办法，那就用时间戳来决定。
+
+minidump
+========
+
+目标是为生成一个最小的包含问题的可执行程序，这样可以大大加快troubleshot步法，特别是对于程序，每一次repro都会浪费大量的时间。 
+如果生成这样一个程序切片，就可以大大加快troubleshot的效度。
