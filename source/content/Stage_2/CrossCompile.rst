@@ -119,6 +119,9 @@ GNU Toolchain
 #. `Autoconf 工作流程 <http://zh.wikipedia.org/wiki/Autoconf>`_ 
 #. `binutils <http://www.gnu.org/software/binutils/>`_ 
 
+而libc是基础，它需要知道kernel的提供了哪些API，然后在此之上，做一层mapping. libc是基础中基础。但是编译libc又需要gcc.  gcc means "GNU compiler collection". 它并且是实现从source code 到assembly code. 而从assembly code 到binary 文件是需要binutils这些工具来做的。 所以最初要有一个bootstrap,具体的关系https://sourceware.org/ml/crossgcc/2011-01/msg00060.html
+
+对于arm 的系统 可以直接用NDK来生成对应 toolchain。
 .. graphviz::
 
    digraph binutils {
