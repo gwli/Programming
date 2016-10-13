@@ -1,4 +1,3 @@
-
 How to Trace
 ============
 
@@ -33,6 +32,8 @@ How to Trace
 
 
 如果分析计算量的大小，就得建立数学模型，不然没有办法量化。原理的推导直接符号。但是计算量的分析来是数学公式来量化的。
+另一种方法直接查看这种评测数据，得到业界的最新水平，一般纯代码的优化能够提高20%到10倍左右的提高。 超过了10倍的提高外在表现中就会有显著的变化。
+
 
 优化的阶段
 ==========
@@ -48,6 +49,9 @@ How to Trace
 control flow analysis,data flow analysis,partial evaluation,static single assignment,global value numbering,liveness analysis.
 victorlization. 
 而这些的设计都要体现在LLVM 的IR中。
+
+
+代码的实现就是一种资源的分配以及排兵部阵下棋一样，如何使用CPU等最基本的加减乘除等实现复杂的运算。加减乘除+与或非，以及基本指令。一套指令集就是一个完备集。
 
 Control flow 
 =============
@@ -153,3 +157,10 @@ unloop
        do_something_else
      }
     }
+
+
+如何用LLVM从编译分析重构代码
+============================
+
+ClangTool 的使用教程。
+https://kevinaboos.wordpress.com/2013/07/23/clang-tutorial-part-ii-libtooling-example/
