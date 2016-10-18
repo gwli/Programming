@@ -432,18 +432,28 @@ https://github.com/wuye9036/ChsLLVMDocs/blob/master/CodeGen.md，是代生生成
 
 各种内存对齐是为利用cache,高效，但是为默认的struct没有办法重排呢，主要是其解读方式决定。如果像protobuf就可以这样干。
 
-例如结构体重排，Automatic Pool Allocation. 
 
-而这个的分析就是要对cast, getmemeryptr,以及alloc,free等使用pattern的分析得到的。
 利用拓扑分析来判别离散与连续的数据结构及操作。
 也就是lists,trees, heaps,graphs,hash tables,等等的可视化来进行优化。
+以及对这些结构存取进行profiling就可以得到很好内存管理模型。这样就可以编译的时候就进行优化。
+例如结构体重排，Automatic Pool Allocation. 
+而这个的分析就是要对cast, getmemeryptr,以及alloc,free等使用pattern的分析得到的。主要是对指针的分析使用。
+显示内存分配和统一内存模型。LLVM提供特定类型的内存分配，可以使用malloc指令在堆上分配一个或多个同一类型的内存对象，free指令用来释放malloc分配的内存（和C语言中的内存分配类似）。另外提供了alloca指令用于在栈上分配内存对象（通常指局部变量，只是显示表示而已），用alloca来表示局部变量在栈帧上的分配，当然通过alloca分配的变量在函数结尾会自动释放的。
+
+其实这样做是有好处，统一内存模型，所有能够取地址的对象（也就是左值）都必须显示分配。这就解释了为什么局部变量也要使用alloca来显示分配。没有隐式地手段来获取内存地址，这就简化了关于内存的分析。
+用拓扑结构来分析具有天然的结构，例如点就是节点，线就是link,拓扑结构就代表了存储结构。
+LLVM也可以将局部结构体对象或者列表映射到寄存器上，用于构造LLVM IR所要求的SSA形式。这一块我感觉应该是比较难的一块，编译器对structure或者说是memory layout的优化都是很难的一块
+
 
 -targetdata,globalsmodref,Exhaustive-Alias-Analysis-Precission-Evaluator, memory-dependency analysis.
 
 Structure peeling,structure splitting and field recorder.
-struct-array copy 
+struct-array copy/inlining
 instance interleaving
 Array remapping
+https://gcc.gnu.org/wiki/cauldron2015?action=AttachFile&do=view&target=Olga%20Golovanevsky_%20Memory%20Layout%20Optimizations%20of%20Structures%20and%20Objects.pdf
+
+
 
 结构体重排 
 -----------
