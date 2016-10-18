@@ -413,8 +413,52 @@ https://www.zhihu.com/question/29355187 这里有全面的总结了。
 当然可以在代码中直接指定寄存器分配 ，例如在C语言中是有register这样的变量类型的。
 同时在嵌入式开发中，也经常是变量与寄存器可以直接mapping的。
 
+并且http://compilers.cs.ucla.edu/fernando/projects/puzzles/ 模型用来解决寄存器分配问题。
+
+线性扫描主要是变量生存周期问题。 并且指令添slot模型来改进线性扫描。
+http://llvm.org/ProjectsWithLLVM/2004-Fall-CS426-LS.pdf
+
+寄存器分配的难点在于变量的生命周期，以及分时复用的问题。
+http://blog.csdn.net/wuhui_gdnt/article/details/51800101
+
 代码生成
 ========
 
 https://github.com/wuye9036/ChsLLVMDocs/blob/master/CodeGen.md，是代生生成框架简述。
 函数生成过程，先生成中间，然后再生成首尾的连接工作，就像IP包的构造一样。
+
+内存管理
+========
+
+各种内存对齐是为利用cache,高效，但是为默认的struct没有办法重排呢，主要是其解读方式决定。如果像protobuf就可以这样干。
+
+例如结构体重排，Automatic Pool Allocation. 
+
+而这个的分析就是要对cast, getmemeryptr,以及alloc,free等使用pattern的分析得到的。
+利用拓扑分析来判别离散与连续的数据结构及操作。
+也就是lists,trees, heaps,graphs,hash tables,等等的可视化来进行优化。
+
+-targetdata,globalsmodref,Exhaustive-Alias-Analysis-Precission-Evaluator, memory-dependency analysis.
+
+Structure peeling,structure splitting and field recorder.
+struct-array copy 
+instance interleaving
+Array remapping
+
+结构体重排 
+-----------
+
+padding,alignment,point compression. 可以节省空间，提高cache的利用率。一个大的结构体按照使用频率，切成小结构体，并且放在cache里。
+
+https://docs.google.com/viewer?url=http://users.ece.cmu.edu/~schen1/cs745/paper_pres.ppt
+
+change data structure.
+structure splitting
+field reordering
+
+而这些都是可以拓扑学来分析。 符号化之后，就像成点，关系就是线，面就是集合与组。 点线面关系也就构成拓扑学。
+
+函数摘要信息 procedure summary
+==============================
+
+好的摘要信息，可以直接使用摘要进行过程间分析，相当于增量编译了。
