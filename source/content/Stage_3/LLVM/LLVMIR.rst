@@ -32,7 +32,6 @@ LLVM 代码单位
 这里解决前向的声明。 用于欺骗compiler.来满足定义在前的基本要求。
 
 
-
 Well-Formedness
 ===============
 
@@ -41,10 +40,12 @@ Well-Formedness
 内存操作
 ========
 
-Alloca, 相当于malloc
+Alloca 分配栈空间, malloc用于分配堆空间。
 load,store
 read,write
 fence.
+cast,getelementptr 用于取结构体的子元素。
+http://www.lai18.com/content/7919787.html
 
 另一个是对原子操作的支持
 cmpxchg,atomicrwmv,
@@ -124,3 +125,11 @@ blockaddress
 ============
 
 这个就有点GOT的意思了，在哪一个module的中哪一函数。用于形成GOT,PLT的表的内容。
+
+函数调用
+========
+
+正常的函数调用，就call,异常处理就用到invoke与unwind了。
+invoke指令指定在栈展的过程必须要执行的代码。
+unwind指令用于抛出异常代码并执行栈的展开的操作。
+http://www.lai18.com/content/7919787.html
