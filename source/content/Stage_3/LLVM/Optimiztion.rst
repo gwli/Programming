@@ -128,6 +128,11 @@ InstCombine
 Link time optimization (LTO)
 ============================
 
+链接后，就可以看到程序的全貌了，这个时候是做全局分析最佳时机之一，例如函数间的调用。以及全局变量的分析。在clang -flto or -O4 就会起动LTO。
+
+LLVM在链接时所做的最激进的优化莫过于DSA和APA。在DSA分析中，借助于LLVM比较充足的type information，在指针分析的基础上，可以构造出整个内存对象的连接关系图。然后对这个图进行分析，得到内存对象的连接模式，将连接比较紧密的结构对象，例如树、链表等结构体分配在自定义的一个连续分配的内存池中。这样可以少维护很多内存块，并且大大提高空间locality，相应的提高cache命中率。APA（Automatic Pool Allocation）能够将堆上分配的链接形式的结构体，分配在连续的内存池中，这种做法是通过将内存分配函数替换为自定义池分配函数实现的，示意图如下所示：
+
+
 最常见的干法那就是只链接那用到代码与数据，如何到这一点，编译的时候加-ffunction-sections与-fdata-sections这样生一个函数与数据都会单独成section 然后链接的时候 ld --gc-sections就会把多余的section给删除了。
 
 c++的template与重载都是链接时实现的，有两种方式，一种是利用虚表来查询，或者采用原来直接用同一个函数地址，只过前面添加一些offset量，然后用根据参数类型与变量与进行进一步的跳转。 每一个函数都有只有唯一个的地址，这一点是不变的。 template则需要编译的时候同时生成多个版本的函数，例如类型的变化。 但在表面多个函数实现是同一个函数，这个叫做IFC,Identical-instruction-comdat-folding.  ld.gold --icf=safe就是干这个事情。
@@ -176,3 +181,11 @@ Superoptimizer
 同时是不是可以利用群，环，域的知识进行简化计算。
 LLVM让优化又回到了数学
 
+
+
+函数参要
+========
+
+输入输出类型，以及需要时间与空间复杂度公式就够了。
+在编译时会汇总每个函数摘要信息（procedure summary），附在LLVM IR中，在链接时就无需重新从源码中获取信息，直接使用函数摘要进行过程间分析即可。这种技术大大缩短了增量编译的时间。函数摘要一直是过程间分析的重点，因为这种技术在不过分影响精确性的前提下，大大提高静态分析的效率。我的本科毕设就是关于改写Clang以支持简单的基于函数摘要的静态分析，研究生毕设题目《基于函数摘要的过程间静态分析技术》。
+http://scc.qibebt.cas.cn/docs/optimization/VTune(TM)%20User's%20Guide/mergedProjects/analyzer_ec/CG_HH/About_Function_Summary.htm
