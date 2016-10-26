@@ -67,6 +67,7 @@ http://www.valleytalk.org/wp-content/uploads/2011/10/%E6%8E%A7%E5%88%B6%E6%B5%81
 
 现在已经有一种数学模型，那就是多面体。可以采用数学的方式来进行优化。现有库有gcc用CLOOG。而LLVM,polly.来实现。
 Polly可以用于各个阶段。 http://polly.llvm.org/docs/Architecture.html
+在前端的话，优化后更接近原始代码，更容易理解，在后端可以充分利用其他优化的pass,但是没有可读性就比较差。
 
 
 InstCombine
@@ -109,6 +110,7 @@ InstCombine
 #. llvm-stress 可以filter,各种function的IR code. 
 #. obj2yaml/yaml2obj 相当于机器码的直接修改了，再不用各种麻烦的解析工作了。
 #. llvm-symbolizer convert address into source code location
+#. FileCheck 一个类似于awk/sed,检查所有check pattern都满足。
 
 如何利用profiling data来优化编译
 ================================
@@ -165,6 +167,7 @@ unloop
     }
 
 
+
 如何用LLVM从编译分析重构代码
 ============================
 
@@ -189,3 +192,6 @@ LLVM让优化又回到了数学
 输入输出类型，以及需要时间与空间复杂度公式就够了。
 在编译时会汇总每个函数摘要信息（procedure summary），附在LLVM IR中，在链接时就无需重新从源码中获取信息，直接使用函数摘要进行过程间分析即可。这种技术大大缩短了增量编译的时间。函数摘要一直是过程间分析的重点，因为这种技术在不过分影响精确性的前提下，大大提高静态分析的效率。我的本科毕设就是关于改写Clang以支持简单的基于函数摘要的静态分析，研究生毕设题目《基于函数摘要的过程间静态分析技术》。
 http://scc.qibebt.cas.cn/docs/optimization/VTune(TM)%20User's%20Guide/mergedProjects/analyzer_ec/CG_HH/About_Function_Summary.htm
+
+
+
