@@ -221,6 +221,9 @@ http://www.hanselman.com/blog/BackToBasicsUsingFusionLogViewerToDebugObscureLoad
 
 进程数据存放无非两种，放在内存里，或者寄存器里。
 
+内存泄漏可以inject内存管理函数，并且建立自己内存管理模型来进行监测，所谓的代码插装，在源码级别可以预处理的宏替换来实现，那就像MFC的那个消息结构一样。在宏替换原来内存管理函数后，同时利用_FILE_,_LINE_,_FUNC_来获得动态分配函数所在的context信息。
+利用exception + __FILE__,__LINE__,__FUNC__来得到callstack以及文件的对应关系。
+
 
 strings的使用
 =============
