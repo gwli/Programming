@@ -51,3 +51,12 @@ Stack frame unwinding on Arm
 https://wiki.linaro.org/KenWerner/Sandbox/libunwind?action=AttachFile&do=get&target=libunwind-LDS.pdf
 
 callstack的解析主要是看ABI的规定，一般编译的时候会用上-funwind-tables 选项。
+
+unwind stack 基本上就是三种方法
+#. DWARF debug 信息   -g
+#. unwind tables  -funwind-tables
+#. frame pointers -fno-omit-frame-pointer
+
+用nm可以查看符号表，"nm -a -f sysv" 看起来会更方便。哪些生成符号，函数名，全局的变量名，以及一些跳转label.
+而在binary文件里，只有section,符号表了。section内部跳转那就是用偏移量，要么就是section 之间的跳转了。而section 
+之间的跳转就要用到GOT,PLT来进行，并且GOT与PLT里一些跳转以及加减的指令。
