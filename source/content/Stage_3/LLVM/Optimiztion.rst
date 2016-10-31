@@ -54,7 +54,7 @@ victorlization.
 代码的实现就是一种资源的分配以及排兵部阵下棋一样，如何使用CPU等最基本的加减乘除等实现复杂的运算。加减乘除+与或非，以及基本指令。一套指令集就是一个完备集。
 
 Control flow 
-=============
+============
 
 CFG 的优化，主要是基于图论与拓扑，找到环路与边界。来进一步优化。 
 如何找到重复等价块，来实现函数，同时对于只有调用一次的函数。以及多次的代码是不是要把变成inline, 减少overhead. 以及由人写一个初始代码，然后算法进化最优代码结构，例如到底有多少需要重构的，模块化的。 然后再动优化，或者代码中加入一些宏指令，就像OPENACC那样来控制编译。
@@ -126,6 +126,9 @@ InstCombine
 
 
 原理 -fprofile-generate生成收集指令，并且生成*.gcda文件。 重新编译的时候 -fprofile-use 就会读取这些文件来生成条件语句。
+-fprofile-arcs, -fprofile-values.  -fbranch-probabilities,-fvpt,-funroll-loops, -fpeel-loops, -ftracer. 
+http://stackoverflow.com/questions/13881292/gcc-profile-guided-optimization-pgoo
+利用运行时信息来进行优化。如果这些信息存储在meta data中，这样LLVM中就可以实现自包含的优化，也就实现了自我的演化功能。
 
 Link time optimization (LTO)
 ============================
@@ -194,4 +197,44 @@ LLVM让优化又回到了数学
 http://scc.qibebt.cas.cn/docs/optimization/VTune(TM)%20User's%20Guide/mergedProjects/analyzer_ec/CG_HH/About_Function_Summary.htm
 
 
+
+
+IPO/CMO
+=======
+
+过程间分析，分析跨module函数调用,然后根据hotpath的程度，来考虑是不是需要inline,inline就消除了函数边界。同时又添加了
+上下文，同时就又可以指针引用的分析了。 而在传统的情况下，这些分析是需要LTO来做的。但是通过FDO(Feedback Directed Optimizations).从profiling data中收集数据直接来做IPO，这样可以避免compiling time增加的问题。 
+https://gcc.gnu.org/wiki/LightweightIpo#LIPO_-_Profile_Feedback_Based_Lightweight_IPO
+
+
+Target code optimization
+========================
+
+每一代的CPU都会一些新的特性，如何充分利用这些特性，就要有相应的编译器的支持，由于编译器与CPU的发布并不是同步的。
+所以要想充分利用这些特性，还得现有的编译器做一些修改，有些只是一个编译选项的修改，有些需要从源代码处直接修改。
+
+例如pld指令在ARM中的应用: http://stackoverflow.com/questions/16032202/how-to-use-pld-instruction-in-arm
+
+
+重构
+====
+
+重构是基于代码的分析，同时对算法需求本身理解，还有实现的理解。 而二者搓合匹配就是重构的过程。 如何编译器能够读懂算法。
+并且支持基本设计模式，而这些都在C#语言中实现了很多，LINQ的实现，就属于这种。编译器往下代码的优化，往上走那就是重构。
+例如微软的 `roslyn-ctp <https://blogs.msdn.microsoft.com/visualstudio/2011/10/19/introducing-the-microsoft-roslyn-ctp/>`_ 
+
+依赖的分析 
+===========
+
+对于简单标量分析，都已经有很成熟的理论与方法，而复杂一些数组与结构体的依赖关系，就主要是下标分析，对于多维的结构下标分析就成了确定一个线性方程在满足一组线性不等式约束下是否有整数解。
+线性方程的变量是循环索引变量，不等式约束由循环界产生。 对于一维数组只有一个方程须要测试。
+当测试多维数组时，如果一个下标的循环索引不出现在其他的下标中我们称为这个下标的状态是可分的。
+
+数据依赖问题是整数线性规则问题，因为它不可能一般的有效的解决方案。 例如GCD测试。
+
+指针指向分析
+============
+
+指针指向分析是静态分析工作的一个重要课题。 也是各项优化技术和程序分析工作的基础。关键是精确度与性能的关系。 关争是也是建立有向图，进行还路检测。主要是分析各种赋值操作。
+http://www.jos.org.cn/ch/reader/create_pdf.aspx?file_no=4025
 

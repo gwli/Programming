@@ -13,3 +13,10 @@ http://polly.llvm.org/docs/UsingPollyWithClang.html
 clang 不需要invoke opt, clang与opt采用相同的LLVM infrastructure, opt只是优化器的wrapper.
 LLVM设计本身就是模块化的，opt只是一个exe的wrapper.
 
+
+在loop中利用循环变量的单调性，直接利用相等代替<. 
+同时调整loop中scalar变量，尽可能减少其循环次数。
+http://llvm.org/devmtg/2009-10/ScalarEvolutionAndLoopOptimization.pdf
+
+
+归纳变量（Induction Variable,IV) 是指循环中每次增加或者减少固定数值或者与循环次数呈一定数学解析关系的变量。
