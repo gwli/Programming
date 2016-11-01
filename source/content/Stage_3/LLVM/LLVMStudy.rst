@@ -291,6 +291,13 @@ Memory Model for Concurrent Operations
 
 Use-list Order directives 相关指令的关系。有点NEON的味道。
 
+
+如何计算两个函数的相似度，利用IR来生成符号，充分利用符号替换来解决变量名的区别。
+从函数入口直接把所有变量替换成中间变量。这样只剩下形式与指令顺序的问题。
+http://llvm.org/docs/MergeFunctions.html
+这样找到相同函数，就像可以替换。
+
+利用相同的思路把找到最长常匹配块，split一个大的函数成多个小的函数。然后再编译的时候再用inline,这样即解决了模块化，又解决了效率的问题。
 Type System
 ===========
 

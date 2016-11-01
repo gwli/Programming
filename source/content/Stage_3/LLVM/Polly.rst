@@ -20,3 +20,6 @@ http://llvm.org/devmtg/2009-10/ScalarEvolutionAndLoopOptimization.pdf
 
 
 归纳变量（Induction Variable,IV) 是指循环中每次增加或者减少固定数值或者与循环次数呈一定数学解析关系的变量。
+分析这些可以形成CUDA的内核函数。 循环相当于差分方程。而如何找到一个通项公式，
+而利用符号计算，并且加上符号计算工具包，并且加有向图结构的分析，就可以分析通项公式。
+这样我可以循环计算变成了常量计算。
