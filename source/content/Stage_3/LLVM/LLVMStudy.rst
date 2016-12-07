@@ -298,6 +298,7 @@ http://llvm.org/docs/MergeFunctions.html
 这样找到相同函数，就像可以替换。
 
 利用相同的思路把找到最长常匹配块，split一个大的函数成多个小的函数。然后再编译的时候再用inline,这样即解决了模块化，又解决了效率的问题。
+
 Type System
 ===========
 
@@ -549,3 +550,7 @@ CFG优化
 根据关注点的不同，实现一个最小的可执行代码切片。一般在控制流图上根据数据依赖及控制依赖关系，采用不动点迭代求解
 
 
+化简CFG就是要删除那些无效的符号，CFG有两种形式CNF,GNF,关键是产生式的形式的区别。
+http://grid.cs.gsu.edu/~cscskp/Automata/cfl/node5.html
+删除 Unit 产生式，以及空产生式。
+http://www.tutorialspoint.com/automata_theory/cfg_simplification.htm
