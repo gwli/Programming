@@ -238,3 +238,15 @@ Target code optimization
 指针指向分析是静态分析工作的一个重要课题。 也是各项优化技术和程序分析工作的基础。关键是精确度与性能的关系。 关争是也是建立有向图，进行还路检测。主要是分析各种赋值操作。
 http://www.jos.org.cn/ch/reader/create_pdf.aspx?file_no=4025
 
+多级的cache的分析
+=================
+
+每一级的cache的cost都是不一样的，如何根据cache的cost来自动进行内容的重排，要建立这样一个模型。例如circular queue,FIFO等等队列都是一种调度算法，效率如何是需要算法与物理模型之间的匹配，例如circule queue cache特别适合，多步之间临时数据的共享。
+
+A Hybrid Circular Queue Method for Iterative Stencil Computations on GPUs
+-------------------------------------------------------------------------
+
+提出基于share memory与寄存器 circular queue,也就是异构的queue.
+异构的queue不是简单的内容异构，还指实现介质异构。对于一维数组，主要是下标即指针分析。 而对于标量来说，那就是引用计算的分析。 而这些采用的是把数组分析转化为标量分析，从而设计出混合系统。
+http://jcst.ict.ac.cn:8080/jcst/CN/10.1007/s11390-012-1206-3
+
