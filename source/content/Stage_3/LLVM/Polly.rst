@@ -102,12 +102,18 @@ https://software.intel.com/zh-cn/videos/episode-56-strip-mining-for-vectorizatio
 #. access relations,iteration domains, schedules. 
 http://www.grosser.es/publications/grosser-2012--Polyhedral-Extraction-Tool--IMPACT.pdf
 
+WRaP-IT是把一个基于Open64 loop表示方式转换 多面体模型。
+http://xueshu.baidu.com/s?wd=paperuri:(b9d56c50f7ec1e591af804388d0543a4)&filter=sc_long_sign&sc_ks_para=q%3DSemi-Automatic+Composition+of+Loop+Transformations+for+Deep+Parallelism+and+Memory+Hierarchies&tn=SE_baiduxueshu_c1gjeupa&ie=utf-8&sc_us=17522034925718936250
+
 难点在于如何分块的问题，边界框，相当于平行四边形，但是可能会有冗余的。
 如何得到合适的分块方法。同时还要确定的每一层循环的计算要求。
 
 也就是一个线性分间的分块与遍历方法，多级分块，对应着多级循环。
 结合新存储架构和应用数据规模特点，全面精准地描述多核共享cache架构上数据访存行为，提供更加有效，简洁，紧溱的线线性空间多面体变换理论模型，在时空维度采用更灵活的混合分块策略，利用粗细粒度结合高并行度开发硬件资源高效的计算能力，针对优秀的代码生成器在代码质量，分块开销，可扩展性等方面进行相应的优化提升，同时构建分块代码性能的评估模型
 
+`Parameterized tiled loops for free <http://dl.acm.org/citation.cfm?id=1250780>`_
+参数化的分块，其实就是ogl的shader如何写的问题，uniform的参数就是相当于并行化分块时的常量，但是在运行时每一次都是要变化的。
+在ogl的buffer的结构分配，就是一个调整tiled的过程。inset,outset两种，相当于参数化列表，例如小波变换，2x2大小，计算体，128x128大小计算，根据需要选择最近那一种分配方式，还有一种完全参数方式，由于分块增加循环的overhead,这样通过区分full tiled,partial tile,来进行在full tile 中减少不必要checker从而减小overhead.
 
 
 重用距离 
