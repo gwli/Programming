@@ -95,6 +95,12 @@ https://software.intel.com/zh-cn/videos/episode-56-strip-mining-for-vectorizatio
 其实也就是打到这些点，相当于重新路由这些点。找到最佳路径。由于路组的下标一般是整数，一般也就是基于整数的多面体抽取。
 `isl :An Integer Set Library for the Polyhedral Model <http://xueshu.baidu.com/s?wd=paperuri:(e42e95775eb12f0fb476e7c27aaabad5)&filter=sc_long_sign&sc_ks_para=q%3Disl%3A+an+integer+set+library+for+the+polyhedral+model&tn=SE_baiduxueshu_c1gjeupa&ie=utf-8&sc_us=1139743971422901848>`_
 例如一个if 就代表不等式的约束。
+每一个迭代点就是一个顶点，至于那些顶点如何连接的，边就由循环体的计算来决定了，那些逻辑运算与算术运算那就是边的线性质。
+最简单的那线性了。每一种运算就代连接方式，现在算法模型的不同在于对不同的运算的支持。现在对于各种运算符并不是完全支持。
+并且由于各种运算有access relation,以及数据依赖。
+例如对于这种复杂的 ``A[i+1+in2[i]]`` 可能是太复杂了，就无法分析。三大分析
+#. access relations,iteration domains, schedules. 
+http://www.grosser.es/publications/grosser-2012--Polyhedral-Extraction-Tool--IMPACT.pdf
 
 难点在于如何分块的问题，边界框，相当于平行四边形，但是可能会有冗余的。
 如何得到合适的分块方法。同时还要确定的每一层循环的计算要求。
