@@ -141,4 +141,11 @@ http://blog.sciencenet.cn/home.php?mod=space&uid=43347&do=blog&id=277417
 元胞自动机将简单与复杂、 微观与宏观、 局部与整体、 有限与无穷、 离散与连续等
 一对对哲学范畴紧密联系在一起，可望成为探索复杂科学的利器。
 
+分层化模块化编程
+================
 
+现在已经是一个趋势了，multi-stage programming。 一种是生成别人，就像现在元编程，另一种那就是优化自己，那就代码的自我演化了。
+对于前者对于加速计算中已经很多了，例如thearno,以及Terra In Lua. 
+其实也CUDA也是C的扩展，相当于同样的语法，添加一些扩展，但是用不同的编译与执行环境。
+Terra: a multi-stage language for high-performance computing
+http://xueshu.baidu.com/s?wd=paperuri:(f07cfc1eb4f6e17bd78c4598b285e298)&filter=sc_long_sign&sc_ks_para=q%3DTerra%3A+a+multi-stage+language+for+high-performance+computing&tn=SE_baiduxueshu_c1gjeupa&ie=utf-8&sc_us=18024398585137206599
