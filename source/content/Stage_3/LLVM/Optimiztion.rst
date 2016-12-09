@@ -238,6 +238,7 @@ Target code optimization
 指针指向分析是静态分析工作的一个重要课题。 也是各项优化技术和程序分析工作的基础。关键是精确度与性能的关系。 关争是也是建立有向图，进行还路检测。主要是分析各种赋值操作。
 http://www.jos.org.cn/ch/reader/create_pdf.aspx?file_no=4025
 
+对于指针分析，然后建立自动建立pooling 来提高局部性。
 多级的cache的分析
 =================
 
