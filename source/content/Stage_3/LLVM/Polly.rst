@@ -115,6 +115,7 @@ http://xueshu.baidu.com/s?wd=paperuri:(b9d56c50f7ec1e591af804388d0543a4)&filter=
 参数化的分块，其实就是ogl的shader如何写的问题，uniform的参数就是相当于并行化分块时的常量，但是在运行时每一次都是要变化的。
 在ogl的buffer的结构分配，就是一个调整tiled的过程。inset,outset两种，相当于参数化列表，例如小波变换，2x2大小，计算体，128x128大小计算，根据需要选择最近那一种分配方式，还有一种完全参数方式，由于分块增加循环的overhead,这样通过区分full tiled,partial tile,来进行在full tile 中减少不必要checker从而减小overhead.
 
+FME 分块算法是指数级运算量，效率太低。
 
 重用距离 
 ========
