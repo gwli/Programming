@@ -141,7 +141,7 @@ http://blog.sciencenet.cn/home.php?mod=space&uid=43347&do=blog&id=277417
 元胞自动机将简单与复杂、 微观与宏观、 局部与整体、 有限与无穷、 离散与连续等
 一对对哲学范畴紧密联系在一起，可望成为探索复杂科学的利器。
 
-分层化模块化编程
+分层模块化编程
 ================
 
 现在已经是一个趋势了，multi-stage programming。 一种是生成别人，就像现在元编程，另一种那就是优化自己，那就代码的自我演化了。
@@ -149,3 +149,25 @@ http://blog.sciencenet.cn/home.php?mod=space&uid=43347&do=blog&id=277417
 其实也CUDA也是C的扩展，相当于同样的语法，添加一些扩展，但是用不同的编译与执行环境。
 Terra: a multi-stage language for high-performance computing
 http://xueshu.baidu.com/s?wd=paperuri:(f07cfc1eb4f6e17bd78c4598b285e298)&filter=sc_long_sign&sc_ks_para=q%3DTerra%3A+a+multi-stage+language+for+high-performance+computing&tn=SE_baiduxueshu_c1gjeupa&ie=utf-8&sc_us=18024398585137206599
+
+
+Spiral in Scala: Towards the Systematic Construction of Generators for Performance Libraries
+What tools and features provided by programming languages and environments can facilitate the development of generators for performance libraries?
+
+并且LMS(Lightweight MOdular Staging). 实现一种中间形式，然后进行各种优化，主要是 rule rewrite,以及transformation. 对于多种数据结构的形式， Array of Structure 还是 Structure of Array.
+
+Abstraction ver  Data Representations. 
+
+#. Precomputation. 
+#. selection. 
+#. 描述算法与问题
+#. 指定特定优化，例如某种硬件实现的选择，或者 rule rewrite.
+#. 设计高层数据结构，方便指层的重构。
+
+算法描述语言
+============
+
+Liszt 用mesh 结构来解差分方程，然后自动实现MPI，CUDA等代码。http://graphics.stanford.edu/hackliszt/
+The_Pochoir_Project 用来生成stencil 代码的编译器 http://groups.csail.mit.edu/sct/wiki/index.php?title=The_Pochoir_Project
+
+例如对于计算流体仿真是用波振面 分块并行的计算方法。
