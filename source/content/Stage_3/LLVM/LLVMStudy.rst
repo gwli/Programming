@@ -324,6 +324,7 @@ DICompileUNit/DIFile/DISubgrance/DIEnumerator/DILocalVariable/DILocation./DIExpr
 #. DIExpression nodes 来表示 DWARF expression sequences.
 基本上LLVM采用图论的方式来进行优化。这些都相当于是一个node.
 
+
 invoke
 ------
 
@@ -380,11 +381,13 @@ LLVM  当前的问题
 新想法的诞生从来都不是一夜之间出现的，一定是掌握了足够多的知识，在不同问题的比较和知识碰撞中获得灵感，然后像一个襁褓中的婴儿一样缓步前进的。当然现在LLVM还存在很多问题，特别是跟应用很多年的工业级的编译器在某些方面还有差距，但是差距正在逐步缩小，附一篇Open64开发人员对LLVM的看法《Open64业内外人士对LLVM和Open64的观点》。
 
 
+SSA的基础
+=========
 
-Point Aalias Rule
-=================
+各种各样的编译层出不穷，例如QBE号10%代码达到LLVM70%的功能，主要是基于SSA来做的，
+#. SSA 形式的构造本就是复写传播(copy propagation).
+#. SCCP (sparse condition constant propagation), SSA 形式上最经典的数据流分析与优化分析 之一。
 
-就是不同名字，但指的是同一块内存。这两个名字互称为alias.
 
 
 
@@ -495,6 +498,11 @@ field reordering
 只要在增加一层，再增加一层重排，这样就可以保证正确的结构了，而非一个随意的结构。相当于我们只是描述数据结构的需求。
 而销定实现。
 
+利用图论方法来对链表进行分析，然后用内存池的方式来进行优化，一般对于链表结构都是手工方式进行内存池的方式优化。
+根据指针的类型与数据结构本身的关系来建立拓扑图。http://research.microsoft.com/en-us/um/people/trishulc/msp2002/mcd_msp02/adve_newpaper.pdf
+并且根据每一段数据使用频率以及cache的cost建立相应的内存池以及结构体的重排。
+
+基于当前的水平，DSA与automatic Pooling是技术发展的方向。http://llvm.org/pubs/2005-05-04-LattnerPHDThesis.pdf
 函数摘要信息 procedure summary
 ==============================
 
