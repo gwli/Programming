@@ -239,6 +239,23 @@ Target code optimization
 http://www.jos.org.cn/ch/reader/create_pdf.aspx?file_no=4025
 
 对于指针分析，然后建立自动建立pooling 来提高局部性。
+
+Point Aalias Rule
+=================
+
+就是不同名字，但指的是同一块内存。这两个名字互称为alias.
+并且对一段内存的使用频率如何统计出来，根据这个频率来进行内存结构的重新规划，从而最大化的利用寄存器与cache.
+对于数组类型的分析主要是整数方程解来解决。而对于指针类型，比较随意，分析难度比较大。
+目前大部分主要是采用基于类型分析，后台自己hook内存读写分配指令，自己来做进一步分析，最简单的那基于指令扫描，这样不管
+控制流，例如循环与分析的情况。复杂就要考虑这些。 这个难点就在于算法复杂度很大，并且只有大的程序才需要这些优化。
+找到一个算法复杂度很度，计算与精度是一对矛盾。 
+
+同时根据内存的使用情况，来设计一个好的垃圾回收机制，目前编译器对这一块还是比较弱的，LLVM已经开始在这一方面改进了。
+http://llvm.org/docs/GarbageCollection.html#gcroot, 例如常规引用计数等等方式都已经实现只需要实现gc strategy. 
+
+对于这一块的研究，微软很多好的论文。
+`Points-to Analysis in Almost Linear Time <http://www.cs.cornell.edu/courses/cs711/2005fa/papers/steensgaard-popl96.pdf>`_ 
+
 多级的cache的分析
 =================
 
