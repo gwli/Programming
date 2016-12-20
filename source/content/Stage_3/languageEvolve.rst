@@ -17,6 +17,13 @@
 找到图形，找到不动点。 生成新点。
 每执行一次就要找出新的不动点，并且代码能够自我保存状态，改写自身。一直往下发展。
 
+演化的最简单就是替换，
+
+.. code-block::
+   for (;):
+      next = f(current)
+      current = next
+
 数据驱动开发
 ============
 
@@ -114,13 +121,18 @@ http://blog.csdn.net/jxt1234and2010/article/details/45201421
 元胞机
 ======
 
+
+元胞机在解决计然过程与计算系统以及传统的数学之间关系。wolfram已经开始这种这个大门。
+https://www.whitman.edu/Documents/Academics/Mathematics/andrewgw.pdf 并且之间到底是什么关系。the nature of code 正是研究这一过程。 
+
+
 基本上元胞机都是图灵完备的。 只要集合，再加上闭包计算。
 
 初等元胞机基本要素
 #. 空间
 #. 状态集
-#. 邻居
-#. 演化规则， 一个元胞的生死由其邻居决定。 也就是一定要有非线性。
+#. 邻居，根据不同定义有冯-诺依曼型，Moor型，扩展的摩尔型。 马哥勒斯型，
+#. 演化规则， 一个元胞的生死由其邻居决定。 也就是一定要有非线性。相于动力函数。 http://www.cs.sun.ac.za/rw711/resources/CAtut3.pdf 在这些演化规则中是不是具有规律，例如具有基函数等。
 元胞自动机的核心概念有：元胞、状态、元胞空间、邻居、转换规则、演化等
  
 要有一个元胞机框架，主要是演化规则定义。
@@ -132,6 +144,53 @@ http://blog.sciencenet.cn/home.php?mod=space&uid=43347&do=blog&id=277417
 
 
 可以用processing现成natureofcode中例子直接来学或者wolfram来试验。
+
+http://www2.econ.iastate.edu/tesfatsi/cellularautomataintro.lt.pdf 一些模型参数。
+
+元胞机的发展过程
+================
+这里详细的入门教程 http://users.utu.fi/jkari/ca/CAintro.pdf
+
+#. Wolffram 的初等元胞机。
+对于初等元胞机可以在wolfram中直接实验的，https://reference.wolfram.com/language/tutorial/CellularAutomata.html. 只指定规则，初使状态。就可以查看其过程，或者最终结果还是全面结果。
+对于其图灵完备性的证明，以及其他性质证明http://www.complex-systems.com/pdf/15-1-1.pdf， 图灵完备，包含周期性。 也就是有界。
+http://tutorials.siam.org/dsweb/catutorial/ 这里对于初等也有现成的研究与例子。就一个初等元胞机就能生成复杂的系统。
+
+#. 生命游戏。主要问题邻域的半径+总体的数量。
+
+https://llk.media.mit.edu/projects/emergence/  
+http://stevenklise.github.io/ConwaysGameOfLife
+https://bitstorm.org/gameoflife/  
+http://www.math.com/students/wonders/life/life.html
+http://www.ibiblio.org/lifepatterns/
+
+http://wwwhomes.uni-bielefeld.de/achim/freq_top_life.html 最常见的生命模型。
+   生命游戏模型已在多方面得到应用。他的演化规则近似地描述了生物群体的生存繁殖规律:在生命密度过小(相邻元胞数之2)时，由于孤单、缺乏配种繁殖机会、缺乏互助也会出现生命危机，元胞状态值由1变为0;在生命密度过大 (相邻元胞数>3)时，由于环境恶化、资源短缺以及相互竞争而出现生存危机，元胞状态值由1变为0;只有处于个体适中(相邻元胞数为2或3)位置的生物才能生存(保持元胞的状态值为1)和繁衍后代(元胞状态值由0变为1)。正由于它能够模拟生命活动中的生存、灭绝、竞争等等复杂现象，因而得名"生命游戏"。J·H·Conway还证明，这个元胞自动机具有通用图灵机的计算能力(谢惠民，1994;李才伟，1997)，与图灵机等价，也就是说给定适当的初始条件，生命游戏模型能够模拟任何一种计算机。
+这里
+
+例如在游戏中生成洞穴https://gamedevelopment.tutsplus.com/tutorials/generate-random-cave-levels-using-cellular-automata--gamedev-9664。
+
+已经有人探索好生命pattern. http://www.conwaylife.com/wiki/Main_Page，​http://golly.sourceforge.net/ 有开源工具供你探索。
+`如何优雅地用元胞自动机炼蛊？ <https://www.zhihu.com/question/37530794>`_ 初始状态与密度与最终的生命模型。
+
+搞理论的科学家，只把这个规则和定义作为一个用于各种性质方面研究、证明、或者展示的例子，实际去乐于花很多时间，研究如何创造什么结构（很多时候也是要运气）、搞些漂亮的宏伟的高端的来达到各种目的的人，比玩过这个的科学家，估计更是少数……
+
+
+
+#. 格子自动机(Lattice-GasAutomata).在流体力学与统计物理学中具体化。主要是模拟navier-stroker方程，以及波尔兹曼方程。
+
+#. Langton 和能自我复制的元胞自动机
+
+
+
+分类
+====
+#. 平稳型  不动点，变化终结于恒定的图像
+#. 周期型, 图像出现性变化
+#. 混沌型，就像随机态
+#. 复杂型。最具有研究价值是第四种，因为这类元胞自动机被认为具有"突现计算"(Emergent Computation)功能，研究表明，可以用作广义计算机(Universal Computer)以仿真任意复杂的计算过程。另外，此类元胞自动机在发展过程中还表现出很强的不可逆(lrreversibility)特征，而且，这种元胞自动机在若干有限循环后，有可能会 "死"掉，即所有元胞的状态变为零
+
+还有按照维度的分类方法。
 
 应用类型
 --------
@@ -171,3 +230,11 @@ Liszt 用mesh 结构来解差分方程，然后自动实现MPI，CUDA等代码�
 The_Pochoir_Project 用来生成stencil 代码的编译器 http://groups.csail.mit.edu/sct/wiki/index.php?title=The_Pochoir_Project
 
 例如对于计算流体仿真是用波振面 分块并行的计算方法。
+
+
+nature of code
+==============
+
+建立随机，然后利用非平均随机来改变运动的方向。
+
+如何让物体沿着曲线的方向移动，那就是沿线曲线的切线方向移动一个单位。 例如滚屏，也就是一个求余就搞定了。
