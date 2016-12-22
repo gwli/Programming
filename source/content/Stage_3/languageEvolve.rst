@@ -163,6 +163,7 @@ http://stevenklise.github.io/ConwaysGameOfLife
 https://bitstorm.org/gameoflife/  
 http://www.math.com/students/wonders/life/life.html
 http://www.ibiblio.org/lifepatterns/
+http://cell-auto.com/
 
 http://wwwhomes.uni-bielefeld.de/achim/freq_top_life.html 最常见的生命模型。
    生命游戏模型已在多方面得到应用。他的演化规则近似地描述了生物群体的生存繁殖规律:在生命密度过小(相邻元胞数之2)时，由于孤单、缺乏配种繁殖机会、缺乏互助也会出现生命危机，元胞状态值由1变为0;在生命密度过大 (相邻元胞数>3)时，由于环境恶化、资源短缺以及相互竞争而出现生存危机，元胞状态值由1变为0;只有处于个体适中(相邻元胞数为2或3)位置的生物才能生存(保持元胞的状态值为1)和繁衍后代(元胞状态值由0变为1)。正由于它能够模拟生命活动中的生存、灭绝、竞争等等复杂现象，因而得名"生命游戏"。J·H·Conway还证明，这个元胞自动机具有通用图灵机的计算能力(谢惠民，1994;李才伟，1997)，与图灵机等价，也就是说给定适当的初始条件，生命游戏模型能够模拟任何一种计算机。
@@ -234,7 +235,16 @@ The_Pochoir_Project 用来生成stencil 代码的编译器 http://groups.csail.m
 
 nature of code
 ==============
+http://github.com/shiffman/The-Nature-of-Code-Examples
 
 建立随机，然后利用非平均随机来改变运动的方向。
 
 如何让物体沿着曲线的方向移动，那就是沿线曲线的切线方向移动一个单位。 例如滚屏，也就是一个求余就搞定了。
+
+
+遗传算法
+========
+
+也是代码演化的一种方式，也当做是一种搜索方式。首先得有一个群，然后crossover,并且选出优势，再进一步生成，同时有一部分的变异。
+https://www.zhihu.com/question/23293449. 并且相信，最好的结果是可以由当前的结果进化得到的。
+
