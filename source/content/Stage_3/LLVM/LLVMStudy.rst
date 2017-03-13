@@ -187,6 +187,12 @@ JIT
 
 GCC很难当做lib来复用。
 
+当然可以直接使用gcc 的python扩展来进行测试。
+直接写测试用例，来进行测试。 当然这个也需要一些线程注入的技巧
+
+也可以用LLVM来直接发改写代码，例如生成函数用LLVMAPI， 主要就是生成一个module然后连接一些block. 并且用API生成语句。
+http://releases.llvm.org/2.6/docs/tutorial/JITTutorial2.html
+
 
 优化的过程
 ==========
