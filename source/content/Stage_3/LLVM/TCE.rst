@@ -25,3 +25,27 @@ In a CPU, the program is mapped to a fixed architecture
  The program defines the architecture
  Instead of the architecture constraining the program,
 the program is constrained by the available resources
+
+
+TCE
+===
+
+对于TCE的安装，使用的LLVM是需要打补丁的，通过安装的LLVM是不能的。
+可以通过 
+#. tools/scripts/try-install-llvm     <llvm_install_dir>
+#. ./configure --with-llvm=<llvm_install_dir>  //not use system llvm
+
+http://tce.cs.tut.fi/tutorial_files/tce_tutorials.tar.gz 
+
+
+默认它会把安装在 /usr/local/lib但是直接用可能找不到库。
+
+工作流程:http://tce.cs.tut.fi/user_manual/TCE/node7.html.
+#. 先纯软件的实现。
+#. 相当于porting 到一个TTA的processor上。
+#. 然后就是优化了。
+ 
+C->bitcode->TTA processor code->优化，生成代码适配。并生成对应image文件。
+
+性能优化最终极的目标那就是能耗比。而只有这样才能实现从上到下全局优化。
+而之前的是扩张占用资源。
