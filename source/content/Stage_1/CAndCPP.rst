@@ -239,3 +239,34 @@ STL库
 模板实例化
 ==========
 隐式实例化时，成员只有被引用到才进行实例化。
+
+
+
+template argument deduction/substition failed
+=============================================
+
+test@devtools-vm:/opt/libcvd$ make
+g++ -O3 -I. -I.  -INONE/include -g  -Wall -Wextra -pipe -std=c++14 -ggdb -fPIC -mmmx -msse -msse -msse2 -msse3 -c cvd_src/convolution.cc -o cvd_src/convolution.o
+cvd_src/convolution.cc: In function ‘void CVD::compute_van_vliet_scaled_d(double, double*)’:
+cvd_src/convolution.cc:155:22: error: no matching function for call to ‘abs(double&)’
+  if (abs<double>(step) < 1e-6)
+                      ^
+In file included from /usr/include/c++/5/random:38:0,
+                 from /usr/include/c++/5/bits/stl_algo.h:66,
+                 from /usr/include/c++/5/algorithm:62,
+                 from ./cvd/convolution.h:8,
+                 from cvd_src/convolution.cc:1:
+/usr/include/c++/5/cmath:99:5: note: candidate: template<class _Tp> constexpr typename __gnu_cxx::__enable_if<std::__is_integer<_Tp>::__value, double>::__type std::abs(_Tp)
+     abs(_Tp __x)
+     ^
+/usr/include/c++/5/cmath:99:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/5/cmath: In substitution of ‘template<class _Tp> constexpr typename __gnu_cxx::__enable_if<std::__is_integer<_Tp>::__value, double>::__type std::abs(_Tp) [with _Tp = double]’:
+cvd_src/convolution.cc:155:22:   required from here
+/usr/include/c++/5/cmath:99:5: error: no type named ‘__type’ in ‘struct __gnu_cxx::__enable_if<false, double>’
+Makefile:329: recipe for target 'cvd_src/convolution.o' failed
+make: *** [cvd_src/convolution.o] Error 1
+test@devtools-vm:/opt/libcvd$ 
+
+解决办法，直接去cppreference.com中查找对应的库函数，并且找到example. 并且快速形成一个切面，进行troubleshoot.
+http://en.cppreference.com/w/cpp/language/template_argument_deduction
+
