@@ -48,6 +48,12 @@ instead, adapt the software to work within the new constraints.
 #. 寻找可替代的库，如果库的版本可能不是平台的。
 #. 最后根据error与平台的不同，来修一些bug.
 
+
+一个最简单的做法，直接把CXX,CC两个环境变量换掉，然后直接把 --sysroot换成目标系统根文件系统。
+
+编译无非就是，编译需要头文件来自欺，而链接时就需要真实时的库了。以及各种依赖。都是可以自动生成的。
+
+还有就是编译与链接选项，cflags,lflags. 这些可以由 llvm-config,pkgconfig来得到。
 移值时常见问题
 ==============
 
