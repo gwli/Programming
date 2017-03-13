@@ -70,4 +70,22 @@ code-coverage的计算
 #. 
 
 
+也可以版本控制的log来指出最容易出错地方。例如文件被改动的次数。
+http://google-engtools.blogspot.com/2011/12/bug-prediction-at-google.html
+https://github.com/igrigorik/bugspots
 
+
+一个在线试验
+http://klee.doc.ic.ac.uk/#
+
+EXE: Automatically Generating Inputs of Death
+=============================================
+http://web.stanford.edu/~engler/exe-ccs-06.pdf
+
+exe 是KLEE的前身，其主要做对STP的优化。
+KLEE 的核心是符号计算，来实现等介计算。变成一个约束问题。
+
+关于符号计算分析 都在往前发展，微软在这方面做的比较靠前。
+https://www.microsoft.com/en-us/research/people/leonardo/?from=http%3A%2F%2Fresearch.microsoft.com%2Fen-us%2Fum%2Fpeople%2Fleonardo%2Ffmcad06.pdf
+
+并且在编译soup时，会自动把klee给编译好，而不需要自己再去找依赖。
