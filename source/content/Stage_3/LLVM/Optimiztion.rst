@@ -136,12 +136,14 @@ Link time optimization (LTO)
 链接后，就可以看到程序的全貌了，这个时候是做全局分析最佳时机之一，例如函数间的调用。以及全局变量的分析。在clang -flto or -O4 就会起动LTO。
 
 LLVM在链接时所做的最激进的优化莫过于DSA和APA。在DSA分析中，借助于LLVM比较充足的type information，在指针分析的基础上，可以构造出整个内存对象的连接关系图。然后对这个图进行分析，得到内存对象的连接模式，将连接比较紧密的结构对象，例如树、链表等结构体分配在自定义的一个连续分配的内存池中。这样可以少维护很多内存块，并且大大提高空间locality，相应的提高cache命中率。APA（Automatic Pool Allocation）能够将堆上分配的链接形式的结构体，分配在连续的内存池中，这种做法是通过将内存分配函数替换为自定义池分配函数实现的，示意图如下所示：
-
+同时这个时候也可以内存引用计数有了一个大概的估计。 来优化结构体。
 
 最常见的干法那就是只链接那用到代码与数据，如何到这一点，编译的时候加-ffunction-sections与-fdata-sections这样生一个函数与数据都会单独成section 然后链接的时候 ld --gc-sections就会把多余的section给删除了。
 
 c++的template与重载都是链接时实现的，有两种方式，一种是利用虚表来查询，或者采用原来直接用同一个函数地址，只过前面添加一些offset量，然后用根据参数类型与变量与进行进一步的跳转。 每一个函数都有只有唯一个的地址，这一点是不变的。 template则需要编译的时候同时生成多个版本的函数，例如类型的变化。 但在表面多个函数实现是同一个函数，这个叫做IFC,Identical-instruction-comdat-folding.  ld.gold --icf=safe就是干这个事情。
 http://stackoverflow.com/questions/15168924/gcc-clang-merging-functions-with-identical-instructions-comdat-folding
+
+
 
 unloop
 ======
@@ -268,3 +270,12 @@ A Hybrid Circular Queue Method for Iterative Stencil Computations on GPUs
 异构的queue不是简单的内容异构，还指实现介质异构。对于一维数组，主要是下标即指针分析。 而对于标量来说，那就是引用计算的分析。 而这些采用的是把数组分析转化为标量分析，从而设计出混合系统。
 http://jcst.ict.ac.cn:8080/jcst/CN/10.1007/s11390-012-1206-3
 
+Peephole的优化
+==============
+
+如何去除没有必要的代码，来减少代码的长度，这就是peephole. 分析基础就是basic block.
+什么是 basicBlock,也就是程序的片断只有一个入口与一个出口。 一般是程序的入口，跳转指令后的地址，call指令的地址。
+结束的标志:程序的结束 ，call指令， JMP跳转指令。http://blog.csdn.net/zwh37333/article/details/2498195
+
+那就是不断的用长指令来代替的指令，这也就是所谓的超级优化，这个问题应该说用图论更加容易来解决.并且在代码选择阶段更具也可以用。
+并且采用了离线存储的方式来进行。
