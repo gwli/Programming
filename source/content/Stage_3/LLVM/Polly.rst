@@ -4,6 +4,8 @@
 http://polly.llvm.org/docs/UsingPollyWithClang.html
 在 clang 中只在O3中支持。
 
+并且直接在make 的CFLAGS中添加这些参数就可以了。
+
 .. code-block:: bash
    
    clang -O3 -mllvm -polly file.c
