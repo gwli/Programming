@@ -238,6 +238,7 @@ STL库
 
 模板实例化
 ==========
+
 隐式实例化时，成员只有被引用到才进行实例化。
 
 
@@ -270,3 +271,7 @@ test@devtools-vm:/opt/libcvd$
 解决办法，直接去cppreference.com中查找对应的库函数，并且找到example. 并且快速形成一个切面，进行troubleshoot.
 http://en.cppreference.com/w/cpp/language/template_argument_deduction
 
+C/C++ 互调的方法
+================
+
+http://www.jianshu.com/p/8d3eb96e142a，主要是c++的函数名的特殊格式，利用extern C以及 #ifdef __cplusplus 来搞定。
