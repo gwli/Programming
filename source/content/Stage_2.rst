@@ -8,6 +8,6 @@
 #. 如何调试
 
 .. include:: Stage_2/build.rst
-.. include:: Stage_2/tools.rst
 .. include:: Stage_2/HowToDebug.rst
 .. include:: Stage_2/HowToGDB.rst
+.. include:: Stage_2/ProfilingAndAnalysis.rst
