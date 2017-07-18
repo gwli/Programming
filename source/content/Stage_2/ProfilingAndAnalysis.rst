@@ -1,7 +1,33 @@
-####################
+********************
 ProfilingAndAnalysis
-####################
+********************
 
+
+工作的流程
+==========
+
+.. graphviz::
+
+   digraph G {
+      rankdir=LR;
+      
+      "Moduling"->"Generate_Code"->"Trace/Profiling"->"Test/Verify";
+   }
+
+
+#. Moduling, 建模，根据具体问题建模，形成算法，并且相应算法复杂度分析，也就是所谓的常，对，线，平，立，指。形成算法多项式。
+#. 生成代码，现有各种代码生成工具，把各种计算模型直接生成代码。
+#. 优化的级别
+
+   + 直接调用更好，优化的库，工作量最小就是换一个API。
+   + 利用 openacc 来标记，让编译来优化。
+   + 代码级优化 例如LLVM
+
+     .. image:: Stage_2/LLVM-Passes-only.png
+
+     .. image:: Stage_2/architecture.png 
+
+   + 硬件指令级优化
 
 为什么优化
 ----------
