@@ -19,7 +19,8 @@ Java.source与Java.target
 
 其本质就是
 
-.. code-block::
+.. code-block:: sh
+
    build {
      set-evn;
      for * build { do each item}

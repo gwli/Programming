@@ -1,45 +1,52 @@
-:author: GangweiLi
-:comment: No
-:CreateDate: 2014-08-17
-:status: C
-:name: CompilerOfGCC
-
 stage of GCC
-------------
+############
 
 对于程序的各个过程现在才有更深的认识，以前停留在浅层的认识。尤其是在IDE上更是不知道怎么回事。真实的过程。就拿C语言来说。
 首先要区分的那就是编译与链接。编译的时候，是以文件为单件的，相互独立的。最终链接成一个应用程序。但是这个应用程序也非得完全意义的应用程序。根据不同的操作系统，会有不同要求。例如每一个库会公用的，哪些需要独立提供的。例如操作系统是如何操作一个应用程序的。
 
----++ 预编译
+预编译
+------
+
 宏替换是全局的，所以要想保证唯一就要加各种各样的前缀，也可以gcc来查看各个宏的定义。
----+++ 如何解决编译的问题
+
+如何解决编译的问题
+------------------
+
 *找不到头文件* ，是因为-isysroot,或者-I 没有设置需要的路径。到底设置了哪些路径，可以通过gcc -v 来得到来查看其真实的设置路径。当然还会一些其他的调试手段，这个与gdb 的过程是一样，那如何对于gcc扩展，也就是LLVM如何来操作呢。具体的可以查看 例如
+
        | -Q | 打印每一个编译时的函数名 |
        | -fmemxxxx | 可以查看内存一的一些东东 |
        | -fdump-rtl-xxx | 还可以查看寄存器的分配 |
        | -d{a,A,D,H,p,P,x} | 来实时查看各种宏定义 |
        | -print-xxxx |  来查看各种配置 |
        | -dump{machine/specs} | 查看机器配置 以及specs |
+
 详情见   gcc manual 3.9 Options for Debugging Your Program or GCC，基本上编译所有过程都是可以debug的。所以以后遇到问题，要能够用以前学过的那些编译理论来进行推理，并且通过这些命令来进行验证。VS的好处就是可以只编译一个文件，与配置每一个文件的编译属性，那个与makefile是一样的，make采用每个编译的都要指定编译参数，并且通过变量来进行复用。例如右键来设置命令行参数或者属性来进行调试。例如 -E -v 就可以通过 -o file 来可以查到预处理的结果，预处理结果会有注释，#include 是从哪个文件进来的。并且可以调试那些预处理命令。 今天问题的关键是没有思路，不知道遇到这个情况去利用已经有的知识去解决，单个文件的处理与大规模的处理之间的关系。 并且编译参数都是可以由环境变量来指定的，例如bash中可以用环境变量PERL来指定系统所使用的perl.
 关于gcc的更多问题，还可以查看200711-GCC-Internals-1-condensed.pdf，以及manual.
 
 
 *找到的文件不是你想要的*
 这个就是今天link.h  的内容不对，原来apex取了ndk中的link.h了，如何解决这个问题，
+
    1. 快速搜索一下有多少个link.h，在linux 下使用find,grep,sort,diff等，而在windows下可以使用powershell,gci+select-object+out-file 等等。
    1. 利用gcc 的 -E -v来查看一下，它 include进来的结果到底对不对。<verbatim> gcc -E -v -o file </verbatim> 就可以查看到file中的预处理内容，预处理注释信息是用# 来说明，在第几行加载的。
    1. 可以根据规则，#include <>,"",以及使用这些参数来控制优先级 [[http://gcc.gnu.org/onlinedocs/gcc/Directory-Options.html][Options for Directory Search]]  优先级，-I 要高于-isysroot, “” 会基于源文件的当前路径，而不会去找父路径。当前，-I,-isysroot.
+
        | -I  |
        | -iquote|
        | -b | 查找exe  文件 |
        | -isysroot |  
+
+
 
  编辑器找到文件，与gcc找到文件可能是不一样的。但通常情况是一样的。 也可以通过#error 等指令来进行判断。  同时预处理文件格式说明参考[[http://gcc.gnu.org/onlinedocs/cpp/Preprocessor-Output.html][Preprocessor-Output.html]]
 
 同时利用在语言本身中也是可以用#pragma warning/error等来进行编译的控制。
 http://www.cnblogs.com/xiaoyixy/archive/2006/04/12/372770.html
 
----+++ 选项分类
+选项分类
+--------
+
 | -m |Machine Dependent Options | -mfpu |
 | -M | 根据include以及宏定义自动产生 makefile的依赖规则 | 在make 中可以$CC --M 来使用 |
 
@@ -48,6 +55,7 @@ http://www.cnblogs.com/xiaoyixy/archive/2006/04/12/372770.html
 Code Overlays
 If your program is too large to fit completely in your target system's memory. we could use =overlays= to work around this problem. 
 </blockquote>
+
    * [[http://blog.csdn.net/yili&#95;xie/article/details/5692007][LD 讲解]] 
    * [[http://www.zemris.fer.hr/~leonardo/oszur/tehnicki.dokumenti/gnu-linker.pdf][gnu-linker manual]]
    * [[http://www.ibm.com/developerworks/cn/aix/library/au-unixtools.html][UNIX 目标文件初探]]
@@ -58,15 +66,19 @@ If your program is too large to fit completely in your target system's memory. w
 
 
 
----+++ [[LLVMStudy][ LLVM ]]
- 
----+++ [[SymbolTable][符号表]]
 
----+++ float 点数
+
+float 点数
+----------
+
 这个是每家处理器一个竞争的功能，每家的功能也不一样。
   * [[http://gcc.gnu.org/onlinedocs/gcc/ARM-Options.html][对于浮点数，硬件支持，还是软实现，它的ABI也是不一样的。]] 
   * [[http://doc.ironwoodlabs.com/arm-arm-none-eabi/html/getting-started/sec-armfloat.html][sec-armfloat]]
----+++ See also
+
+
+See also
+---------
+
    * [[http://gcc.gnu.org/onlinedocs/libstdc++/manual/abi.html][abi]] %IF{" 'application binnary interface, the object file structure and naming rule' = '' " then="" else="- "}%application binnary interface, the object file structure and naming rule
 
 
@@ -76,10 +88,6 @@ If your program is too large to fit completely in your target system's memory. w
   
    * [[http://blog.csdn.net/sonicling/article/details/6702031][gcc 源码分析]] %IF{" '' = '' " then="" else="- "}%
 #ReferenceLink
-%TWISTY{link="add a bookmark"  imageleft="%ICON{edittopic}%"}%
-%COMMENT{type="bookmark"  location="#ReferenceLink"}%
-%ENDTWISTY%
-
 ---+++ thinking
 
 
@@ -136,19 +144,22 @@ gcc会有一个配置文件，spec 文件。 同时也提供了各种参数供�
 
 
 *如何解决循环依赖*
+
 [[http://en.wikipedia.org/wiki/Circular_dependency][Circular Dependency]]可以动态替换的方式。产生了鸡与蛋的问题。对于gcc 可以使用--start-group --end-group / -(  -) 这样来保证的循环。一般情况下。LD会自动判断依赖的。  [[http://www.cppblog.com/findingworld/archive/2011/07/12/66408.html][gcc 库顺序问题解决方法]]
 *lib.a*  静态库，*lib.o*动态库。
 
 -- Main.GangweiLi - 25 Apr 2013
 
 
-*-W*来控制所有的告警，gcc把后端的所有输出都集中这里，这个是如何做到，并且保持这种灵活性。
+*-W* 来控制所有的告警，gcc把后端的所有输出都集中这里，这个是如何做到，并且保持这种灵活性。
 
 -- Main.GangweiLi - 25 Apr 2013
 
 
 *gcc 对于管道的支持*
+
 巧用：
+
 <verbatim>
 echo -e '#define cat(c,d) c##.d \n #define mb(a,b) a##@b \n mb(cat(xiyou,wangcong),cat(gmail,com))'  \
 | gcc -E -xc - 2>/dev/null |tail -n 1
