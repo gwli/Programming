@@ -1,4 +1,4 @@
-﻿**********
+﻿j*********
 HowToDebug
 **********
 
@@ -33,6 +33,7 @@ thinking is still the best step, to be followed by systematic attemps to narrow 
 #. 当给别人提bug时，站在owner的角度想想需要什么东东。
 
 同时快速修复一个别人的bug时，也是根据这个原则来的。 
+
 #. 看一个修改的时候历史。
 #. 查找一个变量的引用到的地方。
 #. 查看一下函数引用到地方。 就差不多，可以确定如何修改了。所以修一个bug,没有重构那么难。
@@ -88,6 +89,7 @@ strace and sreplay
 #. 另一种方式那就是把内存当成一个存储系统并在上面加载一个文件系统。这样就可以高效的存储了。充分利用各种cache. 例如debugfs,tempfs,/proc/ 都是直接存储做到内存上。可以非常方便查询各种信息。
 #. 充分利用配制信息，windows与linux是越来越像,都开始在home目录下写各种配制了。
 #. 对于windows还可以用debugView来查看这些调试log.
+#. 充分利用条件断点来添加log and trace.
 
 process monitor可以实时显示文件系统，注册表和线程的活动。
 
@@ -100,7 +102,8 @@ process monitor可以实时显示文件系统，注册表和线程的活动。
 调试都需要信息
 --------------
 
-debug Symbols 信息，有了符号表才能符号表地址对应起来，并且还源码对应起来了。对于GDB来说，那就需要设置 symbols directory, 另外那就是源码目录。还有那就是如何起动。
+debug Symbols 信息，有了符号表才能符号表地址对应起来，并且还源码对应起来了。对于GDB来说，那就需要设置 symbols directory, 另外那就是源码目录。还有那就是如何起动。  当调试环境与编译环境不一样.symbol path 是对应不起来的。
+可以在 set substistute-path /afafa/fadfa /xxxxx  来解决这个问题。
 for apk, they need androidManifest.xml to get the package name to start it.
 
 
@@ -221,7 +224,7 @@ http://www.hanselman.com/blog/BackToBasicsUsingFusionLogViewerToDebugObscureLoad
 
 进程数据存放无非两种，放在内存里，或者寄存器里。
 
-内存泄漏可以inject内存管理函数，并且建立自己内存管理模型来进行监测，所谓的代码插装，在源码级别可以预处理的宏替换来实现，那就像MFC的那个消息结构一样。在宏替换原来内存管理函数后，同时利用_FILE_,_LINE_,_FUNC_来获得动态分配函数所在的context信息。
+内存泄漏可以inject内存管理函数，并且建立自己内存管理模型来进行监测，所谓的代码插装，在源码级别可以预处理的宏替换来实现，那就像MFC的那个消息结构一样。在宏替换原来内存管理函数后，同时利用 _FILE_, _LINE_,_FUNC_来获得动态分配函数所在的context信息。
 利用exception + __FILE__,__LINE__,__FUNC__来得到callstack以及文件的对应关系。
 
 
