@@ -19,7 +19,8 @@
 
 演化的最简单就是替换，
 
-.. code-block::
+.. code-block:: python
+
    for (;):
       next = f(current)
       current = next

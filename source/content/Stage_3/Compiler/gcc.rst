@@ -14,6 +14,20 @@ GCC优化集中C到—>ASM这一段。
 
 https://en.wikibooks.org/wiki/Category:GNU_C_Compiler_Internals
 
+
+预定的宏用可以用调试，或者生成版本号。
+__DATE__,__TIME__,__FILE__,__LINE__
+
+一般情况下，C/C++编译器会内置几个宏，这些宏定义不仅可以帮助我们完成跨平台的源码编写，灵活使用也可以巧妙地帮我们输出非常有用的调试信息。
+
+ANSI C标准中有几个标准预定义宏（也是常用的）：
+__LINE__：在源代码中插入当前源代码行号；
+__FILE__：在源文件中插入当前源文件名；
+__DATE__：在源文件中插入当前的编译日期
+__TIME__：在源文件中插入当前编译时间；
+__STDC__：当要求程序严格遵循ANSI C标准时该标识被赋值为1；
+__cplusplus：当编写C++程序时该标识符被定义。·
+
 目标
 ====
 
@@ -111,3 +125,24 @@ https://gcc.gnu.org/onlinedocs/gcc-4.3.4/gcc/Code-Gen-Options.html
 并且不同平台的库的搜索方式是细微的不同的。
 
 http://www.eetop.cn/blog/html/40/202640-8862.html
+
+asan-stack
+==========
+
+address sanity analysis. 地址分析。
+
+ipa
+====
+
+程序块间的依赖分析。
+
+
+pta
+===
+
+指针分析
+
+branch-likely
+=============
+
+可以根据优先级概率来生成代码。
