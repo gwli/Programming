@@ -44,6 +44,8 @@ stage of GCC
 同时利用在语言本身中也是可以用#pragma warning/error等来进行编译的控制。
 http://www.cnblogs.com/xiaoyixy/archive/2006/04/12/372770.html
 
+如果是链接找到不库函数，则是库的版本不兼容，如果出现mingle name不对，则是编译器的版本不一致造成的。换成统一的toolchain重新编译就可以了。
+
 选项分类
 --------
 

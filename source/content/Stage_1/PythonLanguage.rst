@@ -1,7 +1,3 @@
-:comment: No
-:CreateDate: 14-07-10
-:status: C
-:name: Python Language
 
 Introduction
 ------------
@@ -443,6 +439,7 @@ Data structure
 
 embeded system
 --------------
+
 #. `python  单片机开发 <http://ikeepu.com/bar/10455735>`_ 
 #. `基于arm-linux的嵌入式python开发 <http://jim19770812.blogspot.com/2011/06/arm-linuxpython.html>`_
 
@@ -507,6 +504,8 @@ ipython notebook
 
 
 但是与CDF还有一定的区别，reader本身也要执行计算功能。
+
+https://github.com/csurfer/pyheatmagic 可以用pyheat来进行优化。这样可以用热力图来显示代码的执行频度。
 
 
 python as shell
