@@ -1,5 +1,5 @@
 CUDAProgrammingAndProfiling
-===========================
+***************************
 
 Introduction
 ------------

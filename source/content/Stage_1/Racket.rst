@@ -1,5 +1,5 @@
 Racket
-======
+******
 
 `quick start <http://docs.racket-lang.org/quick/index.html>`_ 给了一非常好玩的入门。
 

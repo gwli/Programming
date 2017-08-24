@@ -4,5 +4,6 @@
 
 .. include:: Stage_0/foreword.rst
 .. include:: Stage_0/componentOfLanguage.rst
+.. include:: Stage_0/ProgrammingLanguage.rst
 .. include:: Stage_0/HowToLearnLanguage.rst
 
