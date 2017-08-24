@@ -1,5 +1,5 @@
 ########
-ºñ»ı±¡·¢
+åšç§¯è–„å‘
 ########
 
 
@@ -11,3 +11,4 @@
 .. include:: Stage_1/Racket.rst
 .. include:: Stage_1/Haskell.rst
 .. include:: Stage_1/QtDevelop.rst
+.. include:: Stage_1/PythonLanguage.rst
