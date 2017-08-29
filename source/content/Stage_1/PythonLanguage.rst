@@ -2,7 +2,7 @@ Python 编程
 ***********
 
 Introduction
-------------
+============
 
 Until now, the python is very concise language. It have all the metrics of previous language. You can the shadow of every language in it. 
 it use the space indent for delimiter. it adapt the function programming technique. it use the file name as module.  
@@ -12,7 +12,7 @@ it use =global= instrument is just like the tcl's "global".  there is import is 
 the class just like the java, the first parameter of method is self point.  there is also exec,eval assert raiseError just like tcl. and lambda in Scheme.
 
 os and sys 对于系统的操作
--------------------------
+=========================
 
 可以考虑用python脚本来代替shell脚本。并且要考虑并行的问题。
 #. `can-i-use-python-as-a-bash-replacement <http://stackoverflow.com/questions/209470/can-i-use-python-as-a-bash-replacement>`_ 这个讨论已经写的很详细了。
@@ -54,7 +54,7 @@ logging
 直接使用VS2015 PSVT的功能，可以条件断点等等功能，非常的的方便。
 
 Python 内在函数
----------------
+===============
 
 .. csv-table:: builtin namespace
 
@@ -66,15 +66,18 @@ Python 内在函数
      NumPy , 矩阵与线性代数
     
 Python 包管理与开发环境
------------------------
+=======================
 
-Python的包管理就像perl 的CPAN一样。 `easy_install 与pip 新替 <http://pypi.python.org/pypi][ pypi]] 就是python 的CPAN。[[http://jiayanjujyj.iteye.com/blog/1409819>`_ egg文件就是python的打包文件。 可以用setup.py 打包，同时也可以pbr 生成setup.cfg的配置文件。这个在包本身比较复杂的情况下会非常有用，就像gnu libtool一样。
+Python的包管理就像perl 的CPAN一样。 `easy_install 与pip 新替 <http://pypi.python.org/pypi>`_ 就是python 的CPAN。`<http://jiayanjujyj.iteye.com/blog/1409819>`_ egg文件就是python的打包文件。 可以用setup.py 打包，同时也可以pbr 生成setup.cfg的配置文件。这个在包本身比较复杂的情况下会非常有用，就像gnu libtool一样。
+
 #. `打包机制 <http://woodpecker.org.cn/diveintopython3/packaging.html>`_ .egg文件
-#. `perlbrew <http://blog.caokee.com/2012/02/pythons-virtual-environment-and-multi-version-programming-tools-virtualenv-and-pythonbrew.html][python virtual environment and multi-version]] ,[[https://github.com/gugod/App-perlbrew#readme>`_perl的虚拟环境。ruby也有。
+#. `perlbrew <http://blog.caokee.com/2012/02/pythons-virtual-environment-and-multi-version-programming-tools-virtualenv-and-pythonbrew.html>`_  `python virtual environment and multi-version <https://github.com/gugod/App-perlbrew#readme>`_ perl的虚拟环境。ruby也有。
 #. `pythonbrew online document <http://pythonbrew.readthedocs.org/en/latest/>`_
 #. `VirtualEnv 和Pip 构建Python的虚拟工作环境 <http://www.v2ex.com/t/42760>`_ 这个写的不错，virtualEnv 解决的就是不同库依赖之间的问题。并且有实例。而pythonbrew主要解决了不同引擎之间切换。同是兼容了，virtualenv这样的样的环境。这样就可以在版本与库之间进行选择了。就像pyrobot一样，就可以选择环境，选择brain.
 #.用pythonbrew指是采用哪一个python, 而virtualEnv 指的在哪一个环境下使用python. 其本质是与linux的chroot是一样的道理。
 #. `python configparser.py <http://docs.python.org/2.7/library/configparser.html>`_ 以后配制文件，可以使用它，而不用自己在写分析了，有了一个标准的分析库。它采用的是windows INI 文件格式。
+
+#. 用 twine 可以把自己包提交到PyPI上。 
 
 `包的开发与目录结构 <http://www.math.pku.edu.cn/teachers/lidf/docs/Python/6.html>`_ import 可以是整个包也可以只是变量，函数。但是python把命名空间与import并且source的功能混在一起了。看起来有一些不舒服。
 for install and manipulate the package of python, just like pkgIndex in tcl. there is `distutils.core <http://docs.python.org/2/distutils/apiref.html>`_.  which manage the preprocess, compiler,linker, verification, install.here has some useful command:
@@ -104,7 +107,7 @@ pip 现在支持一次安装列表  pip -r requirements.txt 同时还支持zip,�
 https://pip.readthedocs.org/en/1.1/requirements.html
 
 namespace
----------
+=========
 
 #. `python学习笔记——模块和命名空间 <http://blog.sina.com.cn/s/blog_4b5039210100ennq.html>`_ 在python中是一切对象，这个与lisp一切结数据的模式是很像的，现在还不知道hackshell的编程模型是什么。python的几种命名空间，对于简单函数调用，python可以像传统的面过过程一样，直接调用其函数，也可以采用面向对象方式。python面向对象机制是不是有一点像perl,但是它的面过过程的调用是通过静态函数来变通的。还是本来两种方式都是可以的。
    #. build-in name space  
@@ -123,16 +126,16 @@ namespace
 特别是在神经网络进行优画的时候这个用的最多。当然也可以把这些拿到其他的方式来实现。
 
 string,list,dict/hash and tuple
--------------------------------
+===============================
 
 
 *String* is Object itself, so when you manipulate string. you do it like this "XXXX".append("XXX"); one of important is regular expression. for python you use *`re <http://www.cnblogs.com/huxi/archive/2010/07/04/1771073.html>`_* 
 
-+-------------+------------------------------------------------------------------------------------+
++=============+====================================================================================+
 | u'a string' |  prefix u stand for unicode character                                              |
-+-------------+------------------------------------------------------------------------------------+
++=============+====================================================================================+
 | r'a string' |  prefix r  stand for original string   means     regular expression is object too. |
-+-------------+------------------------------------------------------------------------------------+
++=============+====================================================================================+
 
 .. code-block:: 
 
@@ -174,7 +177,7 @@ Python vs.C/ Matlab
 很多格式都是规范的，比如 indent，list.
 
 Python 中 的class
------------------
+=================
 
 什么是类，我想就是分情况，然后需要的初始化__init_，一个class定义一种__init__就是初始化函数，里面的self就是参数赋值，然后就是def各种方法，利用参数值。
 
@@ -183,7 +186,7 @@ Python 中 的class
 python 本身没有抽象类的概念，实现这些约束：如果子类不实现父类的_getBaiduHeaders方法,则抛出TypeError: Can't instantiate abstract class BaiduHeaders with abstract methods  异常 则需要from abc import ABCMeta, abstractmethod 来添加这些依赖。 主要是实现 抽象方法与抽象属性这两个关键字。
 
 各种字符串之间的转换（dictionary->str，list->str）
--------------------------------------------------
+=================================================
 
 string ->list split,splitlines
 list ->string, join
@@ -199,20 +202,20 @@ str-》list， bd.split(",")好像不行，因为split适用于把有一定界�
 rspr,这个用来反回对象的文本显示。 
 
 python  comments
-----------------
+================
 
 comments is important part of an programming language. most of the document is generated from the comments in code.  One orient, is putting document into code, which can be easier to maintain and update. 
 so structure and format is important for an programming language. take compare several language.
 
-      +--------+-----------------------------------------------------------------+-------------------------------------------------+
+      +========+=================================================================+=================================================+
       | perl   |   has pod document system, and << STRING, and format report     |  pod2tex,pod2man,pod2pdf                        |
-      +--------+-----------------------------------------------------------------+-------------------------------------------------+
+      +========+=================================================================+=================================================+
       | java   |  javadoc                                                        |                                                 |
-      +--------+-----------------------------------------------------------------+-------------------------------------------------+
+      +========+=================================================================+=================================================+
       | c /C++ |  if you adopt the C/C++ syntax, you can use doxygen to generate |                                                 |
-      +--------+-----------------------------------------------------------------+-------------------------------------------------+
+      +========+=================================================================+=================================================+
       | python |  __doc__ ,__docformat__,reStructuredText                        |  python has puts comments as variable of python |
-      +--------+-----------------------------------------------------------------+-------------------------------------------------+
+      +========+=================================================================+=================================================+
 
 
 you can access the comments from in the code of __doc__.  one usage for this is just like CAS testcase steps:
@@ -241,7 +244,7 @@ http://docutils.sourceforge.net/docs/peps/pep-0257.html
 
 
 command line
-------------
+============
 for python, you can process comand line options in three way:
 #. sys.argv
 #. getOption
@@ -250,9 +253,9 @@ for python, you can process comand line options in three way:
 
 
 mutli-thread of python
-----------------------
+======================
 
-多线程与进程一样，可以动态的加载与实现，而不必须是静态。并且可以是瞬间的，还是是长时间的。之前的理解是片面的，这个受以前学习的影响，一个线程或者线程就像一个函数根据其功能的来，不是说是线程就要有线程同步。可以是简单的做一件事就完的。例如实现异步回调呢，就可以是这样的，把回调函数放在另一个线程里。用完释放掉就行了。`C#线程篇---Windows调度线程准则（3） <http://www.cnblogs.com/x-xk/archive/2012/12/03/2795702.html>`_ 如何让自己的程序更快的跑完，其中在不同提高算法性能的情况下，那就是占一些CPU的时间片，优先级调高一些，就像我们现在做事一样，总是先做重要的事情。然后按照轻重缓级来做。就像找人给干活的时候，你总经常会说把我的事情优无级高一些。先把我的事情做完。 这个应该可以用转中断来实现。
+多线程与进程一样，可以动态的加载与实现，而不必须是静态。并且可以是瞬间的，还是是长时间的。之前的理解是片面的，这个受以前学习的影响，一个线程或者线程就像一个函数根据其功能的来，不是说是线程就要有线程同步。可以是简单的做一件事就完的。例如实现异步回调呢，就可以是这样的，把回调函数放在另一个线程里。用完释放掉就行了。`C#线程篇==-Windows调度线程准则（3） <http://www.cnblogs.com/x-xk/archive/2012/12/03/2795702.html>`_ 如何让自己的程序更快的跑完，其中在不同提高算法性能的情况下，那就是占一些CPU的时间片，优先级调高一些，就像我们现在做事一样，总是先做重要的事情。然后按照轻重缓级来做。就像找人给干活的时候，你总经常会说把我的事情优无级高一些。先把我的事情做完。 这个应该可以用转中断来实现。
 ` Lib/threading.py <http://www.laurentluce.com/posts/python-threads-synchronization-locks-rlocks-semaphores-conditions-events-and-queues/][Python threads synchronization: Locks, RLocks, Semaphores, Conditions, Events and Queues]],[[http://docs.python.org/2/library/threading.html>`_
 
 例如以前的，我都是利用傻等的方式，还有时间片或者用sleep,其实异度等待的机制可以用`线程事件来高效实现 <http://blog.csdn.net/made_in_chn/article/details/5471524>`_
@@ -267,7 +270,7 @@ mutli-thread of python
  
  
 现代语法
---------
+========
 
 `List comprehensions  <http://docs.python.org/2/tutorial/datastructures.html>`_ 也开始发展perl的各种符号功能
 
@@ -371,7 +374,7 @@ reduce,只一次只取列表两个值，而map每一次只能取一个值。对�
 
 
 并行处理
---------
+========
 
 以后要把for循环升级到map,reduce这个水平，两个概念是把循环分成有记忆与无记忆，map就是无记忆，reduce是有记忆。 `Python函数式编程——map()、reduce() <http://www.pythoner.com/46.html>`_ 就是为了并行计算，但是内置的这两个函数并不是并行的，
 可以使用  `multiprocessing <http://bubblexc.com/y2011/470/][PProcess.map/reduce]]来直接实现，并且是不是可以把列表中元素直接换成函数，不就可以直接实现任意事件的并行了。这个有点类似于cuda的并行计算了 另外那就是利用[[http://docs.python.org/3.3/library/multiprocessing.html>`_ 来进行。
@@ -392,7 +395,7 @@ python中动态代码的实现
    cmd()
 
 C extending Python
-------------------
+==================
 
 `对象机制的基石——PyObject <http://www.ibm.com/developerworks/cn/linux/l-pythc/][用C语言扩展Python的功能]] just like SWIG for tcl. there is stand process for C on python.   The big problem is that data type converstion.    [[http://book.51cto.com/art/200807/82486.htm>`_ PyObject 本质就是结构体指针加一个引用计数。
 
@@ -422,13 +425,13 @@ python的标准库比较全面，有点类似于libc，网络，tty,以及系统
 http://python.usyiyi.cn/python_278/library/index.html
 
 test framework of python
-------------------------
+========================
 
    * `使用再简短手册 <https://nose.readthedocs.org/en/latest/][nose]] NOSE 底层驱动unittest 来进行的。[[http://wenku.baidu.com/view/422b7585b9d528ea81c77967.html>`_最快的方法那就直接问Ryan.
    * `pexpect <http://www.ibm.com/developerworks/cn/linux/l-cn-pexpect1/index.html>`_ 我们的GDBtest 是采用pexpect来进行gdb交互的。 今天出现工作不稳定的问题，是因为python版本不高造成，直接在cygwin中升级一下python就行了。
 
 Data structure
---------------
+==============
 
   embeded dict. `what-is-the-best-way-to-implement-nested-dictionaries-in-python <http://stackoverflow.com/questions/635483/what-is-the-best-way-to-implement-nested-dictionaries-in-python>`_ 其中一个方法hook __getItem__ 来实现，但是有一个效率问题，其实那种树型结构最适合用mongodb来实现了。并且搜索的时候可以直接使用MapReduce来直接加快计算。
   
@@ -440,7 +443,7 @@ Data structure
 要想高效的利用内存分配还得是C/C++这样，自己进行内存的管理。管理原理无非是链表与数组。并由其排列组合出多结构。
 
 embeded system
---------------
+==============
 
 #. `python  单片机开发 <http://ikeepu.com/bar/10455735>`_ 
 #. `基于arm-linux的嵌入式python开发 <http://jim19770812.blogspot.com/2011/06/arm-linuxpython.html>`_
@@ -448,7 +451,7 @@ embeded system
 
 
 python data analysis
---------------------
+====================
 
 python主要用于大数据分析的比较多，大的数据分析主要包括三个方面:
 数据本身的存储,分析，批量处理，以及可视化的问题
@@ -477,7 +480,7 @@ pylab,VTX以及直接利用opengl来计进行。
 正是由于python的一切对象机制，使其把投象与具体结合起来，可以很方便应用到各个学科与领域，其实这个本身就是一个知识库。现在需要一个快速推理管理工具。
 
 专业领域的应用
---------------
+==============
 
 .. csv-table::
   化学,` openbabel <://openbabel.org/docs/current/index.html>`_ ,
@@ -511,7 +514,7 @@ https://github.com/csurfer/pyheatmagic 可以用pyheat来进行优化。这样�
 
 
 python as shell
----------------
+===============
 
 http://pyist.diandian.com/?tag=ipython
 现在看来，自己想要常用功能都有，只要把find,与grep简单的整一下，再结合%sx,与%sc,就无敌了，并且也不需要每一次都写到文件里，可以放在python 的变量里，因为python的变量要bash的变量功能要强大的多。
@@ -582,7 +585,7 @@ https://plumbum.readthedocs.io/en/latest/,但是还没有shell本身简练。
 
 
 thinking
---------
+========
 
 *Jython embedded and extension with java*
 just like right diagram, you there are three way call the jython, there an other way is extend the jython with the java. there are some interface to follow. and there is mapping between your jython data type and java data type. they provided some converting function.  java can use the jython installed on the PC.  
@@ -636,24 +639,24 @@ at ScriptRunner.java, via run.  bind the robot->RobotDevice.
 </verbatim>
 =Extendting=  see 9.4 P223. Jython for Java Programmers.
 
--- Main.GangweiLi - 29 Oct 2012
+== Main.GangweiLi - 29 Oct 2012
 
 
 *pprint*
 pretty print is better than print has more control and smart
 
--- Main.GangweiLi - 02 Jul 2013
+== Main.GangweiLi - 02 Jul 2013
 
 
 怎样在python 中添加路径？
 
--- Main.GegeZhang - 19 Jul 2013
+== Main.GegeZhang - 19 Jul 2013
 
 
 python 中怎样实现程序复用，我想很多文件人家都已经写好了，？？
 
 
--- Main.GegeZhang - 16 Aug 2013
+== Main.GegeZhang - 16 Aug 2013
 
 
 安装python子包
@@ -663,18 +666,17 @@ python 中怎样实现程序复用，我想很多文件人家都已经写好了�
 然后是 python setup.py  install
 
 
--- Main.GegeZhang - 11 Jan 2014
+== Main.GegeZhang - 11 Jan 2014
 
 
 python 逐层构成： list->array->matrix
 
--- Main.GegeZhang - 14 Jan 2014
+== Main.GegeZhang - 14 Jan 2014
 
 
 *对于集合运算支持*
 python 有一个专门的 set 与frozenset类型来进行集合运算，本质是通过哈希作为基础来实现的。例如交并补差还对称差集等等，都是可以计算的。既然有了这样的数据结构来支持这样的运算，对于blender,以及GIMP中图形的交并补差也就容易了很多了。首先是顶点交并补差，然后是线最后是面。
 
--- Main.GangweiLi - 02 Apr 2014
 
 多进程与管道
 ============
