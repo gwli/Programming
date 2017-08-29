@@ -568,3 +568,6 @@ CFG优化
 http://grid.cs.gsu.edu/~cscskp/Automata/cfl/node5.html
 删除 Unit 产生式，以及空产生式。
 http://www.tutorialspoint.com/automata_theory/cfg_simplification.htm
+
+
+Clang 对于OMP 的支持还不是很好，https://stackoverflow.com/questions/33400462/omp-h-file-not-found-when-compiling-using-clang
