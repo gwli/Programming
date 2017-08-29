@@ -74,9 +74,8 @@ Python的包管理就像perl 的CPAN一样。 `easy_install 与pip 新替 <http:
 #. `perlbrew <http://blog.caokee.com/2012/02/pythons-virtual-environment-and-multi-version-programming-tools-virtualenv-and-pythonbrew.html>`_  `python virtual environment and multi-version <https://github.com/gugod/App-perlbrew#readme>`_ perl的虚拟环境。ruby也有。
 #. `pythonbrew online document <http://pythonbrew.readthedocs.org/en/latest/>`_
 #. `VirtualEnv 和Pip 构建Python的虚拟工作环境 <http://www.v2ex.com/t/42760>`_ 这个写的不错，virtualEnv 解决的就是不同库依赖之间的问题。并且有实例。而pythonbrew主要解决了不同引擎之间切换。同是兼容了，virtualenv这样的样的环境。这样就可以在版本与库之间进行选择了。就像pyrobot一样，就可以选择环境，选择brain.
-#.用pythonbrew指是采用哪一个python, 而virtualEnv 指的在哪一个环境下使用python. 其本质是与linux的chroot是一样的道理。
+#. 用pythonbrew指是采用哪一个python, 而virtualEnv 指的在哪一个环境下使用python. 其本质是与linux的chroot是一样的道理。
 #. `python configparser.py <http://docs.python.org/2.7/library/configparser.html>`_ 以后配制文件，可以使用它，而不用自己在写分析了，有了一个标准的分析库。它采用的是windows INI 文件格式。
-
 #. 用 twine 可以把自己包提交到PyPI上。 
 
 `包的开发与目录结构 <http://www.math.pku.edu.cn/teachers/lidf/docs/Python/6.html>`_ import 可以是整个包也可以只是变量，函数。但是python把命名空间与import并且source的功能混在一起了。看起来有一些不舒服。
