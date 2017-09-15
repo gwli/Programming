@@ -41,6 +41,32 @@ http://blog.csdn.net/zolalad/article/details/11848739，
 递归函数可以全局变量来记录深度，可以用函数内部的static变量来记录，或也就是所谓的静态变量。 总之这一段空间，就看你怎么样用与规划分配了。
 
 
+树型结构是最常见的数据结构，例如文档目录，各种协义，以及html,xml等等都是树型结构。遍历方法分为深度优先，还是广度优先。 所以在扁历生成一个列表的序列会大有不同。同时对于各种文档的解析来实现。 也都是从上到下，从前往后。采用的递归式解析。 一般用状态机+ vistor 模式来进行解析。
+
+.. code-blocks:: python
+
+   class Node:
+       def __init__(self):
+            self.parent
+            self.children = []
+
+       def tranverse(self):
+            for child,in self.children:
+               tranverse(child)
+
+       def parse(self):
+           Root = Node(none)
+
+           for line in readline():
+               state = state(line)
+               newRoot =  New Node
+               NewRoot.parent = Root
+               Root.children.append(NewBoot)
+
+
+
+
+
 硬件到逻辑变量的对应
 =====================
 

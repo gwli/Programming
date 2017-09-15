@@ -22,12 +22,12 @@ ProfilingAndAnalysis
    + 直接调用更好，优化的库，工作量最小就是换一个API。
    + 利用 openacc 来标记，让编译来优化。
    + 代码级优化 例如LLVM
+   + 硬件指令级优化
 
      .. image:: Stage_2/LLVM-Passes-only.png
 
      .. image:: Stage_2/architecture.png 
 
-   + 硬件指令级优化
 
 为什么优化
 ----------

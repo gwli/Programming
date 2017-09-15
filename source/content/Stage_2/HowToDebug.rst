@@ -1,4 +1,4 @@
-﻿j*********
+﻿**********
 HowToDebug
 **********
 
@@ -190,6 +190,10 @@ http://www.codeproject.com/Articles/816527/Writing-Custom-Information-in-Linux-C
 
 同时glibc同时也开放一个backtrace的函数来得到callstack.
 http://skyscribe.github.io/blog/2012/11/27/linuxshang-ru-he-cong-c-plus-plus-cheng-xu-zhong-huo-qu-backtracexin-xi/
+
+
+
+出了错了，另一个查找错误的方法，那就是读代码，如何读，通过版本的对比，同时根据依赖关系，得出一些改动的真实原因。 这时候就需要各种diff,快速编辑，以及快速navigate 同时能够做各种依赖关系的的工具。 脚本，vim,idff,vscode, git等等都是重要的工具。
 
 NPE
 ===

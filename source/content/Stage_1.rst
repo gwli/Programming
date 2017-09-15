@@ -10,3 +10,4 @@
 .. include:: Stage_1/Haskell.rst
 .. include:: Stage_1/QtDevelop.rst
 .. include:: Stage_1/PythonLanguage.rst
+.. include:: Stage_1/JavascriptAndNodeJS.rst
