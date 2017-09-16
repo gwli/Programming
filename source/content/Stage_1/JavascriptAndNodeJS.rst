@@ -47,6 +47,20 @@ Vue.js
 
    Vue.Component
 
+
+
+#. npm install -g vue-cli
+
+webpack 相当于打包编译工具。
+并且可优化代码。
+
+React
+======
+
+利用用类对来对应网页，并且函数就是render()函数。利用面向对象的方式来构造网页。
+
+npm -g create-react-app
+
 MEAN stack
 ===========
 
@@ -57,6 +71,11 @@ ReactX rxjs 异步处理库，类似于ajax.
 
 Angular 2 
 =========
+
+.. code-block:: bash
+   
+   npm install -g @angular/cli
+   ng new <new project>
 
 #. Single Page
 #. Update DOM
