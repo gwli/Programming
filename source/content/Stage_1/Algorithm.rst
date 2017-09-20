@@ -193,3 +193,14 @@ Queue, 先入先出的队列, LioQueue,PriorityQueue,Qeueue,deque,heapq.
 
 
 
+计算模型
+========
+
+#. reduce 模式
+#. scan 模式
+#. map 模式
+#. count_if 模式
+#. match_if 模式
+#. filter 
+#. group 
+#. 约束求解，z3等等，并且在excel中也带有大量的solver,其实不需要从零开始写。
