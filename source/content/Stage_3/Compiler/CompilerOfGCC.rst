@@ -20,7 +20,7 @@ stage of GCC
    -Q , 打印每一个编译时的函数名 
    -fmemxxxx , 可以查看内存一的一些东东 
    -fdump-rtl-xxx , 还可以查看寄存器的分配
-   -d{a,A,D,H,p,P,x} , 来实时查看各种宏定义
+   "-d{a,A,D,H,p,P,x}" , 来实时查看各种宏定义
    -print-xxxx ,  来查看各种配置 
    -dump{machine/specs} , 查看机器配置以及specs 
 
@@ -39,17 +39,31 @@ stage of GCC
 
 .. list-table::
 
-    -I  
-    -iquote
-    -b,  查找exe  文件 
-    -isysroot   
+   -I  
+   -iquote
+   -b,  查找exe  文件 
+   -isysroot   
 
 
 
-编辑器找到文件，与gcc找到文件可能是不一样的。但通常情况是一样的。 也可以通过#error 等指令来进行判断。  同时预处理文件格式说明参考 `Preprocessor-Output.html <http://gcc.gnu.org/onlinedocs/cpp/Preprocessor-Output.html>`_
-
+编辑器找到文件，与gcc找到文件可能是不一样的。但通常情况是一样的。 也可以通过 *#error*  等指令来进行判断。  同时预处理文件格式说明参考 `Preprocessor-Output.html <http://gcc.gnu.org/onlinedocs/cpp/Preprocessor-Output.html>`_
 同时利用在语言本身中也是可以用#pragma warning/error等来进行编译的控制。
 http://www.cnblogs.com/xiaoyixy/archive/2006/04/12/372770.html
+
+
+例如你在期望的位置放 :command:`#error message` 如果是你期望的路径就会报错。
+
+同时这些头文件的先后顺序也会影响的编译的结果。 例如Nsight Tegra 的头文件搜索顺序 
+.. imge:: /Stage_3/Compiler/include_path_order.png
+
+.. code-block:: c
+
+   #ifdefine HFAFAF_FE
+   #error “something'  __FILE__ __FART_NAME__
+   #message
+   #warning
+
+   #pragma
 
 如果是链接找到不库函数，则是库的版本不兼容，如果出现mingle name不对，则是编译器的版本不一致造成的。换成统一的toolchain重新编译就可以了。
 
