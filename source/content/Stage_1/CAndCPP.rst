@@ -18,6 +18,7 @@ http://www.cnblogs.com/chio/archive/2007/07/18/822389.html
 C++ 现在支持一定的类型推导了，`decltype <http://en.cppreference.com/w/cpp/language/decltype>`_ 
 来得到目标的类型。
 
+
 前置定义用途
 ============
 
@@ -50,6 +51,7 @@ C++ 现在支持一定的类型推导了，`decltype <http://en.cppreference.com
 C++ 11 新特性
 =============
 
+#. typeid()
 #. 支持了lambda 表达式
 #. 类型推导关键字 auto,decltype
 #. 模板的大量改进
@@ -57,6 +59,12 @@ C++ 11 新特性
    - 外部模板实例
 #. nullptr 解决原来C++中NULL的二义性。
 #. 序列for 循环，有点类似于foreach. 
+   
+   .. code-block:: c
+
+      for(auto number: numbers){
+            cout << number << endl;
+      }
 #. 变长参数的模板，tuple.
    
 
@@ -150,6 +158,10 @@ http://blog.csdn.net/lightlater/article/details/5796719
 STL 还只是小儿科，而BOOST则是高级篇。
 
 
+最灵活的模板那就是class的继承功能，只需要改动你需要改动的。
+
+最低层的编码，就是编码，例如那些状态位，每一个位是都是有意义的。
+
 模板的编译
 ==========
 
@@ -196,11 +208,16 @@ http://blog.csdn.net/mfcing/article/details/8819856，其实TypeList 也是一�
    - 提取Typelist中的类型
 # 自动生代码
 
+多态的重载
+==========
+
+多态调用的过程就是一个模式匹配的过程。 函数指针也就是指定了匹配模式。
 
 
 非类型模板参数
 ==============
 
+所谓的模板也就是变量替换，不过在这个替换的条件，做出了更加细分的规则。
 可以简单理解为一个全局常量的角色，只不过是在编译时计算出来的。经过这几天搜索，又一步一步的走到代码的演化。
 
 TypeList
@@ -235,6 +252,26 @@ STL库
 
 如何手工写一个汇编函数, 只需要写个函数直接调用gcc来生成片断，直接直接插入就行。
 其实也不需要只要掌握转换规则，直接利用LLVM 来进行代码分析。来优化生成汇编。
+
+
+
+Functors
+========
+
+.. code-block:: c
+
+   struct MatchTest{
+        bool operator()(string &text) {
+            return == "lion";
+        } 
+   }
+
+
+   int main() {
+       MatchTet Pred;
+       string value = "lion";
+       cout << pred(value) << endl;  // output 1
+   }
 
 模板实例化
 ==========
@@ -275,3 +312,12 @@ C/C++ 互调的方法
 ================
 
 http://www.jianshu.com/p/8d3eb96e142a，主要是c++的函数名的特殊格式，利用extern C以及 #ifdef __cplusplus 来搞定。
+
+
+IO模型
+======
+
+.. image:: /Stage_1/iostream.png
+
+
+
