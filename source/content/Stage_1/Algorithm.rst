@@ -66,6 +66,17 @@ http://blog.csdn.net/zolalad/article/details/11848739，
 
 
 
+环的实现
+========
+
+简单用array实现的环只需要 处理 指针最大值时，然后到首。
+
+.. code-block:: c
+   
+   if index == max
+      index = 0
+   
+   index = value% max
 
 硬件到逻辑变量的对应
 =====================
