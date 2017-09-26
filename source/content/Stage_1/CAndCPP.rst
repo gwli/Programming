@@ -66,6 +66,8 @@ C++ 11 新特性
             cout << number << endl;
       }
 #. 变长参数的模板，tuple.
+
+#. 可以用{}来进行各种各样的初始化
    
 
 new/delete 与malloc/free
