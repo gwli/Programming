@@ -68,7 +68,54 @@ C++ 11 新特性
 #. 变长参数的模板，tuple.
 
 #. 可以用{}来进行各种各样的初始化
+#. default/delete  函数声明。https://www.ibm.com/developerworks/cn/aix/library/1212_lufang_c11new/index.html
+#. lambda  
    
+   .. code-block:: c
+
+     auto pFunc=[]()->double {};
+     [](){}(); //call the lam
+     
+     int main() {
+       int one =1;
+       int two =2;
+       int three =3;
+       [one,two](){cout <<one<<","<<two<<endl;}{};
+       [=](){cout <<one<<","<<two<<endl;}{};
+       [=,&three](){cout <<one<<","<<two<<endl;}{};
+       [&](){cout <<one<<","<<two<<endl;}{};
+       [&,one](){cout <<one<<","<<two<<endl;}{};
+     }
+   
+#. functional class
+   
+   .. code-block:: c
+
+      class Check {
+        public: 
+           bool operation()(string &test){
+            
+           }
+      } check1;
+      
+
+#. lambda mutable
+   
+
+profiling
+=========
+
+#. 最简单的高精度计时
+
+.. code-block:: c
+   
+   #include <chrono>
+
+   chrono::steady_clock::time_point t1= chrono::steady_clock::now();
+   // do something 
+   chrono::steady_clock::time_point t2 = chrono::steady_clock::now();
+   chrono::duration<dobule> time_used = chrono::duration_cast<chrono::duration<double>>(t2 -t1);
+   cout << "used:" << time_used.count() << "sec" << endl;
 
 new/delete 与malloc/free
 ========================
