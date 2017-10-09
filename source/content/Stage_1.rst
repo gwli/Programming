@@ -11,3 +11,5 @@
 .. include:: Stage_1/QtDevelop.rst
 .. include:: Stage_1/PythonLanguage.rst
 .. include:: Stage_1/JavascriptAndNodeJS.rst
+.. include:: Stage_1/CAndCPP.rst
+.. include:: Stage_1/VHDL.rst
