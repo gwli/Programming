@@ -1,3 +1,13 @@
+C与C++
+******
+
+每一个语言都是不断的向前发展的，C++ 已经有了11，14，17等版本。 慢慢就会把那些需要库的一些东东都吸收进来。
+有点类假于C#的模式，会把设计模式的东东也都给融合进语言中来。
+
+
+语言娈量与指针以及各种作用域的定义，都是对内存管理的定义。而内存管理基本上上都是对引用技术的管理模式。
+各种管理模型都是引用计数对种模型的适配。 看来计数是管理的一个开始。
+
 类型转换
 ========
 
@@ -21,6 +31,8 @@ C++ 现在支持一定的类型推导了，`decltype <http://en.cppreference.com
 
 前置定义用途
 ============
+
+与header的用途是一样的，都是为了编译器在编译的时候可以不用搜索全局，就知道所需要函数的原型是什么。头文件只是为欺骗编译器局部并行编译的方法。编译是可以并行，而目前链接可能是不行的。
 
 一方面是用强耦合问题。 主要是用来解决编译的问题，由于走到当前，要求所有接口信息都要已知。但是现在需要东东，现在现在还没有编译怎么办。
 这个怎么办呢，提前放一个stub。 这样就骗过编译。 但是骗不过linker. 因为linker是全局搜索的。如果连linker都骗过去，也就得再准备一分空函数库了。
@@ -47,6 +59,33 @@ C++ 现在支持一定的类型推导了，`decltype <http://en.cppreference.com
 
 同样是一段01序列，经过那么多层的传递，真的就需要那么多重复操作吗。
 
+
+面象对象
+========
+
+friend class
+   是为方便松耦合，方便合作类之间的相调用。例如正常情况下，comp 函数是不能访问私有变量的，但是frind之内就可能了。也解决全局函数与类之间的调用。
+
+.. code-block:: c
+
+   Class Test{
+      private:
+        int id;
+        string name;
+      public:
+        void print(){
+           cout << id << ":" << name << endl;
+        }
+      friend bool comp(const Test &a,const Test &b); 
+   }
+   bool comp(const Test &a,const Test &b){
+      return a.name < b.name;
+   }
+
+   int main() {
+       vector<Test>  tests;
+       sort(Tests.begin(),tests.begin()+2,comp);
+   }
 
 C++ 11 新特性
 =============
@@ -100,7 +139,10 @@ C++ 11 新特性
       
 
 #. lambda mutable
-   
+#. Elision  -fcopy-elision http://en.cppreference.com/w/cpp/language/copy_elision
+#. 构造函数可以相互调用。   
+#. rvalue and Rvalue &&Lvalaue
+ 
 
 profiling
 =========
