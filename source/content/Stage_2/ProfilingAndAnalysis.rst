@@ -21,12 +21,16 @@ ProfilingAndAnalysis
 
    + 直接调用更好，优化的库，工作量最小就是换一个API。
    + 利用 openacc 来标记，让编译来优化。
-   + 代码级优化 例如LLVM
+   + 代码级优化 例如LLVM, 
    + 硬件指令级优化
+
+     因为现在硬件结构都是流水线的,pipline,而分支就是pipline的杀手，同时如何使硬件的资源的load balance,这是编译器可以提高与优化的地方。
+     `branchless program <http://nullprogram.com/blog/2017/10/06>`_
 
      .. image:: Stage_2/LLVM-Passes-only.png
 
      .. image:: Stage_2/architecture.png 
+
 
 
 为什么优化
@@ -319,6 +323,7 @@ https://wiki.yoctoproject.org/wiki/Tracing_and_Profiling
 ========
 
 每一层的优化
+
 #. Number of memory allocation
 #. Number of system calls
 #. Concurrency model
