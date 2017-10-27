@@ -55,7 +55,7 @@ protobuf也是一个小符号系统。 一个简化版本，那就是pack/unpack
    
    #include <stdarg.h>
 
-   /* pack: pack binary item into buff return lengh *  /
+   /* pack: pack binary item into buff return lengh */
    int pack(unchar * buf, char * fmt, ...){
        va_list args;
        char ap;
@@ -361,34 +361,26 @@ mparation with lua and C
  
 .. seealso::
 
-   * ` 程序员的“七种武器”与程序员的“三层心法”  <http://blog.csdn.net/jkler&#95;doyourself/article/details/1614951>`_  the three 
-thought is worth to look
+   * `程序员的“七种武器”与程序员的“三层心法”  <http://blog.csdn.net/jkler&#95;doyourself/article/details/1614951>`_  the three thought is worth to look
    * `Scala <http://developer.51cto.com/art/200906/127830.htm>`_  the next generation java on JVM
    * `seven weapon  <http://www.china-pub.com/STATIC07/0711/jsj&#95;cxy&#95;071114.asp>`_  
    * `development history diagraph <http://s13.sinaimg.cn/orignal/50d442d8x92d052ab23dc&#38;690>`_  
    * `Coroutine  <http://www.douban.com/note/11552969/>`_  this is new method
  needing study
-   * `function programming <http://www.oschina.net/news/27606/functional-programming-intro>`_  Python suppo
-rt this *yield* 产生器，它的好像是可以边走边算，这样可以
-减少内存的需求。并且是一个常值。但是能否保证元子操作。如果可以同步机制很容易了。
+   * `function programming <http://www.oschina.net/news/27606/functional-programming-intro>`_  Python support this *yield* 产生器，它的好像是可以边走边算，这样可以 减少内存的需求。并且是一个常值。但是能否保证元子操作。如果可以同步机制很容易了。
 
    * `关于流和缓冲区的理解 <http://www.cppblog.com/lucency/archive/2008/04/07/46419.html>`_  现在看来到处都实现了中断的机制，如何自己利用系统的信号来实现呢
 
    * `perf 性能调试工具 <http://www.ibm.com/developerworks/cn/linux/l-cn-perf1/index.html>`_  
    * `元编程 <http://wenku.baidu.com/view/590f24c59ec3d5bbfd0a740b.html>`_ 
 
-   * `F# for .net  <http://msdn.microsoft.com/zh-cn/magazine/cc164244.aspx>`_  函数式编程 的.net
-平台的。功能很强，函数式编程都提供一种只写不改的机制。
+   * `F# for .net  <http://msdn.microsoft.com/zh-cn/magazine/cc164244.aspx>`_  函数式编程 的.net 平台的。功能很强，函数式编程都提供一种只写不改的机制。
    * `应邀重画了一个，如有不足请不吝赐教指正。 <http://www.zhihu.com/question/20328274/answer/14773991>`_  
-   * `浅谈并行编程语言 Unified Parallel C <http://www.ibm.com/developerworks/cn/linux/l-cn-upc/>`_ ,`Berkeley UPC - 
-Unified Parallel C <http://upc.lbl.gov/>`_ 
+   * `浅谈并行编程语言 Unified Parallel C <http://www.ibm.com/developerworks/cn/linux/l-cn-upc/>`_ ,`Berkeley UPC - Unified Parallel C <http://upc.lbl.gov/>`_ 
 
 
-   * `弱引用 <http://www.ibm.com/developerworks/cn/java/j-jtp11225/>`_  这个是相对于自动垃圾回收的机制的一种增
-强。
-   * `PLDI <http://en.wikipedia.org/wiki/Conference&#95;on&#95;Programming&#95;Language&#95;Design&#95;and&#95;Implementation>`_  PLDI is one of the ACM
- SIGPLAN&#39;s most important confer
-ences. 
+   * `弱引用 <http://www.ibm.com/developerworks/cn/java/j-jtp11225/>`_  这个是相对于自动垃圾回收的机制的一种增强。
+   * `PLDI <http://en.wikipedia.org/wiki/Conference&#95;on&#95;Programming&#95;Language&#95;Design&#95;and&#95;Implementation>`_  PLDI is one of the ACM SIGPLAN&#39;s most important conferences. 
    * `OOP 多重继承的死环问题 <http://en.wikipedia.org/wiki/Multiple&#95;inheritance>`_  
 
 
@@ -432,8 +424,8 @@ m/dragonpig/archive/2010/01/26/16570
 结合的，这也是python里为什么可以连着写的原因。并且函数式编程实现变
 量只定义一次，大大简化了后期编译优化工作。
 同时从这里也提到停机问题，停机问题，那就是不是能够检测死循环。
-   * `对象式Lambda演算的自作用部分计值 <http://wenku.baidu.com/view/c54aeb03cc1755270
-72208be.html>`_  进行部分替换与简化计算
+
+   * `对象式Lambda演算的自作用部分计值 <http://wenku.baidu.com/view/c54aeb03cc175527072208be.html>`_  进行部分替换与简化计算
    * `利用CopedSew重构lambda演算 <http://wenku.baidu.com/view/f6bcffefba0d4a73
 02763a6e.html>`_ 
    * `形式语义学-Lambda演算 <http://wenku.baidu.com/view/aac684bcfd0a79563c1e72
@@ -506,15 +498,13 @@ IT is just like interrupt of the OS.
 -- Main.GangweiLi - 29 Jul 2013
 
 
-*`递归算法的效率 <http://wenku.baidu.com/vi
-ew/719b053331126edb6f1a1091.html>`_ 
-*
+* `递归算法的效率 <http://wenku.baidu.com/view/719b053331126edb6f1a1091.html>`_ 
+
 一般情况下，递归算法效率相对还是比较低的，例如我就只是求了，一个二次函数
 的递归。发现超过了，20需要的时间就会大大增长了。`递归算法的时间复杂度
 分析 <http://blog.csdn.net/metasearch/article/details/4428865>`_ ,递归是会耗费栈的
 ，递归的层数是不是有限制。`递归算法，程序开始计算后无响应- CSDN论
-坛- CSDN.NET <http://bbs.csdn.net/top
-ics/370071283>`_ 
+坛- CSDN.NET <http://bbs.csdn.net/topics/370071283>`_ 
 
 
 -- Main.GangweiLi - 16 Aug 2013
