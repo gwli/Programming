@@ -284,7 +284,8 @@ Please request them to change APP_ABI to armeabi-v7a.
 动态的得到callstack
 ===================
 
-.. code-block:: cpp
+.. code-block:: bash
+
    sudo gdb -ex "set pagination 0" -ex "thread apply all bt" --batch --pid `pidof python`
 
 https://github.com/springmeyer/profiling-guide
@@ -355,6 +356,18 @@ http://www.brendangregg.com/linuxperf.html 看其图。
    找到真正的原因。从flat模式可以看哪一个函数用的最多。  TOP-Bottom,有利于分解，bottom-top快速看到最大值，并且都是调用的。
    找到最大值，一般有两种方法: 换一个更好的算法与数据结构，或者重写surrouding program 把这个函数给扔掉。 具取于为什么它这么大。
 
+
+生成callgraph
+-------------
+
+.. code-block:: bash
+   
+   perf record -g ./cmatrix
+   perf report --stdio
+.. code-block:: bash
+   
+   perf record -g ./cmatrix
+   perf report --stdio
 
 OSkernel层
 ==========
