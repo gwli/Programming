@@ -6,6 +6,7 @@ In the past years, I read some project code. from reading classic code. I learn 
 Then reading the code is learn the structure, the language learning is not the key point. So during the second stage, I learn Linux kernel, and Twiki code, and NEAT code and TCP/IP protocol family. I learn the Design pattern. 
 
 Now it is coming to the third stage, I should use my experience and knowledge to solve the problem and invent something. I should become more more quickly than before. at least it is three times than before. the reason is following:
+
 #. the language learning difficulty is disappear.
 #. the framework understanding is not problem for me. 
 #. I have a lot of tools and method to speed up.
@@ -20,6 +21,7 @@ tcl/tk本身具有那个功能的，可以利用trace来实现。
 
 现在就有两件事了，一件就是自动识别语法让vim+ctags.cscope之类的东西，另一件就求答案了。看来要把C99以及GCC的设计框架给study一下，来解决自己这个两个问题。
 `make-vim-as-your-bash-ide-using-bash-support-plugin/ <http://www.thegeekstuff.com/2009/02/make-vim-as-your-bash-ide-using-bash-support-plugin/>`_  熟悉这个框架，如何vim 具有各种语言的built-in help功能。其实也很简单也就是把各个语言help命嵌入进来，用一个快捷键就可以了。就像在vim查字典一样。 每一个脚本语言都会有一个pydoc,pydoc -k 或者perldoc之类的命令。并且vim 都可以集成这些命令，再加上一些快捷键。
+
 workflow
 ========
 
@@ -38,8 +40,8 @@ workflow
    
 
 
-+ Reading SKill
-===============
+Reading SKill
+=============
 
 *BASH* when reading BASH code, you just add "set -x" and "set +x" in the scripts and then read result compare with the source code. 
 *Overview*
@@ -90,10 +92,12 @@ http://www.yinwang.org/blog-cn/2013/07/06/PyDiff-Python%E7%BB%93%E6%9E%84%E5%8C%
 
 结构化是趋势，这样解决错行的问题，并且修改了位置的问题。
 https://github.com/yinwang0/ydiff
+
 links
 =====
 
   `libc <LibcSourceCode>`_   `PentaK <PentaKSourceCode>`_   `Mesa <MesaOpenGL>`_ 
+
 See also
 ========
 

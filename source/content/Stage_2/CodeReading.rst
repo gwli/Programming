@@ -13,9 +13,10 @@ Introduction
 debugger + profiler + CodeMap/Framework原理图，就够了。
 
 当然你需要大量的知识的框架知识，或者可以快速获取相关知识。
-#. 如何快速读懂代码找到框架这个很重要。
+#. 如何快速读懂代码找到框架这个很重要。 
 
-
+读代码的过程与代码的过程本质就是不断在设计结构与算法之间不断trade off的过程。而读代码是一个反向工程，那就要不断猜想验证。
+就像反向工程一样，一样的思维不一样的实现而己。
 #. 看论文以及介绍文档，再加上自己的思考得到一个大致的流程
 #. 拿到code编译能跑， 看看它都用到什么库，从而也就知道需要哪些相关的知识 
 #. tracing,通过timeline 就可以看到其pipline了。可以通过callstack,来选择一个函数当做NVTX不行，不需要事先加NVTX.
@@ -31,8 +32,8 @@ debugger + profiler + CodeMap/Framework原理图，就够了。
 #. `kscope,Linux下的sourceINside <http://wxx.cs.hit.edu.cn/?p=84>`_ 
 #. `linux下阅读源代码的工具 <http://blog.chinaunix.net/u3/111588/showart_2167982.html>`_ 
 
-+`graphvis用法 <http://www.ibm.com/developerworks/cn/linux/l-graphvis/>`_ 
-============================================================================
+`graphvis用法 <http://www.ibm.com/developerworks/cn/linux/l-graphvis/>`_ 
+=========================================================================
 
 #. `tcldot <http://www.graphviz.org/cgi-bin/man?tcldot>`_ 
 
@@ -47,15 +48,17 @@ debugger + profiler + CodeMap/Framework原理图，就够了。
 如何使用Graphviz
 =================
 
-    要逐渐开始使用这个dot语言，这个语言本身就像基他标记语言一样简单。其基本组成就是由图，结点，边，组成。再加上嵌套的子图来完成.在这里几种不同布线方式。其实这就像VerilogHDL一样，这样可以产生布线。同时使自己想起了画电路板。那里边就有一个自动布线的功能。要充分利用这些功能。同时在也学到了一种linux的思想，WYTIWYG(what you think is what get). 这个不同于微软的思想，所见既所得。
+要逐渐开始使用这个dot语言，这个语言本身就像基他标记语言一样简单。其基本组成就是由图，结点，边，组成。再加上嵌套的子图来完成.在这里几种不同布线方式。其实这就像VerilogHDL一样，这样可以产生布线。同时使自己想起了画电路板。那里边就有一个自动布线的功能。要充分利用这些功能。同时在也学到了一种linux的思想，WYTIWYG(what you think is what get). 这个不同于微软的思想，所见既所得。
+
 #. `如何布局与联线 <http://www.javaeye.com/topic/433278>`_ 
 #. 这个语言本身很简单，就是图，结点，边组成。同时他们也实现了几种布线方式。在布线的时候，可以这样干，可以试试几种方式。然后再决定使用哪一种.在使用的时候可以在库中找一个类似的图，然后再看看怎么实现的。然后拿来自己用。就采用cas的那个gui的界面的开发与学习方法。这样就会越来越精通。
 #. group,id of graphviz how to use them?
 #. `visualization of Information <InfoVisualization>`_ 
 #. `用 Graphviz 可视化函数调用 <http://www.ibm.com/developerworks/cn/linux/l-graphvis/>`_ 
+
 resource
 ========
 
 #. `一个经历超过十万行代码的Scrum项目经验谈 <http://group.gimoo.net/review/110638>`_ 
-  * `addison.wesley.code.reading.the.open.source.perspective.chm <%ATTACHURL%/addison.wesley.code.reading.the.open.source.perspective.chm>`_ : addison.wesley.code.reading.the.open.source.perspective.chm
+#. `addison.wesley.code.reading.the.open.source.perspective.chm <%ATTACHURL%/addison.wesley.code.reading.the.open.source.perspective.chm>`_ : addison.wesley.code.reading.the.open.source.perspective.chm
 
