@@ -1,3 +1,7 @@
+********
+基本问题
+********
+
 工欲善其事，必先利其器。知其然，并知所以然。 然而加速那个过程。达到快速高效。 而代码的本身的技巧与工作量应该越小越好，把时间留给思考。
 
 每一个事情都是可以有周期分阶段.
@@ -5,7 +9,8 @@
 .. graphviz::
  
    digraph G {
-        Run->Trace->Profiling->Debug_extend->Deploy->Run;
+      rankdir="LR";
+      Run->Trace->Profiling->Debug_extend->Deploy->Run;
    }
 
 
@@ -31,6 +36,7 @@
 ========
 
 这里最耗时的地方。 
+
 #. 环境的搭建 
 #. 资源的下载
 #. 安装

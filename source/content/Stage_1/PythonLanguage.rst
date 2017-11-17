@@ -53,6 +53,20 @@ logging
 
 直接使用VS2015 PSVT的功能，可以条件断点等等功能，非常的的方便。
 
+
+
+Profiling
+=========
+
+.. code-block:: bash
+
+   python -m cProfiler XX.py
+
+epydoc
+======
+
+生成callgraph
+
 Python 内在函数
 ===============
 
@@ -143,6 +157,7 @@ string,list,dict/hash and tuple
    match.group()
 
    match 必须是从头开始匹配，search是不必的。
+
 dictionary{}必须是key-value对，核心是哈希，内容可以使任何元素，可是实现删除，del and
 d.clear()。里面的key是虚幻的。
 
@@ -276,6 +291,7 @@ mutli-thread of python
 Ilterators generators   
 
 .. code-block::
+
    a = [expression for i in xxx if condition]   //list comprehensions
    a = (expression for i in xxx if condition)   //list generator 
    a = [(x,y) for x in a for y in b] 这个不同于双层循环
@@ -354,6 +370,7 @@ reduce,map与函数只是构造计算中的apply函数一种。 例如自己实�
 reduce,只一次只取列表两个值，而map每一次只能取一个值。对于取多值的，可以用ireduce,imap
 
 .. code-block::
+
     def reduce(function,iterable,initialzer=None):
         it = iter(iterable)
         if initialzer is None:
@@ -432,12 +449,12 @@ test framework of python
 Data structure
 ==============
 
-  embeded dict. `what-is-the-best-way-to-implement-nested-dictionaries-in-python <http://stackoverflow.com/questions/635483/what-is-the-best-way-to-implement-nested-dictionaries-in-python>`_ 其中一个方法hook __getItem__ 来实现，但是有一个效率问题，其实那种树型结构最适合用mongodb来实现了。并且搜索的时候可以直接使用MapReduce来直接加快计算。
+embeded dict. `what-is-the-best-way-to-implement-nested-dictionaries-in-python <http://stackoverflow.com/questions/635483/what-is-the-best-way-to-implement-nested-dictionaries-in-python>`_ 其中一个方法hook __getItem__ 来实现，但是有一个效率问题，其实那种树型结构最适合用mongodb来实现了。并且搜索的时候可以直接使用MapReduce来直接加快计算。
   
- `High-performance container datatypes <http://docs.python.org/2/library/collections.html>`_  同时还支持 `ordered Dictionary <http://code.activestate.com/recipes/576693/>`_ `同时支持对基本数据结构进行扩展，利用继承 <http://woodpecker.org.cn/diveintopython/object_oriented_framework/special_class_methods2.html>`_ 。
+`High-performance container datatypes <http://docs.python.org/2/library/collections.html>`_  同时还支持 `ordered Dictionary <http://code.activestate.com/recipes/576693/>`_ `同时支持对基本数据结构进行扩展，利用继承 <http://woodpecker.org.cn/diveintopython/object_oriented_framework/special_class_methods2.html>`_ 。
 
 
- 如果让dict 像一个类样http://goodcode.io/articles/python-dict-object/， 一种是采用self.__dict__ 来实现，另外一种采用__setattr__,__getattr__,__delattr__的方法来实现。
+如果让dict 像一个类样http://goodcode.io/articles/python-dict-object/， 一种是采用self.__dict__ 来实现，另外一种采用__setattr__,__getattr__,__delattr__的方法来实现。
 
 要想高效的利用内存分配还得是C/C++这样，自己进行内存的管理。管理原理无非是链表与数组。并由其排列组合出多结构。
 
@@ -550,7 +567,6 @@ https://plumbum.readthedocs.io/en/latest/,但是还没有shell本身简练。
 #. `Python on java <http://www.java2s.com/Open-Source/Android/android-core/platform-sdk/com/android/monkeyrunner/JythonUtils.java.htm>`_ %IF{" '' = '' " then="" else="- "}%*Commute between Python and java* JythonUtils.java there use hash table to mapping the basic data element between java and python.
 #. `org.python.core  <http://web.mit.edu/jython/jythonRelease&#95;2&#95;2alpha1/Doc/javadoc/org/python/core/package-summary.html>`_ %IF{" 'the online manual' = '' " then="" else="- "}%the online manual
 #. `jython offical web <http://www.jython.org/>`_ %IF{" '' = '' " then="" else="- "}%
-#.
 #. `install sciPy on linux <http://www.scipy.org/Installing&#95;SciPy/Linux#head-fb320be917b02f8fbe70e3fb2c9fe6f5f5f06fc2>`_ %IF{" '科学计算' = '' " then="" else="- "}%科学计算
 #. `python and openCV <http://www.opencv.org.cn/index.php/Python&#37;26OpenCV>`_ %IF{" '' = '' " then="" else="- "}%
 #. `ipython <http://ipython.org/>`_ %IF{" '' = '' " then="" else="- "}%
@@ -569,17 +585,14 @@ https://plumbum.readthedocs.io/en/latest/,但是还没有shell本身简练。
 #. `how-to-install-pil-on-64-bit-ubuntu-1204 <http://codeinthehole.com/writing/how-to-install-pil-on-64-bit-ubuntu-1204/>`_ %IF{" '' = '' " then="" else="- "}%
 #. `marshal 对象的序列化 <http://blog.csdn.net/jgood/article/details/4545772>`_ %IF{" '' = '' " then="" else="- "}%
 #. `python PIL <http://www.pythonware.com/products/pil/>`_ %IF{" '' = '' " then="" else="- "}%
-#. %IF{" '' = '' " then="" else="- "}%
 #. `sorted <http://docs.python.org/2/howto/sorting.html>`_ %IF{" 'key 与cmp到底有什么区别' = '' " then="" else="- "}%key 与cmp到底有什么区别
 #. `python-convert-list-to-tuple <http://stackoverflow.com/questions/12836128/python-convert-list-to-tuple>`_ %IF{" '' = '' " then="" else="- "}%
 #. `pygame <http://eyehere.net/2011/python-pygame-novice-professional-1/>`_ %IF{" '在研究游戏的时候来看一下' = '' " then="" else="- "}%在研究游戏的时候来看一下
-#.
 #. `python 图像应用实例 <http://scipy-lectures.github.io/#>`_ %IF{" '里面有很多代码，有空的时候要看一下' = '' " then="" else="- "}%里面有很多代码，有空的时候要看一下
 #. `python 多继承 <http://christophor.blog.163.com/blog/static/16215437320107276239434/>`_ %IF{" '' = '' " then="" else="- "}%
 #. ` windows7下使用py2exe把python打包程序为exe文件 <http://blog.csdn.net/xtx1990/article/details/7185289>`_ %IF{" '' = '' " then="" else="- "}%
 #. ` 函数迭代工具 <http://www.cnblogs.com/huxi/archive/2011/07/01/2095931.html>`_ %IF{" '' = '' " then="" else="- "}%
 #. `python 字节码文件（.pyc）的作用与生成 <http://hi.baidu.com/smithallen/item/fa2b77e5438908c5bbf37db4>`_ %IF{" 'python 可以把pyc 当做二进制发布，当然可以也可以自己加密使用' = '' " then="" else="- "}%python 可以把pyc 当做二进制发布，当然可以也可以自己加密使用
-#.
 #. `python-with-statement <http://effbot.org/zone/python-with-statement.htm>`_ %IF{" '这个要求你的类，自己有enter,exit函数，with 会自动调用这些。' = '' " then="" else="- "}%这个要求你的类，自己有enter,exit函数，with 会自动调用这些。
 
 
@@ -839,6 +852,7 @@ python 的module有两种模式，一种是当做module来调用，另一种是�
 这个主要是通过
 
 .. code-block:: python
+
    if __name__ == "__main__":
         #do someting
 
@@ -863,6 +877,7 @@ python -m SimpleXMLRPCServer
 例如
 
 .. code-block:: bash
+
    echo "print 'helloworld'" |python -
 
 这样就可以动态的生成各种代码组合来执行了。
