@@ -16,6 +16,7 @@ Contents:
    content/Stage_1
    content/Stage_2
    content/Stage_3
+   content/Stage_4
 
    
 
