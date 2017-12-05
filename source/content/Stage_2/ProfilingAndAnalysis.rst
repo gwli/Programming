@@ -210,6 +210,7 @@ latency VS Occupancy
 Occupancy研究的是使用率，相当于CPU的的使用率，如何CPU使用率100%的问题。这个是在解决GPU资源大于所需的要求，如何原来结果更快。Occupancy高，意味着更多的线程在干活，首先要解决理论occupnacy,然后是实际的值，极限值，GPU的最大值。只有有足够多并行，才能隐藏latency的问题。一个线程不执行完，就不会被释放，并且最小调度单元是warp,也就是只有一个thread在占着，那么整warp就不能被再调度了。
 
 解决方法有三个:
+
 #. execution configuration.
 #. launch bounds 用来帮助NVCC来分配寄存器。
 #. Pipe Utilization 解决那种长尾问题。就像火车站买票一样，半个小时内票，再好看单独一队，而是在长对后面等。
