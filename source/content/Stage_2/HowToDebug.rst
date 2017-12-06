@@ -40,12 +40,13 @@ thinking is still the best step, to be followed by systematic attemps to narrow 
 #. 看了解一下整体结构，看看要不要重构。 整个过程不要超过两个小时。
 
 当遇到没有线索bugs时
+
 #. Make the bug reproducible. 然后统计分析规律(study the numerology of failures)，然后narrow down问题。
 #. Divid and conquer, 采用二分法来narrow down.例如利用vim的undo功能，特别适合这个。 例如加入log, 例如执行到这里了。 并且记录这个过程。 当然git也支持2分法在版本之间查找。 即使是一时不出来原因，做好记录也可以为以后分析做积累。
 
 当然这些原则再加上debugger会加速你的问题。 
-#. 另外添加一些有用的self-checking code。也会加速你的问题解决。 并且能够把你的收集信息可视化，会大大加快你的速度。 这一点vs2015中可以在debug时生成codemap，并且随着step不断更新你的这个图。 把callstack不断可视化。 这个也可以用gdb + graphviz 来自己实现一个。
 
+#. 另外添加一些有用的self-checking code。也会加速你的问题解决。 并且能够把你的收集信息可视化，会大大加快你的速度。 这一点vs2015中可以在debug时生成codemap，并且随着step不断更新你的这个图。 把callstack不断可视化。 这个也可以用gdb + graphviz 来自己实现一个。
 #. 写好log，是你解决问题时信息的最大来源。当然对于大的工程没有现成的log可用时，可以debugger的trace功能以及profiling来产生规范的log,然后再加上自己的可视化分析。尤其是可视化可以大大地加快你的思索。
 
 当代码在一个机器时正常，而在另一台机器不正常。 这个一般是由于环境引起的。 例如查看环境变量，以及依赖的库的版本。一些相关配置文件。 还有的那就是一些随机输入。
@@ -205,12 +206,14 @@ Can't Find resource
 
 经常遇到这样的问题，例如undefined symbols,找不到的库。例如C#遇到找不到XX14.0.dll. 
 这样的原因有以下几种:
+
 #.  确实不存在对应的库
 #.  所依赖的库存在，只是依赖库的Error处理的不好，没有正确的显示
 #.  库确实存在，但是版本不对，有些依赖是版本要求的，所以搜索的条件也不一样。所以要仔细看它的搜索条件。 
 #.  由于不同版本之间不兼容，例如函数名的改变，或者编译器不同而导致的格式改变。
 
 解决办法
+
 #. 最简单的办法，在对应的目录里直接搜索，然后查看其版本信息等等。
 #. 用LDD 查看其依赖。 windows下用dumpbin 来查看。
 #. 对于C#可以用FusionLogViewer来查看。
