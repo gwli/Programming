@@ -1,6 +1,6 @@
-===
+***
 GCC
-===
+***
 
 编译过程，主要分为两大块，把C语言翻译成ASM代码，然后ASM编译成机器码。
 
@@ -90,6 +90,22 @@ http://stackoverflow.com/questions/98650/what-is-the-strict-aliasing-rule
 只要自己知道 其内部的layout pack了。
 
 
+直接发利用instruments代码中添加trace
+====================================
+
+直接利用 *-finstrument-fuctions* 与 *-finstrument-functions-exclude-file-list=file,file,..* 来实现
+
+你要提供这样两个函数
+
+.. code-block:: c
+ 
+   void _cyg_profile_func_enter(void * this_fn, void *call_site);
+   void _cyg_profile_func_exit(void *this_fn,void *call_site);
+
+同时可以参考 例子  https://github.com/gwli/code-samples/tree/master/posts/nvtx
+
+    
+    
 
 fwrapv 
 ======
@@ -145,4 +161,6 @@ pta
 branch-likely
 =============
 
-可以根据优先级概率来生成代码。
+可以根据优先级概率来生成代码。可以参考 https://gcc.gnu.org/onlinedocs/gcc/Instrumentation-Options.html
+
+

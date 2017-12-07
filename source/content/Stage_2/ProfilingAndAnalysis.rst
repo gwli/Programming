@@ -370,12 +370,14 @@ http://www.brendangregg.com/linuxperf.html 看其图。
    perf record -g ./cmatrix
    perf report --stdio
 
+
 OSkernel层
 ==========
 
 
 tracepint
 ---------
+
 #. system calls,TCP events, file system I/O, disk I/O, 
 #. Dynamic Tracing kprobes and uprobes.
 #. Timed Profiling. with CPU usage.
