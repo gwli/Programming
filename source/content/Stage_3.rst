@@ -10,3 +10,14 @@
 
 .. include:: Stage_3/Compiler/CompilerOfGCC.rst
 .. include:: Stage_3/Compiler/gcc.rst
+.. include:: Stage_3/LLVM/ABI.rst
+.. include:: Stage_3/LLVM/backend.rst
+.. include:: Stage_3/LLVM/benchmarking.rst
+.. include:: Stage_3/LLVM/FunctionPass.rst
+.. include:: Stage_3/LLVM/KLEE.rst
+.. include:: Stage_3/LLVM/LLDB.rst
+.. include:: Stage_3/LLVM/LLVMIR.rst
+.. include:: Stage_3/LLVM/LLVMStudy.rst
+.. include:: Stage_3/LLVM/Optimiztion.rst
+.. include:: Stage_3/LLVM/Polly.rst
+.. include:: Stage_3/LLVM/TCE.rst

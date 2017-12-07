@@ -1,5 +1,6 @@
+****
 KLEE
-=====
+****
 
 测试就是用一种逻辑来测试另一种逻辑。其本质那就是从两条路得到的同样的结果才能保证的结果的正确性。 
 
@@ -80,6 +81,7 @@ http://klee.doc.ic.ac.uk/#
 
 EXE: Automatically Generating Inputs of Death
 =============================================
+
 http://web.stanford.edu/~engler/exe-ccs-06.pdf
 
 exe 是KLEE的前身，其主要做对STP的优化。
