@@ -104,8 +104,11 @@ http://stackoverflow.com/questions/98650/what-is-the-strict-aliasing-rule
 
 同时可以参考 例子  https://github.com/gwli/code-samples/tree/master/posts/nvtx
 
+或者参考另一个例子 https://mcuoneclipse.com/2015/04/04/poor-mans-trace-free-of-charge-function-entryexit-trace-with-gnu-tools/ 代码见
+https://github.com/ErichStyger/mcuoneclipse/tree/master/Examples/KDS/FRDM-KL25Z/FRDM-KL25Z_FuncTrace
     
-    
+
+并在代码中添加 *getpid* *gettid* 就可以生成timeline了。
 
 fwrapv 
 ======
