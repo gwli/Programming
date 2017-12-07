@@ -41,6 +41,18 @@ debug 的难点：
 #. gdb finish 执行完这个函数余下的部分，
 #. gdb until 执行到当前函数的某一位置。
 
+vS 已经实现了更新debug方式，那就是在每一个断点处生成snapshot,这样就可以来全回退，这样就不需要每一次重新运行了。对于 gdb来说，我们可以完成每一次的手工的生成
+与加载切换不同coredump.
+
+.. code-block:: bash
+   #load core-file
+   gdb> core-file <coredump>
+   #gen
+   gdb>generate-core-file [file]
+   gdb>gcore [file]
+   gdb>set use-coredump-filter on/off
+   you can check /proc/pid/coredump_filter
+
 批量的添加断点
 --------------
 
@@ -128,12 +140,13 @@ http://www.kgdb.info/wp-content/uploads/2011/04/GdbPrincipleChinese.pdf
 
 同时硬件也提供硬件hardware，也有采用软中断的方式。 
 硬件本身可以提供一个断点表，同进也是软断点，实现。对于汇编来说直接就是bkpt这些指令了。对于高层代码是如何实现的，那就是debugInfo的表，这里有每一行有效代码对应的汇编地址。这里会提供每个函数的入口与出口地址，也就是LOW_PC 与HOW_PC，有了这个表，可以生成callgraphic，  一旦有这个表，就像往你的代码里注入任意的代码，所谓的那些profile参数就是这么看的，每一个函数执行的开始与结束都加进代码。或者直接全用tracepoint 来实现。 通过分析，每一个函数指令位置，然后查看中间的jump指令，就看ABI是如何规定函数调用。就可以画出这个图了。这样通过objdump 得到debug infotable,然后根据这个表生成call graph. 并且已经有这样工具利用h -finstrument-functions,在编译的时候加上这些选项。
+
    * `556-creating-dynamic-function-call-graphs <http://nion.modprobe.de/blog/archives/556-creating-dynamic-function-call-graphs.html>`_ 
    * `egypt <http://www.gson.org/egypt/egypt.html>`_ 
    *module List的作用* 可以用查看真实应用程序使用哪些库，并且库的版本信息等等。直接attach到可执行程序就可以得到这些信息了。例如battle的vcrt 就是这样查到的。当然在linux下会有ldd.
-    *debugger是如何知道各种映射关系呢* 就是app中debug info.
-      `/how-debuggers-work-part-3-debugging-information <http://eli.thegreenplace.net/2011/02/07/how-debuggers-work-part-3-debugging-information/>`_ 
-    * `调试信息 <http://blog.jobbole.com/24916/>`_ 
+   * debugger是如何知道各种映射关系呢* 就是app中debug info.
+     `/how-debuggers-work-part-3-debugging-information <http://eli.thegreenplace.net/2011/02/07/how-debuggers-work-part-3-debugging-information/>`_ 
+   * `调试信息 <http://blog.jobbole.com/24916/>`_ 
   
 
 如何在任意地方设置断点，如何找到函数的指始点，只要是可以执行文件，必然会有一个entry address,得到这个地址，看看其对应的代码的哪一个函数也就自然找到入口点了。
