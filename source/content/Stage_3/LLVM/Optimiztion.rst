@@ -81,17 +81,21 @@ InstCombine
    }
 
 #. Canonicalization
+
    - Mem2Reg
    - InstCombine
    - CFGSimplify
+
 #. Scalar Simplifcation
    - InstCombine
    - CFGSimplify
+
 #. Simple Loop Opts
    - Loop Rotate
    - Loop Unswitch
    - Loop Delete
    - Loop Unroll
+
 #. Target Specialization
    - Loop Vectorization
    - Loop Distribution
@@ -104,6 +108,7 @@ InstCombine
 
 出错了，到底是 优化器错了，还是我的代码错了。 who knows.  把优化过程可视化来帮助人们来快速的troubleshot.
 所以才有种troubleshot工具，
+
 #. bugpoint,快速的二分法信息收集与repro工具。
 #. llvm-diff 来对比， llvm structual diff, 主要是函数定义的不同。
 #. llvm-mc    llvm machine code playground, 相当于各种平台的分析器。 
@@ -120,6 +125,7 @@ InstCombine
 如何在代码中利用profiling的数据里，这个数据接口是__builtin_expect来读取。
 
 .. code-block:: bash
+
    if (__builtin_expect (x,0))
       foo ();
    // -fprofile-arcs
