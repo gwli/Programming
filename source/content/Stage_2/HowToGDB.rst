@@ -16,6 +16,7 @@ debug都是基于debugsymbol中，这个symbol会存储debug与source code line 
 可以修改相对路径，或者直接替换路径,例如下面
 
 .. code-block:: cpp
+
    apt-get source linux-image-2.6.32-25-generic
    apt-get install linux-image-2.6.32-25-generic-dbgsym
    gdb /usr/lib/debug/root/vmlinux-2.6.32-25-generic
@@ -26,7 +27,7 @@ debug都是基于debugsymbol中，这个symbol会存储debug与source code line 
       
 
 
-debug 的难点：
+debug 的难点
 ============
 
 #. 如何在别人不能断的地方进行断点设置。列如线程调试、远程调试，对正在运行的程序进行调试、gdb是可以的。

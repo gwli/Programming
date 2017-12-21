@@ -352,8 +352,8 @@ mparation with lua and C
    * `lua offical web <http://www.lua.org/>`_ 
    * `Windows Script Host  <WindowsScriptHost>`_ 
 
-`Hackell  <HackellLanguage>`_ 
------------------------------
+Hackell   
+-------
 
    * `Hackell 趣学 <http://fleurer-lee.com/lyah/>`_ 
    * `为什么我们要学习Haskell这样的编程语言 <http://www.aqee.net/learn-you-a-haskell-for-great-good/>`_ 
