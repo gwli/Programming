@@ -240,6 +240,7 @@ module 加载的顺序采用深度优先的模式，并且得不断改写进程�
 
 
 .. code-block:: sh
+
    set stop-on-solib-events 0/1
    show stop-on-solib-events
    auto-solib-load
@@ -249,6 +250,14 @@ module 加载的顺序采用深度优先的模式，并且得不断改写进程�
 http://visualgdb.com/gdbreference/commands/set_auto-solib-add
 http://visualgdb.com/gdbreference/commands/set_stop-on-solib-events
 
+GDB 会在solibpaths 中按照顺序查找匹配的lib. 匹配的标准:
+
+#. 名字相同
+#. 有DWARF section
+#. Arch match
+#. build-id RSA 签名验证一致
+ 
+同一个库，加载找到第一个，如果每一个失败，停止继续寻找这个库。
 
 .. image:: LLD.png
 
