@@ -38,3 +38,11 @@ template,可变部分，变量控制生成就行了。用一个template应该是
 
 另一个对比的办法，那就是利用 git. 把基准当做一个版本，然后另一个当做改动来进行对比。
 
+
+VS for Linux
+=============
+
+http://hongbomin.com/2017/03/10/using-visual-studio-as-linux-develop-IDE/
+
+#. vs不会自动把addtional include中的头文件复制到本地来做代码补全的提示，需要手动将linux下面的/usr/include、/usr/local/include等目录复制到vs的linux header path（如：C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\Linux\include\usr）
+头文件包含目录和库文件包含目录均为linux下的绝对路径
