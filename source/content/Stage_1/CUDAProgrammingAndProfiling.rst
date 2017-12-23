@@ -15,6 +15,7 @@ SIMD 其实cuda的这种kernerl函数当做指令化，这本身就是一种SIMD
 
 终级目标
 --------
+
 #. 执行速度，每一个GPU cycle里每一个warp里的每一个lane都执行一条指令。
 #. 传输速度达到最大的带宽，例如从share memory到寄存器的最大传输速度，因为最快的执行都是直接在寄存器里执行的。一个复值就是一次值的传输。例如一个指令周期最长读进32字节，每一个指令周期是2us,这么带宽就是32*1000,000/2 bytes.而指令周期一般是频率的整数倍。
 #. branch divergence
@@ -27,6 +28,7 @@ SIMD 其实cuda的这种kernerl函数当做指令化，这本身就是一种SIMD
 
 structure of framework
 ----------------------
+
 GPU与CPU的区别，并且scale model.
 #. Programing model
 #. Programming Interface
@@ -35,6 +37,7 @@ GPU与CPU的区别，并且scale model.
 
 CUDA
 ----
+
 .. csv-table:: Frozen Delights!
    :header: "Item","Content", "Remark"
 
@@ -45,19 +48,18 @@ CUDA
 
 .. graphviz::
 
-    digraph  CUDA {
-     rankdir=LR;
-     {rank=same ;grid->block->thread;}
-     "Serial code" -> host2d->"Parallel kernel"->d2h-> "Serial code on Host";
-    deviceMemory [shape=record, label ="device Memory |<f1>Per-thread local Memory |<f2> Per-block shared memory | <f3>Global memory "]
-    "performance guide" -> {"Maximize Utilization";"Maximize Memory Throughput"; "Maximize Instructions Throughout"};
-    "Maximize Utilization" -> {"Application level"; "Device level"; "Multiprocessor level"};
-    "Application level" -> {"MapReduce";"hadoop"};
-    grid -> deviceMemory :f3;
-    block -> deviceMemory :f2;
-    thread-> deviceMemory:f1;
-
-    }
+   digraph  CUDA {
+       rankdir=LR;
+       {rank=same ;grid->block->thread;}
+       "Serial code" -> host2d->"Parallel kernel"->d2h-> "Serial code on Host";
+       deviceMemory [shape=record, label ="device Memory |<f1>Per-thread local Memory |<f2> Per-block shared memory | <f3>Global memory "]
+       "performance guide" -> {"Maximize Utilization";"Maximize Memory Throughput"; "Maximize Instructions Throughout"};
+       "Maximize Utilization" -> {"Application level"; "Device level"; "Multiprocessor level"};
+       "Application level" -> {"MapReduce";"hadoop"};
+       grid -> deviceMemory :f3;
+       block -> deviceMemory :f2;
+       thread-> deviceMemory:f1;
+   }
 
 The index of a thread and its thread ID relate to each other in a straightforward way:
 For a one-dimensional block, they are the same; for a two-dimensional block of size (Dx,
@@ -73,6 +75,7 @@ CUDA 的二进制代码，只与自己自身的架构有关，而与操作系统
 device memory can be alloated either as linear memory like CPU or as CUDA arrays which you can access like matrix(implemented by hardware).  the global memory you can pagelock it that you will always residents the RAM not swap out on harddisk. the other way is that mapping memory two device share a block memory address.
 
 CUDA also has own sync mechanism. Asynchonous Concurrent.
+
 .. seealso::
      
      .. csv-table::
@@ -89,6 +92,7 @@ Nsight
 
 DriverAPI 
 ---------
+
 DriverAPI 是最能反映硬件架构的,所以要把对硬件理解与Driver对应起来。 `runtimeAPI 与内存模型 <RuntimeAPIAndMemoryModel>`_ 
 
 CUDATestingCase
@@ -96,6 +100,7 @@ CUDATestingCase
 
 wait for study
 --------------
+
    * `CUDA 与openCL <http://nvidia.e-works.net.cn/document/200901/article7425&#95;3.htm>`_  %IF{" '这里把它们的关心理的更清楚了' = '' " then="" else="- "}%这里把它们的关心理的更清楚了
    * `mixing-mpi-and-cuda <http://ccv.brown.edu/doc/mixing-mpi-and-cuda.html>`_  %IF{" '' = '' " then="" else="- "}%
    * `CUDA, OpenMPI, OpenMP Basics <http://www.cse.buffalo.edu/faculty/miller/Courses/CSE710/heavner.pdf>`_  %IF{" '' = '' " then="" else="- "}%
@@ -132,6 +137,7 @@ CUDA与Texture与Surface 以及Graphic的交互
 
 
 Texture 对应的存储电路，这部分经过专门的优化与加速的。对于内存分配管理，从简单的点线面理论，进一步上升到，灵活语法情况。例如malloc直接按照分配成字节，然后利用cudaarray把其变成数组结构，然后再用texture把bind到tex上来。这样一来整个就通了。当然也还有一个那就是内存的管理分配问题，如何解决碎片化的问题，以及时候解决了。这就是为什么malloc的overhead会有一点高了原因。而用new/delete,就升级了一下，能够自动初始化了。
+
 Thinking
 --------
 

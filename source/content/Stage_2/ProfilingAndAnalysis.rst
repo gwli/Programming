@@ -101,7 +101,19 @@ CUDA Analaysis 对于每一类的指令分析的用途了
 从timeline中能读出什么呢:
 
 #. 系统资源的调度效率，速度很慢，并且系统各种资源的使用率也不高。这个说明资源调度效率不同。
+
+   - CPU Core Utilization Avg(black) & Max(gray)
+   - Thread 状态
+     
+     * 使用率
+     * CPU 的core 占有率
+     * Thread State (running,blocked) 通过这些看到这个线程在做什么，为什么会blocked.
+     * Event Trace (various APIs cuda/opengl/nvtx) 
 #. 可以看到并行与串行的真实分配情况。并且计算 `Amdahl's law`_ 优化最终效果，是取于不能优化的部分所占的比重，求极值，可以知道极限在哪里。
+   
+   - 那些时间片中大量的空间，就是要需要优化的地方
+   - 能时通过下方的函数统计，就知道，这个时间点，哪些函数在执行并且在做什么。 
+   - 并且在这个时间点，哪些函数是blocking issue
 #. timeline的时间轴就是一段段的时间片，其最小单位也就是一个pixel代表多少时间片的问题。在timeline上会标出这个时间片里某种精源利用率。
     
         +------------------+-----------------------------------+--+
@@ -112,6 +124,18 @@ CUDA Analaysis 对于每一类的指令分析的用途了
         | android systrace |                                   |  |
         +------------------+-----------------------------------+--+
 
+
+#. 从timeline上看trace.
+   
+   * 直接看代码太多的细节，不利于快速掌握整个的workflow, 如果添加了nvtx之类的标记的话，可以直接用。
+     如果没有可以直接根据timeline上的时间片来观察，在sample freq足够高的情况下，如果timeline上没有空隙，那就说明现在CPU正在集中一件事，一个大的函数。
+     没有发生的大的线程切换。
+   * 从线程数中，可以看是否启用了多线程，如果用了，一般都会是生产消费者模型或者fork-join. 得到大体流程。
+   * 先找到主线程，然后根据其timeline上的大的时间片，来查看其相对应的callstack,来得到其执行的trace. 而不要再debug来看其执行了。
+   * 再每一个线程中，看其执行的函数在timeline上有重复，就说明这里是一个循环。
+   * 如果工程太大，或者复杂，可以选择添加在代码中添加nvtx来实现，进一步合理颗粒度的注释。
+   * 调用关系可以从下callstack来搜索。某一个函数的调用。
+  
 
 
 .. _Amdahl's law: http://zh.wikipedia.org/wiki/%E9%98%BF%E5%A7%86%E8%BE%BE%E5%B0%94%E5%AE%9A%E5%BE%8B
@@ -135,6 +159,7 @@ follow the CUDA_Best_Practice.pdf and CUDA_Profiling_Guide.pdf这两个就够了
 当然使用JIT动态插入断点的办法来提高灵活性。
 
 要想底层的支持
+
 #. kernel本身支持， 查看 /proc/config.gz 查看其编译选项是否打开，如果没有打开，是不是可以通过补丁来解决，或换一个更新的kernel.
 #. 对应的debug info是否有，其原理也是添加断点hook来实现的。
 #. module的build 环境要有， probe的实现原理，也是当写一个.ko 插入内核，只不过内核补丁自己提供一些函数，例如systemtap，你的probe可以调用这些内部函数。
@@ -447,12 +472,18 @@ tuning
 
 
 #. 提前评估各个单元时间效率  这个表在Pactice of Programming Page 193.
+
    #. 指令本身
+
        不同类型指令，同样是+,-等等不同data type也是不一样的。
+
    #. 存取速度
+
        array的一维，二维，三维
        hash,以及数据类型的影响。 
+
    #. 各层API本身
+
    当然可以读各家的数据手册，得到这些数据。 各个硬件厂商都会提供这些数据的。
 
 对于操作系统的优化
@@ -483,7 +514,6 @@ http://landley.net/kdocs/ols/2007/ols2007v1-pages-215-224.pdf
 
 Dtrace 采用的是 expect的  expect/action模式，并且采用D语言来实现脚本。
 http://www.ibm.com/developerworks/cn/linux/l-cn-systemtap2/
-
 
 
 可视化

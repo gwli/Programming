@@ -419,6 +419,11 @@ IO模型
 多线程
 ======
 
+
+#. pthread_create 创建线程
+#. pthread_setname_np 指定线程的名字
+#. pthread_join
+#. 
 多线程的模型，主要与进程的状态相关 
 
 .. image:: /Stage_2/images/threadState.gif
@@ -426,5 +431,20 @@ IO模型
 同步有机制有
 
 #. 互锁机制，主要用于共享内存的应用
+
+   - pthread_mute_lock
+   - pthread_mute_unlock
+   - pthread_mute_destroy
+   
+
 #. 条件变量，更多用于流水线，stream上的应用更多的像通知。
-#. 信用量，
+   *pthread_cond_t*
+   - pthread_cond_broadcast
+#. 信号量，
+   
+   - sem_init
+   - sem_post
+   - sem_wait
+   - sem_destroy
+   
+ 
