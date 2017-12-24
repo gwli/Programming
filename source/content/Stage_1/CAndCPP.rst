@@ -422,29 +422,78 @@ IO模型
 
 #. pthread_create 创建线程
 #. pthread_setname_np 指定线程的名字
-#. pthread_join
-#. 
+#. pthread_join 用来等待另一个另一个线程结束。 join相当于加入排队中。一个线程可以等多个。
+   
+   .. code-block:: c
+    
+      pthread_create(tid1...)
+      pthread_create(tid2...)
+      pthread_create(tid3...)
+      pthread_join(tid1)
+      pthread_join(tid2)
+      pthread_join(tid3)
+
+#. pthread_detach 
+
 多线程的模型，主要与进程的状态相关 
 
 .. image:: /Stage_2/images/threadState.gif
 
 同步有机制有
 
-#. 互锁机制，主要用于共享内存的应用
+#. 互锁机制，主要用于共享内存的应用, 最经典例子就是火车的上洗手间。 http://pages.mtu.edu/~shene/NSF-3/e-Book/MUTEX/locks.html 其核心是使用计数与线程状态的操作。
+   主要是线程队列的policy规则，队列与进程之间最好的讲解那就是排队论。
+   但互斥锁应当仅由持有该锁的线程来解除锁定
 
    - pthread_mute_lock
    - pthread_mute_unlock
    - pthread_mute_destroy
    
 
-#. 条件变量，更多用于流水线，stream上的应用更多的像通知。
-   *pthread_cond_t*
-   - pthread_cond_broadcast
-#. 信号量，
+#. 条件变量，更多用于流水线，stream上的应用更多的像通知。相当于银行VIP的排号。
+   VIP接待室时锁相当于mute_lock. 而条件变量就相当于那个排号。
+  
+   - pthread_cond_t
+   - pthread_cond_wait 解销互斥量并停止线程。 
+   - pthread_cond_signal, 如果一个线程对另一个条件变量调用pthread_cond_signals, 
+   - pthread_cond_broadcast, 所有在排队的号信号都会被唤醒。
+
+#. 信号量，可以IPC也可以ITC。 只用计数来实现上数两个功能。铁路的道口。
+   https://docs.oracle.com/cd/E19253-01/819-7051/sync-95982/index.html 
+   二进制信号量相当于mute_lock.
+
+   信号量是一个非负整数计数。信号量通常用来协调对资源的访问，其中信号计数会初始化为可用资源的数目。然后，线程在资源增加时会增加计数，在删除资源时会减小计数，这些操作都以原子方式执行。 如果信号计数变为零，则表明已无可用资源。计数为零时，尝试减小信号的线程会被阻塞，直到计数大于零为止. 线程池实现利用这个就会比较方便。同时可用于异步事件通知。
    
-   - sem_init
-   - sem_post
-   - sem_wait
+   - sem_init(sem_t * _sem,int _pthsared,unsigned int _value))
+   - sem_post V增加引加引用计数
+   - sem_wait P操给信号量S的值减1，若结果不为负则P(S),否则等待。 执行V操作V(S)时，S的值加1，若结果不大于0则释放一个因执行P(S)而等待的线程。
    - sem_destroy
    
- 
+   .. code-block:: c
+      
+      void producer(buffer * b ,char item){
+          sem_wait(&b->empty);
+          sem_wait(&b->pmut);
+          
+          b->buf[b->nextin]=item;
+          b->nextin++;
+          b->nextin %=BSIZE; 
+          sem_post(&b->pmut);
+          sem_post(&b->occupied);
+               
+         
+      }
+      void consumer(buffer_t * b){
+          char item;
+          sem_wait(&b->occupied);
+          sem_wait(&b->cmut);
+             
+          item = b->buf[b->nextout];
+          b->nextout++;
+          b->nextout %= BSIZE;
+            
+          sem_post(&b->cmut);
+          sem_post(&b->empty);
+          return (item);
+      }
+#. 为了进一步提高效率，又分出读写锁的机制。读可以同时，写就必须是异步。 
