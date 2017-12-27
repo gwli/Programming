@@ -63,6 +63,16 @@ thinking is still the best step, to be followed by systematic attemps to narrow 
 
 一个难点，那就是搭建调试环境，只要方便。最好方法那就是能在出错地方停下来(例如像pdb.set_trace()这样的功能最方便)，即使不能可以打log.
 
+调试器虽然可以用step by step,但是主要功能可不是在这里，最高效的功能在捕捉异常。所以重点是exeption，core处理，以及各种事件的支持，例如 .so load event.例如 
+
+#.  自动停在main处
+#.  例如cuda 的自动停在kernel launch 处
+#.  自动停在出错那一行，尤其是cuda-memory等工具结合的时候。
+
+.. code-block:: bash
+   
+   set print thread-events. 
+
 如果能到源代码
 ==============
 
