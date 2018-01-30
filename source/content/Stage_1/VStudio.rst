@@ -1,21 +1,21 @@
-Visual Studio
+ï»¿Visual Studio
 *************
 
 
 
-MSBuild µÄlog ÎÄ¼ş
+MSBuild çš„log æ–‡ä»¶
 ------------------
 
-*Build Log File* ÊÇ¼ÇÂ¼Õâ¸öÕû¸ö±àÒë¹ı³ÌÖĞ»·¾³±äÁ¿£¬ÒÔ¼°ÊäÈëÓë°ì³ö²ÎÊı
+*Build Log File* æ˜¯è®°å½•è¿™ä¸ªæ•´ä¸ªç¼–è¯‘è¿‡ç¨‹ä¸­ç¯å¢ƒå˜é‡ï¼Œä»¥åŠè¾“å…¥ä¸åŠå‡ºå‚æ•°
 
-²¢ÇÒÃ¿Ò»¸ölog»¹»á¶ÔÓ¦Ò»¸öÎÄ¼ş¼Ğ±£´æ *tlog* ÕâÀï¼ÇÂ¼Ã¿Ò»ÌõÖ´ĞĞµÄÃüÁîµÄÊäÈëÓëÊä³ö²ÎÊı 
+å¹¶ä¸”æ¯ä¸€ä¸ªlogè¿˜ä¼šå¯¹åº”ä¸€ä¸ªæ–‡ä»¶å¤¹ä¿å­˜ *tlog* è¿™é‡Œè®°å½•æ¯ä¸€æ¡æ‰§è¡Œçš„å‘½ä»¤çš„è¾“å…¥ä¸è¾“å‡ºå‚æ•° 
 
-ËùÒÔÄã¶Ô±àÒë¹ı³ÌÓĞÊ²Ã´ÃÔ»óµÄÊ±ºò£¬¾Í¿ÉÒÔ²é¿´ÕâĞ©log¾ÍÖªµÀÁË¡£
+æ‰€ä»¥ä½ å¯¹ç¼–è¯‘è¿‡ç¨‹æœ‰ä»€ä¹ˆè¿·æƒ‘çš„æ—¶å€™ï¼Œå°±å¯ä»¥æŸ¥çœ‹è¿™äº›logå°±çŸ¥é“äº†ã€‚
 
 
-MSBuild ÓÃ·¨
+MSBuild ç”¨æ³•
 
-Ö±½ÓmsbuildÌí¼Óµ½»·¾³±äÁ¿pathÖĞ¡£ 
+ç›´æ¥msbuildæ·»åŠ åˆ°ç¯å¢ƒå˜é‡pathä¸­ã€‚ 
 
 :commmand:`msbuild  "+ self.projPath + "/android_app/project/android_app.sln /t:executables\\android_app_standalone /p:Configration=Debug /p:Platform=Tegra-Android /p:BuildProjectReference=false`
 
@@ -23,4 +23,52 @@ MSBuild ÓÃ·¨
 CodeMap
 =======
 
-ÔÚVSÖĞÊµÊ±¶¯Ì¬Éú³ÉCodeMap,²¢ÇÒÔÚdebuggingÊ±Ö±½ÓÔÚcallstackÖĞµ÷³ö¶¯Ì¬µÄCodeMap.
+åœ¨VSä¸­å®æ—¶åŠ¨æ€ç”ŸæˆCodeMap,å¹¶ä¸”åœ¨debuggingæ—¶ç›´æ¥åœ¨callstackä¸­è°ƒå‡ºåŠ¨æ€çš„CodeMap.
+
+devenvå‘½ä»¤è¡Œç”¨æ³•
+================
+
+VSçš„extensionå®‰è£…åŸç†
+=====================
+
+.vsix æœ¬èº«å°±æ˜¯ .zipæ–‡ä»¶ã€‚å…¶å†…éƒ¨ç»“æ„å¯è§https://blogs.msdn.microsoft.com/quanto/2009/05/26/what-is-a-vsix/
+
+
+
+å¦‚ä½•uinstall
+------------
+
+.. code-block:: bash 
+   
+   vsixinstaller  /admin /uninstall:XXXXX-XXXX
+
+æœ€å¸¸ç”¨çš„ä¿®å¤æ–¹æ³•
+----------------
+
+.. code-block:: bash
+   
+   devenv  /clearcache
+   devenv  /updateconfiguration 
+
+
+Powershell module 
+=================
+
+https://github.com/Microsoft/vssetup.powershell
+https://github.com/Microsoft/vswhere/wiki
+https://github.com/Microsoft/psmsi
+
+
+VS ä¹Ÿå¯ä»¥å½“åšæ–‡ä»¶æµè§ˆå™¨ï¼Œç›´æ¥åœ¨ä¸€ä¸ªç›®å½•ä¸­å³é”®"åœ¨VSä¸­æ‰“å¼€".
+
+
+å¸¸ç”¨å‘½ä»¤è¡Œ
+==========
+
+.. code-block:: bash
+   
+   devenv  /SafeMode /Command File.Exit
+   devenv  **.sln /build "Debug|Tegra-Android"
+   devenv solutionfile.sln /build [ solutionconfig ] [ /project projectnameorfile [ /projectconfig name ] ]
+
+
