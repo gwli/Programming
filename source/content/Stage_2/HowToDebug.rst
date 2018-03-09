@@ -279,3 +279,10 @@ minidump
 
 目标是为生成一个最小的包含问题的可执行程序，这样可以大大加快troubleshot步法，特别是对于程序，每一次repro都会浪费大量的时间。 
 如果生成这样一个程序切片，就可以大大加快troubleshot的效度。
+
+SIGILL
+======
+
+
+一些warning也会产生一些运行时错误，不要轻易忽略编译中warning. 尤其是那些类型转换
+https://peeterjoot.wordpress.com/2010/05/26/a-fun-and-curious-dig-gcc-generation-of-a-ud2a-instruction-sigill/

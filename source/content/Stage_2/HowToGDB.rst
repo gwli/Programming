@@ -42,8 +42,13 @@ debug 的难点
 #. gdb finish 执行完这个函数余下的部分，
 #. gdb until 执行到当前函数的某一位置。
 
-vS 已经实现了更新debug方式，那就是在每一个断点处生成snapshot,这样就可以来全回退，这样就不需要每一次重新运行了。对于 gdb来说，我们可以完成每一次的手工的生成
-与加载切换不同coredump.
+vS 已经实现了更新debug方式，那就是在每一个断点处生成snapshot,这样就可以来全回退，这样就不需要每一次重新运行了。对于 gdb来说，我们可以完成每一次的手工的生成与加载切换不同coredump. 同时gdb 还自身也有bookmark的功能。
+
+   .. code-block:: bash
+      
+      bookmark start/end
+      goto-bookmark
+      help bookmark 这个功能是在 gdb 5.6之后就有了。
 
 .. code-block:: bash
    #load core-file
@@ -79,8 +84,9 @@ gdb,attach 意味着你进入这个进程的空间，可以方便它的一切。
 如何实现引导代码
 ================
 
-profiling都是支持tree 的，调试也是一样的。自己可以设置一个引导程序然后来加载自己的应用程序。然后把调试移至后面。这里用到那就是*gdb set follow-fork-mode* 与 *detach-on-fork* 等。`gdb process tree <http://www.360doc.com/content/12/0311/11/7775902_193444555.shtml>`_ .
+profiling都是支持tree 的，调试也是一样的。自己可以设置一个引导程序然后来加载自己的应用程序。然后把调试移至后面。这里用到那就是 *gdb set follow-fork-mode* 与 *detach-on-fork* 等。`gdb process tree <http://www.360doc.com/content/12/0311/11/7775902_193444555.shtml>`_ .
 另外那就是 *gdb wrapper* see `here <http://www.ibm.com/developerworks/cn/linux/l-cn-gdbmp/index.html>`_ .
+
 #. `gdb wraper <https://sourceware.org/gdb/current/onlinedocs/gdb/Starting.html>`_ . 
 
 Debug 的实现机理
@@ -207,6 +213,7 @@ http://www.ibm.com/developerworks/cn/linux/l-cn-utrace/index.html
 一种是全局变量，文件静态变量，函数的静态变量如何查看,通过
 
 .. code-block:: cpp
+
    file::variable
    function::variable
 
@@ -310,6 +317,23 @@ debug_info 表对于调试起着至关重要的意义，它是源码与二制码
 debug_info表与 符号表是不同的两表，符号是要程序动态加载的用的。具体见符号表。
 
 对于gdb中要设置的一个是 solib-search-path. 另一个就是源码目录，directory
+
+
+同时当大的obj文件中，加载symbol本身也会很慢，gdb 支持 生成index来加速这个过程，同时一些编译也支持生成。
+另一方面在remotedebug时，把远程的sysroot给提前cache到本地就也可以加块速度。 例如 android的备份的是
+
+同时也可以 ``set sysroot    target://``
+
+.. code-block:: bash
+    
+   system/bin
+   system/lib
+   system/vendor/lib
+
+.. code-block:: bash
+   
+   gdb -batch -nx -ex "save gdb-index C:\\directory_path" "C:\path_to_UE4_project_output_directory\libUE4.so"
+   
 
 自动加载原理
 ------------
@@ -574,10 +598,14 @@ Thinking
 *远程调试*
 远端与近端要配套才行，有两种情况，一种是远端可以执行文件本身含有调试信息的，第二种那就是远端没有调试信息，而是需要本地提供的，加载各种调试信息以及原码，只是依赖远端的进程与本地拥有相同地址，通过地址对应来实现调试。当然你可以自己实现一个gdbserver,并且gdb已经预留了接口与模板，remote.c 并且在attach的过程，gdbserver 会先向进程发一个暂停信号，然后连接上去。这些是根据进程与内核的之间的调度来实现的。`A minimal GDB stub for embedded remote debugging. <http://www.cs.columbia.edu/~sedwards/classes/2002/w4995-02/tan-final.pdf>`_  ,`GDBstub的剖析与改进 <http://www.mcu123.com/news/Article/ARMsource/ARM/200705/4297.html>`_ ,并且gdb源码为库中还提供了大量的模板与例子。对于常见一些CPU架构的支持。
 例如android 的调试 use Project Symbol 参数一样。你要选择：
-<verbatim>
-"/system/bin/app_process", "/system/lib/", "/system/bin/linker            C:\Users\vili\AppData\Local\Temp\Android  并且按照设备号来存放的。
-为什么要linker   这个linker是做什么用，如果不需要本地的话，就只需要app_process与linker.
-</verbatim>
+
+.. code-block:: bash
+
+   "/system/bin/app_process", "/system/lib/", "/system/bin/linker            C:\Users\vili\AppData\Local\Temp\Android  并且按照设备号来存放的。
+   为什么要linker   这个linker是做什么用，如果不需要本地的话，就只需要app_process与linker.
+   
+   gdbserver + unix_debug_socket --attach 123
+   
 `Debugging an already-running process <http://www.ofb.net/gnu/gdb/gdb_22.html>`_  --attach function need system support. there is an process concept. how about the bare board target.
 
 
@@ -611,23 +639,24 @@ the environment of software :  working directory.  lib search path, stdio.
 -- Main.GangweiLi - 14 Mar 2013
 
 
-*`automation gdb sessions <http://stackoverflow.com/questions/10748501/automating-gdb-sessions/>`_ 
-<verbatim>
-#!/bin/bash
-echo "run -c test.conf" > test.gdb
-echo "bt" >> test.gdb
-echo "bt full" >> test.gdb
-echo "info thread" >> test.gdb
-echo "thread apply all backtrace full" >> test.gdb
-until gdb ./core -x test.gdb --batch >test.log 2>test.err
-do date && echo "test server died with exit code $?. Restarting..."
-grep -B 10 -A 1800 "SIGSEGV" "test.log" > "testtrace.log"
-cat "testtrace.log" | ./paster | grep "http" >> "test.link"
-cat "test.err" > "testerror.log"
-sleep 31;
-done;
-</verbatim>
--- Main.GangweiLi - 24 Mar 2013
+#. `automation gdb sessions <http://stackoverflow.com/questions/10748501/automating-gdb-sessions/>`_ 
+
+.. code-block:: bash
+
+   #!/bin/bash
+   echo "run -c test.conf" > test.gdb
+   echo "bt" >> test.gdb
+   echo "bt full" >> test.gdb
+   echo "info thread" >> test.gdb
+   echo "thread apply all backtrace full" >> test.gdb
+   until gdb ./core -x test.gdb --batch >test.log 2>test.err
+   do date && echo "test server died with exit code $?. Restarting..."
+   grep -B 10 -A 1800 "SIGSEGV" "test.log" > "testtrace.log"
+   cat "testtrace.log" | ./paster | grep "http" >> "test.link"
+   cat "test.err" > "testerror.log"
+   sleep 31;
+   done;
+
 
 
 *shell interpretor*
