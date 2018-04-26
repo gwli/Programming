@@ -65,6 +65,9 @@ with xml.dom.minidom you can't get NodeValue. you can regard it as child node. u
 在python有好几种库可以用see http://www.ibm.com/developerworks/cn/xml/x-hiperfparse/
 http://outofmemory.cn/code-snippet/914/python-kinds-parse-xml-bao-usage-method-summary
 
+处理的核心，把流式文本变成strcutured的树，同时又能够这些串行化。然后再实现一棵树到另一棵树的转换。
+
+
 See also
 ========
 
