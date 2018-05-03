@@ -7,7 +7,21 @@ JS and Node.js
 #. 最好用的IDE  online/offfline
 #. framework
 
-快速入门：https://www.nodebeginner.org/index-zh-cn.html
+快速入门：https://www.nodebeginner.org/index-zh-cn.html,https://github.com/mbeaudru/modern-js-cheatsheet
+
+由于nodejs 本身采用异步并行机制，里面就会出大量的event以及相关的trigger 可以用hack. 进行定制化。并且nodejs是应用框架与语言相互融合。
+https://github.com/muicss/sentineljs 利用 @keyframes的动态rule来检测DOM中新加的结点。
+
+
+关键是要理解浏览器的render机制。现在的机制你只管取数据，然后扔给浏览器的engine来进行rendering. 
+
+如何hacking这个rendering过程呢。
+
+
+数组
+====
+
+https://github.com/waterlink/Challenge-Build-Your-Own-Array-In-Js，一个JS Array的测试集。
 
 当前最流行的前沿技术，都有哪些各有什么特点
 ------------------------------------------
@@ -29,6 +43,30 @@ HTML5 下一代的HTML的规范，会有不少新特性。
 
 来实现各种 html的template 并且就像类一样，简版的react: https://github.com/mikeal/rza
 
+
+
+PWA(Progressive Web Apps)
+=========================
+
+用来解决适配不同的终端以及不同网速的设计结构。
+把原生应用与网络融合起来，即有原生应用的快速与灵活，又有联网的好处，就像各种新闻客户端一样。
+并且已经有一些好用的框架。
+例如 preactjs.com 在DOM封装了一层，同时体积非常小与快速。
+https://preactjs.com/ 3kb atlternative to React.
+
+
+快速原型建模打桩
+================
+
+API Mocker 接口管理系统 https://github.com/DXY-F2E/api-mocker，
+Graphql 接口管理采用基于字典对象的型式，可以方便的进行扩展与演化。
+http://graphql.cn/
+https://github.com/atulmy/fullstack-graphql
+
+module 开发结构
+===============
+
+清理临时文件的工具: https://github.com/tj/node-prune
 Vue.js
 ======
 
@@ -71,6 +109,9 @@ React
 
 npm -g create-react-app
 
+react 的常用的一些设计模式 https://github.com/kentcdodds/advanced-react-patterns
+https://github.com/Heydon/inclusive-design-checklist
+
 MEAN stack
 ===========
 
@@ -78,6 +119,14 @@ Mongo,Express,Augular, Nodejs.
 
 ReactX rxjs 异步处理库，类似于ajax.
 
+storybook 不错 UI galaxy demo. https://storybook.js.org/examples/
+https://github.com/storybooks/storybook
+开源好用图标库 
+https://feathericons.com/
+
+快速fix 避免半夜加班改，还是失败 所以deploy的代码最好也要用版本控制，关键是数据也可以回退：https://github.com/maxchehab/quickfix
+
+数据的回退: https://github.com/Meituan-Dianping/MyFlash
 
 Angular 2 
 =========
@@ -99,22 +148,96 @@ Javascript 的promise机制
 ========================
 
 生成二次回调机制，只有上一个调用成功，然后利用生成调用代码，然后再传给回调。
+主要也就是MessageQeqeue再加上一个执行代码。特别适合建立异步的模拟机。是不是也特别适合区块链的
+合约系统的开发。 
 
+对于半静态的event call,promise是一个不错的机制。 
+
+同时比回调函数更进了一步。就像有点像gl之类的操作。
+
+.. code-block:: python
+   
+   var promise = getAsyncPromise("fileA.txt");
+   promise.then(function(result){}).catch(function(error){});
+
+
+这些并不是执行顺序，这一点与一般的编程语言不同的点，代码的输写顺序
+与执行顺序是不一致的。
 
 css
 ===
 
+
 随着HTML的发展，css也从原来静态的模式匹配，发展到变量等动态有sass，再到支持对象模板的less等。
 同时网页动画，从最简单的css动画,到gl动画。有各种各样的库http://www.css88.com/archives/7389
+轻量的渐变库，https://github.com/LiikeJS/Liike
+
+直接利用scss来生成各种效果图，例如各种有机的效果图。https://github.com/picturepan2/devices.css
+
+一种自定义的动态转场动化，可以基于地图位置的转场： https://github.com/codrops/AnimatedFrameSlideshow
+
+https://github.com/Flaque/merchant.js 可以做无聊动画的框架类似于doodle.
+
+
+正是由于 nodejs这种异步的机制，只要给出一个总量，以后异步计算增量就可以真实反映进步了。
+https://github.com/sindresorhus/p-progress
+
+如何快速描述一个掌握的技能，准备一个面试宝典，过一遍，就能完全理解。
+例如 https://github.com/Pau1fitz/react-interview
+React 就是在DOM上面又封装了一层，VirtualDOM,并且这个DOM,对象化的，并且其rendering过程都是显式可控的。
+
 
 node debug
 ==========
 
 直接采用的remote debug模式，node + chrome:inspect的模式。
 
+在线调试器有 jsfiddle,codePen,以及各种动画的galxy等等可以用，https://www.zhihu.com/question/31731104
+
+https://github.com/fhinkel/type-profile, 充分利用V8的特性，这样可以有效的提高troubleshoot的效率。
+
+快速原型的方法
+==============
+
+https://github.com/renatorib/react-powerplug ,采用Render Props的设计模式。
+
+
+DashBoard
+=========
+
+各种中DashBoard的框架。
+https://jslancerteam.github.io/crystal-dashboard/#/
+https://github.com/akveo/nebular
+
+类型检查
+========
+
+https://github.com/sindresorhus/is， 可以进行类型检查，基于类型检测好处，就是量纲法可以有效的减少错误。
+benchmark
+=========
+
+对于各种framework，到底采用哪一个，最实用的标准之一，那就是性能对比。
+https://github.com/krausest/js-framework-benchmark,performance的对比。
 
 显示系统 
 ========
 
 PPT 可以采用 nodeppt来做，
 https://github.com/DracoBlue/markdown-papers
+
+写出可以nodejs + asciidoc 可以参考 https://github.com/liubin/promises-book/
+
+一些非常有用的转换工具
+======================
+
+把代码转化成图片，主要是用于ppt 的显示。
+
+https://github.com/mplewis/src2png
+
+
+Test
+====
+
+javascript的自动化测试框架: https://github.com/jest-community/jest-runner-eslint
+
+同时还有商业化的控件库http://www.grapecity.com.cn/developer/wijmojs#price
