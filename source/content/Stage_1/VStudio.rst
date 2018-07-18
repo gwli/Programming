@@ -87,3 +87,15 @@ VS 也可以当做文件浏览器，直接在一个目录中右键"在VS中打�
    devenv solutionfile.sln /build [ solutionconfig ] [ /project projectnameorfile [ /projectconfig name ] ]
 
 
+windows常见问题
+===============
+
+#. 打开 控制面板删除的快速方法 appwiz.cpl, 更多的见 https://support.microsoft.com/en-us/help/192806/how-to-run-control-panel-tools-by-typing-a-command
+#. installer log  一般在 %TEMP%目录下
+#. windows 的打包工具 wix(window installer XML). http://www.it610.com/article/1337395.htm 
+WIX 提供一些现成的template, 以及预定义的变量，你直接赋值就行了，其本身就也就是XML定制了DSL。
+
+XML的好处是解决了DSL本身词法解析问题，不过现在随着各种脚本解释器的成熟，直接使用各种中脚本来解释器来定制DSL则更加的方便。
+
+https://www.youtube.com/watch?v=usOh3NQO9Ms
+
