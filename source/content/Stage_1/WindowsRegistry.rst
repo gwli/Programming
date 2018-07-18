@@ -10,7 +10,7 @@ Command Line Interface
 
 *reg query*  there is a limitation of the system in perl: the key length should not be too lang.or it will reject. 
    
-.. ::
+.. code-block:: bash
  
    C:\Users\vili>reg /?
    "the system was unable to find the specified registry key or value" this is bug for reg.exe of windows. http://support.microsoft.com/kb/823468
@@ -49,7 +49,7 @@ Command Line Interface
 
 
    
-.. ::
+.. code-block:: bash
  
    算法，输入条件，起始节点，评价条件：Display Name == Nsight Tegra ,输出条件：uninstall.
     伪代码 
