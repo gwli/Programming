@@ -45,10 +45,25 @@ Command Line Interface
      REG FLAGS /?
    
    C:\Users\vili>
-   
+ 
+powershell 接口
+===============
 
+可以当做一个磁盘来访问。
 
+.. code-block:: bash
    
+   cd HKLM:
+   ls
+   ls *
+   gci 
+   copy-item
+   new-item
+   remove-item
+   get-item 查看内容
+    Set-PropertyItem  修改内容
+   https://docs.microsoft.com/en-us/powershell/scripting/getting-started/cookbooks/working-with-registry-keys?view=powershell-6
+
 .. code-block:: bash
  
    算法，输入条件，起始节点，评价条件：Display Name == Nsight Tegra ,输出条件：uninstall.
