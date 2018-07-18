@@ -88,6 +88,14 @@ https://blogs.msdn.microsoft.com/visualstudio/2010/05/14/a-guide-to-vcxproj-and-
 Fushion, 用来检查 C# .dll的依赖。
 www.npdends.com 可以https://msdn.microsoft.com/zh-cn/library/ms235265.aspx 查看Visual C++ 的应用程序依赖。
 
+Installer 检查
+==============
+
+%TEMP% 目录下log.
+Windows events可以用。
+
+它的各种设置都是通过注册表来的，就像linux 的/etc目录。
+
 
 
 
