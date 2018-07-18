@@ -93,8 +93,8 @@ Installer 检查
 
 %TEMP% 目录下log.
 Windows events可以用。
-
 它的各种设置都是通过注册表来的，就像linux 的/etc目录。
+例如各种服务的路径也都是注册表里配置的。
 
 
 
