@@ -10,6 +10,8 @@ powershell实现了一切皆对象的机制与linux中一切皆文件的机制�
 
 想要对于powershell进行扩展其cmdlet也简单就按照其.net template实现其 BEGIN,PROCESS,END的接口然后进行注册就行了。当然也可以像的语言实现库，
 
+微软 自己的脚本中心
+https://gallery.technet.microsoft.com/scriptcenter/site/search?f%5B0%5D.Type=RootCategory&f%5B0%5D.Value=enterprisemobility%2Bsecurity&f%5B0%5D.Text=Enterprise%20Mobility%20%2B%20Security
 .. ::
 
  . .\*.ps1    加载ps文件
@@ -180,6 +182,8 @@ Resource
 
 只要记住powershell中一切皆对象就OK了，其默认的方式就是文本显示，这个是用xml来控制的，就像python中 repr 一样默认打印一些内容，或者__doc__ 变量一样。
 http://stackoverflow.com/questions/1499575/output-filename-not-string-with-select-string
+
+另外windows 有自己现成的脚本
 
 See also
 ========
