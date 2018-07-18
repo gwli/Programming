@@ -1,6 +1,16 @@
 ﻿Visual Studio
 *************
 
+VS2017
+======
+
+vswhere 可以用来查找所有vs instance的位置，以及所安装的组件。
+
+.. code-block:: bash
+   SET VS_COMPONENTS=(Microsoft.VisualStudio.VC.Ide.Core Microsoft.VisualStudio.VC.MSBuild.Base Microsoft.VisualStudio.Component.CoreEditor Microsoft.VisualStudio.ComponentGroup.NativeDesktop.Core)
+   SET VSWHERE_REQUIREMENTS=
+   FOR %%c IN %VS_COMPONENTS% DO SET VSWHERE_REQUIREMENTS=!VSWHERE_REQUIREMENTS! -requires %%c
+   CALL "%VSWHERE_DIR%\vswhere.exe" -products Microsoft.VisualStudio.Product.%VSWHERE_VARIANT% -version %VSWHERE_RANGE% %VSWHERE_REQUIREMENTS% -property installationPath > "%HERE%\vswhere.log"
 
 
 MSBuild 的log 文件
@@ -32,7 +42,12 @@ VS的extension安装原理
 =====================
 
 .vsix 本身就是 .zip文件。其内部结构可见https://blogs.msdn.microsoft.com/quanto/2009/05/26/what-is-a-vsix/
+默认的安装工具  vsixinstaller.exe 
 
+如果安装失败如何troublehoot
+---------------------------
+
+默认的log会在 %TEMP%下面。
 
 
 如何uinstall
