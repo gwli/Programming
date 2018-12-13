@@ -275,7 +275,9 @@ mutli-thread of python
 例如以前的，我都是利用傻等的方式，还有时间片或者用sleep,其实异度等待的机制可以用`线程事件来高效实现 <http://blog.csdn.net/made_in_chn/article/details/5471524>`_
 
 把这些东西优化到编程语言这一层那就是协程了，python 中 yield就是这样的功能。通过协程就可以原来循环顺序执行的事情，变成并行了，并且协程的过程隐藏了数据的依赖关系。 对于编程语言中循环就是意味着顺序执行。如何提高效率，实别的计算中数据依赖问题，把不相关的代码提升起来用并行，采用协程就是这样的原理。 这也就是什么时候采用协同。什么时候采用协程了。这个优化是基于实现的优化是基于你的资源多少来的。所以在python对于循环进行了优化。所以写循环的时候就不要再以前的方式了，采用计算器了，要用使用yield的功能。来进行简化。`coroutine <http://blog.dccmx.com/2011/04/coroutine-concept/>`_, 线程就是它什么时候执行，什么开始都是由内核说了算的。你就控制不了。coroutine就是提供了在应用程序层来实现直接的资源调度，如果更直接控制调度，另一个就是采用CUDA这样更加直接去操作硬件资源。
+yield 可以相当于 C语言中函数内static, 但是 yield有点类于return 但是yield 之后的代码也可以继续执行。 相当于 last PC pointer https://hackernoon.com/the-magic-behind-python-generator-functions-bc8eeea54220
 
+并且yield 实现一个 callback. 也是非常方便的。这个实现反包。被调用函数反包调用。
 
 对于状态进度的更新有了一个更好的方法，注册一个时间片的中断函数，每一次当一个时间片用完之后，就来打印一个进度信息就不行了。这样就可以实时的知道进度了。
 `Linux环境进程间通信 <http://www.ibm.com/developerworks/cn/linux/l-ipc/part2/index1.html>`_  目前看来需要在进度的SWap时来做的，需要内核调度函数提供这样一个接口。那就是在线程切换的时候，可以运行自定义的函数。其实这个就是profiling的过程。在编译的时候，在每一个函数调有的前后都会加上一段hook函数。我们需要做的事情，把切换的过程也要给hook一下。这个就需要系统的支持了。`coroutine的实现 <http://blog.dccmx.com/2011/05/coroutine-implementation/>`_ linux下可以有libstack库来支持，当然 了可以直接在C语言中嵌入汇编来实现。用汇编代码来切换寄存器来实现。
