@@ -377,7 +377,15 @@ Decorators
    a() | b() |c()
    $a bc $ a bcd $c (in haskwell) 
 
+它的执行顺序是从里到外，最先调用最里层的装饰器，最后调用最外层的装饰器，它等效于
 
+.. code-block:: python
+   @a
+   @b
+   @c
+   def f():
+       pass
+   f = a(b(c(f)))
 使用 decorator 的好处，实现函数的原名替换，同样的函数名却添加了实现。有类似于Nsight 中 LD_PRELOAD 中那API函数一样的做法。 任于参数如何传递就是简单函数传递。
 
 至于变长修饰变长函数 也是同样的道理。
