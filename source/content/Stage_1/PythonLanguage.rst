@@ -277,8 +277,31 @@ mutli-thread of python
 把这些东西优化到编程语言这一层那就是协程了，python 中 yield就是这样的功能。通过协程就可以原来循环顺序执行的事情，变成并行了，并且协程的过程隐藏了数据的依赖关系。 对于编程语言中循环就是意味着顺序执行。如何提高效率，实别的计算中数据依赖问题，把不相关的代码提升起来用并行，采用协程就是这样的原理。 这也就是什么时候采用协同。什么时候采用协程了。这个优化是基于实现的优化是基于你的资源多少来的。所以在python对于循环进行了优化。所以写循环的时候就不要再以前的方式了，采用计算器了，要用使用yield的功能。来进行简化。`coroutine <http://blog.dccmx.com/2011/04/coroutine-concept/>`_, 线程就是它什么时候执行，什么开始都是由内核说了算的。你就控制不了。coroutine就是提供了在应用程序层来实现直接的资源调度，如果更直接控制调度，另一个就是采用CUDA这样更加直接去操作硬件资源。
 yield 可以相当于 C语言中函数内static, 但是 yield有点类于return 但是yield 之后的代码也可以继续执行。 相当于 last PC pointer https://hackernoon.com/the-magic-behind-python-generator-functions-bc8eeea54220
 
-并且yield 实现一个 callback. 也是非常方便的。这个实现反包。被调用函数反包调用。
+并且yield 实现一个 callback. 也是非常方便的。这个实现反包。被调用函数反包调用。  就是一个中断的机制，并且方便实现一个二分，或者多分。并且每一次yield都可以有返回值。 例如 teardown 与setup 写在一个函数里。 yield相当于中断的简单化，例如用switch + yield就可以不同的信号量，就像 raise一样。
 
+.. code-block:: bash
+   
+   def test_tearupdown():
+       make tempdir
+       yield tempdir
+       clean tempdir
+   
+   def test_boday( temp_dir):
+       print("in test")
+       print("aa,bb")
+    
+    
+   def exec1_test(test_func,tearupdownfun):
+       fun_fear = tearupdownfun
+       test_boday(fun_fear.next())
+       fun_fear.next()
+
+   @exec1_test(tearupdown)
+   def test_boday2(tempdir):
+       print("test body3")
+    
+          
+        
 对于状态进度的更新有了一个更好的方法，注册一个时间片的中断函数，每一次当一个时间片用完之后，就来打印一个进度信息就不行了。这样就可以实时的知道进度了。
 `Linux环境进程间通信 <http://www.ibm.com/developerworks/cn/linux/l-ipc/part2/index1.html>`_  目前看来需要在进度的SWap时来做的，需要内核调度函数提供这样一个接口。那就是在线程切换的时候，可以运行自定义的函数。其实这个就是profiling的过程。在编译的时候，在每一个函数调有的前后都会加上一段hook函数。我们需要做的事情，把切换的过程也要给hook一下。这个就需要系统的支持了。`coroutine的实现 <http://blog.dccmx.com/2011/05/coroutine-implementation/>`_ linux下可以有libstack库来支持，当然 了可以直接在C语言中嵌入汇编来实现。用汇编代码来切换寄存器来实现。
 
@@ -339,7 +362,9 @@ Decorators
 ==========
 
    * `Python装饰器与面向切面编程 <http://www.cnblogs.com/huxi/archive/2011/03/01/1967600.html>`_ %IF{" '这个其实是perl那些符号进化版本' = '' " then="" else="- "}%这个其实是perl那些符号进化版本
-其实本质采用语法糖方式 ，其实宏处理另一种方式。在C语言采用宏，而现代语言把这一功能都溶合在语言本身里了。decorator直接采用嵌套函数定义来实现的。最背后是用lamba来实现 的。 其本质就是宏函数的一种实现，并且把函数调用给融合进来了。本质还是 函数管道的实现。
+其实本质采用语法糖方式 ，其实宏处理另一种方式。在C语言采用宏，而现代语言把这一功能都溶合在语言本身里了。decorator直接采用嵌套函数定义来实现的。最背后是用lamba来实现 的。 其本质就是宏函数的一种实现，并且把函数调用给融合进来了。本质还是 函数管道的实现。 
+本质就是闭包计算，这个语法糖就是多级闭包的实现。 https://foofish.net/python-decorator.html
+而多参数的语法糖，是靠两级闭包来实现的。
 
 .. code-block:: python
     
