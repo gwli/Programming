@@ -1,4 +1,44 @@
+Logging
+#######
+
+logging 的本质，能够根据需要分层结构化，可视化，online的记录系统的运行。 
+
+#. 分层这样 exact,info,warning,debugging,error,fatal. 如果用数字表示，那每个5数字为一级，默认从中间开始。
+    
+   * exact 最基本像bash这样能够 set +x 这样可以看到每一行的执行，这个是解释器一层来做，当然可以汇编级。
+     复杂的就像数据库以ext 文件系统的 可以做到元子操作回退的 日志系统。
+   * info 识别就像测试的testcase的step信息，完可以用info信息来代替注释。
+   * warning, 一些还不影响功能的提醒，例如 deprecated的API 等等。
+   * debugging 那就是你平时需要调试查看关键点，例如函数输入与输出。以及关键点变量的值。 
+   * error 出现一般小error，影响系统功能。 每一个error 最好能有一个error code。 
+   * fatal 那就是系统直接crash。 这些主要是与系统signal相关。
+   
+   
+#. 结构化
+   
+   * 方便后期的功具分析。
+   * 例如 ELK logstash，这样可以 anycharacter->token-> structure. 并且分析过程，还可以生成二次信息。
+   * 或者能够直接产生结构格式。 最好就像python本身的缩进一样。把timestap当做缩进解决掉。
+     这一块不可以大的发展。
+   * 或者直接发 json,yaml,toml，或者python 这样的输出。
+   * 要人机友好的log.
+
+#. 可视化
+   
+   * 对于复杂的数据，需要相关视化工具，最基本那就是table 的方式来显示内存信息
+   * 显示内存的图片信息，图表
+   * 与历史信息的对比，类似于ELK这样的可视化分析
+
+#. online
+
+   * 最好是能够实时在线可以暂停，尽可能减少recrun的次数
+   * 例如backtrace 直接上传，并且进行分析整理的功能，google analysitic等等。 
+   * 提供这些工具给开发者可以大大减少开者为重现bug所需要工作量。
+   * 并且像gitlab-runner 这样实时的log 查看进度，保存所有的log.
+   
+ 
 如何写log来高效的进行分析呢。如何定义log的协议呢。
+
 #. 尽可能用值对，http://dev.splunk.com/view/logging-best-practices/SP-CAAADP6
 #. timpestamp 尽可能精确
 #. tag 
