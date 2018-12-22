@@ -39,6 +39,12 @@ logging 的本质，能够根据需要分层结构化，可视化，online的记
    * 并且像gitlab-runner 这样实时的log 查看进度，保存所有的log.
    
  
+分层log的使用
+============
+
+info 是可以给最终用户看，debugging则是调试用的，可以任意。 waring/error/fatal 最好有assert存在。 
+https://www.cnblogs.com/shwen99/archive/2007/12/29/1019853.html
+
 如何写log来高效的进行分析呢。如何定义log的协议呢。
 
 #. 尽可能用值对，http://dev.splunk.com/view/logging-best-practices/SP-CAAADP6
