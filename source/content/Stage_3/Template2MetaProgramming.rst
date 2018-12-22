@@ -1,3 +1,10 @@
+元编程
+======
+
+元编程的本质，一切都是可以动态替换与构造的，包括语言本身的关键字，例如scheme 语言 通过列表实现任意结构的编程。 并且能够动态的高效执行。
+
+模板是初级的元编程。 m4是高级的元编程。
+
 从template到元编程，template技术最成熟就是HTML 模板，各个语言都有自己template toolkit. 利用嵌套，递归来实现,并且支持参数，实现原理可以参考toolkit 与foswiki的template.pm
 #. `Wiki definiation of Template Processor <http://en.wikipedia.org/wiki/Template&#95;processor>`_  
 #. `template foswiki SupportQuestions <http://foswiki.org/Support/SupportQuestions>`_  研究这个模板实现技巧
@@ -11,6 +18,9 @@ http://www.ibm.com/developerworks/cn/linux/l-metaprog1.html
 各种代码生成器，例如hash表生成器，for循环生成器等。
 
 例如c++ 模板匹配方式与haskell的中匹配方式是一样的。
+
+直接使用M4的无限替换机制，难度在于无法控制替换的颗粒度，而scheme 语言的 symbol变量，就很好的解决这个问题。当然各个语言也都有自己替代方案
+例如python 可以利用 local()/global()空间来实现变量名的字符串拼接。而使用 type(),metaclass 来实现元类的构造。
 
 .. code-block:: 
 
@@ -30,6 +40,9 @@ http://www.ibm.com/developerworks/cn/linux/l-metaprog1.html
    factorial :: Int -> Int
    factorial n = n * factorial (n - 1)
    factorial 1 = 1
+
+
+虽然C++的元编程是完备，但是不太好用。 最好用的还scheme这类的。 
 
 如何判断一个文本中某一列序列的连续性？
 =====================================
