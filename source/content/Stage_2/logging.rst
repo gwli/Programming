@@ -1,6 +1,8 @@
 Logging
 #######
 
+:meta: ready for story
+
 logging 的本质，能够根据需要分层结构化，可视化，online的记录系统的运行。 
 
 #. 分层这样 exact,info,warning,debugging,error,fatal. 如果用数字表示，那每个5数字为一级，默认从中间开始。
