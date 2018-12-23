@@ -117,7 +117,8 @@ gdb 将断点实际插入目标程序的时机：当用户通过 break 命令设
 点链表中为这个断点新创建了一个节点而已。 gdb 会在用户下次发出
 继续目标程序运行的命令时，将所有断点插入目标程序，新设置的断
 点到这个时候才会实际存在于目标程序中。与此相呼应，当目标程序
-停止时， gdb 会将所有断点暂时从目标程序中清除。
+停止时， gdb 会将所有断点暂时从目标程序中清除。
+
 http://www.kgdb.info/wp-content/uploads/2011/04/GdbPrincipleChinese.pdf
 
 
@@ -518,6 +519,11 @@ gdb 如何直接执行python
 通过学习 ndk 中ndk-gdb-python 来作为参考。  gdb 扩展可以参考`Extending GDB using Python <https://sourceware.org/gdb/onlinedocs/gdb/Python.html#Python>`_   `visual-studio-debugger-related-attributes-cheat-sheet <http://khason.net/dev/visual-studio-debugger-related-attributes-cheat-sheet/>`_  这里讲了一些 debug的设置。
 
 gdb 中使用 python 类似于 vim 中使用 python 一样的。
+
+对于一些负责的数据内存数据结构，完成可且numpy + Image 等等方式来进行可视化。这个是最简单有效方式，加载一个解释器，能够访问进程的内存空间
+然后对其可以做任何操作。
+
+也可以利用gdb + python来做各种单元测试。
 
 
 对于PentaK 与VSAuto 都会 visualize功能。基本用法那就是根据结构体类型如何显示其内容，例如只显示头，以及如何以树形展开，因为对于基本的基本的数据结构的组合。
