@@ -178,7 +178,7 @@ log 与DL
 大量的实时的log,需要实时的更加智能的分析，例如网络IDS检测，网络安全检查，网络诈骗检测，例如病毒特征的检测。
 https://www.xenonstack.com/blog/data-science/log-analytics-log-mining-anomaly-detection/
 
-
+现在传统的测试低效，完全可以用debug + log + data mining 来实现高效的测试。
 
 ELK分析
 =======
