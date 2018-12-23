@@ -177,3 +177,20 @@ log 与DL
 
 大量的实时的log,需要实时的更加智能的分析，例如网络IDS检测，网络安全检查，网络诈骗检测，例如病毒特征的检测。
 https://www.xenonstack.com/blog/data-science/log-analytics-log-mining-anomaly-detection/
+
+
+
+ELK分析
+=======
+
+是全栈工具，可以用Filebeat把文件收集发送到logstash，然后由logstash进行解析，并且大量的插件进行
+二次计算，例如根据IP得到用户的区域，然后变成多于字段，最后引入elasticsearch的mongo数据库中。
+其搜索采用luence的全文搜索。
+
+然后利用kinafa 利用基于luence实现各图表功能，主要基于index. 
+
+index可以是一个通配符，就像传统的数据库即使相同表，但是可以根据时间放置多个instance之间。
+shared 就是分片的存储意思。
+
+logstash 是一个非常强大的解析工具，就像一个编译器.其实也很简单直接发ALANTR，lex/yacc等等工具
+也可以快速写出一个解析器。 或者使用protobuf来直接生成。而不需要自己动手写手工代码。
