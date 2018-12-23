@@ -141,3 +141,11 @@ NVTX的实现原理
 相当于你于开了一个门，当然在后台的执行的时候可以换掉原来那些实现。做另外的事情。
 例如是实时接收，还是采样式的接收，还是如何都是可以做的。并且只要接口不变。就不需要重新代码。
 并且NVTX的自由度与颗粒度也都是很灵活的。
+
+
+
+log 与DL
+========
+
+大量的实时的log,需要实时的更加智能的分析，例如网络IDS检测，网络安全检查，网络诈骗检测，例如病毒特征的检测。
+https://www.xenonstack.com/blog/data-science/log-analytics-log-mining-anomaly-detection/
