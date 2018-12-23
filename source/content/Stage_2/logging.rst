@@ -3,7 +3,9 @@ Logging
 
 :meta: ready for story
 
-logging 的本质，能够根据需要分层结构化，可视化，online的记录系统的运行。 
+logging 的本质，能够根据需要分层结构化，可视化，online的记录系统的运行。 可以快速定位问题。
+记录分析运行数据，便于后续版本的统计优化。分析用户行为数据，便于做用户运营。
+甚至有些时候，记录用户行为数据，是某些监管部门的要求。
 
 #. 分层这样 exact,info,warning,debugging,error,fatal. 如果用数字表示，那每个5数字为一级，默认从中间开始。
     
@@ -12,7 +14,10 @@ logging 的本质，能够根据需要分层结构化，可视化，online的记
    * info 识别就像测试的testcase的step信息，完可以用info信息来代替注释。
    * warning, 一些还不影响功能的提醒，例如 deprecated的API 等等。
    * debugging 那就是你平时需要调试查看关键点，例如函数输入与输出。以及关键点变量的值。 
-   * error 出现一般小error，影响系统功能。 每一个error 最好能有一个error code。 
+   * error 出现一般小error，影响系统功能。 每一个error 最好能有一个error code。 一定要error message以及此时callstack
+     保存下来。
+     
+     - 时间，tickcount,进程id,线程id,tag,log，error code,callstack.
    * fatal 那就是系统直接crash。 这些主要是与系统signal相关。
    
    
@@ -38,7 +43,28 @@ logging 的本质，能够根据需要分层结构化，可视化，online的记
    * 提供这些工具给开发者可以大大减少开者为重现bug所需要工作量。
    * 并且像gitlab-runner 这样实时的log 查看进度，保存所有的log.
    
- 
+
+
+LOG 系统设计实现
+===============
+
+LOG系统最大的问题，那就是IO设计。 高频写log,可能会造成IO blocking. 
+直接同步写文件，写不完不返回，就blocking在输出LOG的语句中，另外一个那就是线程安全的问题
+
+异步直接log输出到内存缓存中，在异常情况下，可能会导致缓存corruption. 最好能够exception
+中flush log.专业的log系统，必须具有实时动态查看LOG能力，所以还需配备一个专门的LOG viewer.
+
+同时也要注意日志的 rotation,不然会把存储设备写爆了，从而导致设备不能正常工作。
+
+写log的要求
+==========
+
+少，准。
+
+把log日志打到最低，APP就像一个话唠，话太多，有用信息不多。该打的地方，信息要准确。
+
+https://www.zhihu.com/question/38481735
+
 分层log的使用
 ============
 
