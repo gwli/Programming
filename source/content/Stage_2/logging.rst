@@ -56,6 +56,19 @@ LOG系统最大的问题，那就是IO设计。 高频写log,可能会造成IO b
 
 同时也要注意日志的 rotation,不然会把存储设备写爆了，从而导致设备不能正常工作。
 
+结构化
+------
+
+目前的成熟的系统具有规范的格式化log,但是结构化远着呢，所以现在就需要大量的数据抽取结构化的过程。
+当然可以利用protobuf 直接快速生成一个结构化，或者直接利用json，以及元编程来实现结构化。
+
+现在成熟的分析转化软件有logstash 
+
+.. code-block:: bash
+   
+   tail -f /var/logs/nginx/access.log | logstash -f log.conf
+   
+
 写log的要求
 ==========
 
