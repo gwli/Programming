@@ -34,7 +34,7 @@ logging 的本质，能够根据需要分层结构化，可视化，online的记
    
    * 对于复杂的数据，需要相关视化工具，最基本那就是table 的方式来显示内存信息
    * 显示内存的图片信息，图表
-   * 与历史信息的对比，类似于ELK这样的可视化分析
+   * 与历史信息的对比，类似于ELK这样的可视化分析，可以用各种中BI的工具来进行分析。
 
 #. online
 
@@ -68,6 +68,21 @@ LOG系统最大的问题，那就是IO设计。 高频写log,可能会造成IO b
    
    tail -f /var/logs/nginx/access.log | logstash -f log.conf
    
+基本格式化的话，各种log库都会提供这样的支持。但是结构化的看来不多，可以通过扩展基本的库例如添加protobuf的方式。
+
+一些简单的error 这种是没有办法定位问题，需要打印出日志的来源， 可以使用 arthha redefine 来实现快速
+的定位。
+https://zhuanlan.zhihu.com/p/47711484
+
+.. code-block:: bash
+   
+   [] [] [] crashed 
+   
+   
+各种数据库的存储迁移
+==================
+
+一行命令：从 ELK 迁移日志服务 https://zhuanlan.zhihu.com/p/42091275
 
 写log的要求
 ==========
