@@ -79,6 +79,7 @@ CUDA also has own sync mechanism. Asynchonous Concurrent.
 .. seealso::
      
      .. csv-table::
+     
         NSightCodeStudy, NSight 
         ProfilingAndAnalysis, 性能优化
         NVCCStudy CUDA, 编译
@@ -121,7 +122,7 @@ CUDA与Texture与Surface 以及Graphic的交互
 对于如何提高数据传输的效率，那就要看cache的效率，以及数据的依赖性。对于空间依赖强的数据，直接用texture来读取效率应该更高，texture就是专门为此设计的，有大量的硬件来支持。并且对kernel的shareemomery的应用与register的分配策略在runtime层都是可以动态可配制的，这些都会影响kernel launch的时间的长短。
 
 有些简单的计算不需要走ogl完整的pipeline,那么可直接使用CUDA来直接操作ogl的各个管线，用直CUDA直接来计算，然后直接输出,而不是使用draw call来实现。
-对于ogl通过`cudaGraphicGLRegisterBuffer`与`cudaGraphicsResource` 然后`cudaGraphicsMapResources` 与`cudaGraphicsUnMapResources`转换成 CUDA device pointer来实现了。就可以直接互操作了。就像bindless tetxture这个子就是直接注册一个PBO，然后直接操作PBO来最终的显示。
+对于ogl通过 `cudaGraphicGLRegisterBuffer` 与 `cudaGraphicsResource` 然后 `cudaGraphicsMapResources` 与 `cudaGraphicsUnMapResources` 转换成 CUDA device pointer来实现了。就可以直接互操作了。就像bindless tetxture这个子就是直接注册一个PBO，然后直接操作PBO来最终的显示。
 
 另外一种方式那把OGL也不要了，直接写帧缓冲，其实这里的surface就是指的帧缓冲。都有直接对应的函数接口。这个是glut在做的那一套，因为显卡还有专门的一部分硬件专门用来显示的。surface相当于CUDA的这一套接口。就可以在屏幕上显示了。
 
@@ -137,6 +138,38 @@ CUDA与Texture与Surface 以及Graphic的交互
 
 
 Texture 对应的存储电路，这部分经过专门的优化与加速的。对于内存分配管理，从简单的点线面理论，进一步上升到，灵活语法情况。例如malloc直接按照分配成字节，然后利用cudaarray把其变成数组结构，然后再用texture把bind到tex上来。这样一来整个就通了。当然也还有一个那就是内存的管理分配问题，如何解决碎片化的问题，以及时候解决了。这就是为什么malloc的overhead会有一点高了原因。而用new/delete,就升级了一下，能够自动初始化了。
+
+硬件结构 
+--------
+
+from perfworks doc 
+
+#. GPU   is the top level logical unit. Metrics that use counters from multiple units may spcify this unit. 
+   
+   * gr   The graphic or compute engine. The host schdedules work on the graphic and copute engine.
+   * host  The HOST is interface to the CPU. 
+   * gpc   The graphic Processor Cluster. 
+     
+     - ia  The input Assembler prepares vertices per primitive.
+     - tpc  Texture Processor Cluster. including graphics and compute shader function.
+       
+       * sm  The Stream Multiprocessor, is core processing unit in the GPU,running all shader programms.
+             
+         * smp  The StreamＭultiprocessor Partition is a physical partition of the shared resources in the SM.  such as memory bank.
+           
+           * smsp The Stream Multiprocessor Sub-Partition contains a warp scheduler, register files
+         
+         * tex The texture unit receives coordinates from SM. Performs LOD and anisotropic 
+       
+   * fbp
+     
+       * rop
+          
+          * crop
+          * zrop 
+       * lts
+       * dram
+   * pa 
 
 Thinking
 --------
