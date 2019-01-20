@@ -2,7 +2,10 @@
 ProfilingAndAnalysis
 ********************
 
-profiling的本质找到所有stakeholder,并且找到这个系统的最大平衡点。
+profiling的本质找到所有stakeholder,并且找到这个系统的最大平衡点。 所谓profiling,也就是各个资源的利用率。
+pipeline以及算法本身都是约束条件。那些PMUcounter能统计那就是离开始点的，绝对时间例如ns值，另一种那就是CPU cyclyes的数。
+例如然后那就是自身的counter,指令数，以及读写的数等等，并且他们的状态以及各种统计值，total,max,min,avg,std. 
+当硬件PMU不够的时候，就采用多次pass的方式来分次分段采样。
 
 每一层，只要不是只有一个个体，存在完备的个体，做同样的事情应该不会只有一条，但是哪一条效率最高呢，只要是一个集体，就会排兵部署的要求。
 
