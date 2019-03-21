@@ -1,5 +1,5 @@
 JS and Node.js
-**************
+###############
 
 最具C的格式，scheme一切皆对象的形式。再加异步编程的模型，可以随意的用event来进行function call. 
 每一个函数的执行都可以callback. 应该是每一个对象都有一个callback. 并且还有prototype机制，暂且当做反射来用吧。
@@ -67,9 +67,11 @@ module 开发结构
 ===============
 
 清理临时文件的工具: https://github.com/tj/node-prune
+
 Vue.js
 ======
 
+浏览器的工作原理 对比原来的dom,找到最小编辑距离，然后修改，并进行重绘。
 #. cdn url 
 
 #. v-bind:PROPERTY  -> :Property
@@ -242,10 +244,46 @@ javascript的自动化测试框架: https://github.com/jest-community/jest-runne
 
 同时还有商业化的控件库http://www.grapecity.com.cn/developer/wijmojs#price
 
+
+浏览器引擎
+=========
+
+.. figure:: https://www.html5rocks.com/zh/tutorials/internals/howbrowserswork/webkitflow.png
+    
+    webkit 
+    
+.. figure:: https://www.html5rocks.com/zh/tutorials/internals/howbrowserswork/image008.jpg
+   
+   Mozilla 的 Gecko 呈现引擎主流程
+   
+
+`<https://www.html5rocks.com/zh/tutorials/internals/howbrowserswork/> 浏览器的工作原理`_
+
+渲染引擎会遍历渲染树，由用户界面后端层将每个节点绘制出来
+
+按照合理的顺序合并图层然后显示到屏幕上。
+
+浏览器刷新的频率大概是60次/秒， 也就是说刷新一次大概时间为16ms
+
+如果浏览器对每一帧的渲染工作超过了这个时间， 页面的渲染就会出现卡顿的现象。
+
+以上过程是渐进的，并不一定严格按照顺序执行的，为了更快将内容呈现在不屏幕中， 不会等到HTML全部解析完成之后才开始构建渲染树和layout，它会在不断接收和处理其他网络资源的同时，就开始部分内容的解析和渲染
+
+渲染完成之后会触发 ready事件
+
+什么情况下会引起 reflow repaint
+当render tree （元素尺寸） 发生变化时则会重新layout 则会因此reflow. 
+
+浏览器首先下载html、css、js。 接着解析生成dom tree、rule tree和rendering tree。 再通过layout后渲染页面.
+
+
+   
 如何动画
 =======
 
-.. code-block::
+动画的性能优化 https://www.w3cplus.com/animation/animation-performance.html
+.. code-block:: html
+
    <div style="width:75%">
             <canvas id="canvas"></canvas>
    </div>
