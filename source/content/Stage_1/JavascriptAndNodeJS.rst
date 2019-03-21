@@ -276,7 +276,7 @@ javascript的自动化测试框架: https://github.com/jest-community/jest-runne
 
 浏览器首先下载html、css、js。 接着解析生成dom tree、rule tree和rendering tree。 再通过layout后渲染页面.
 
-
+浏览器的内核是多线程的，它们在内核控制下相互配合以保持同步，一个浏览器至少实现三个常驻线程：JavaScript引擎线程，GUI渲染线程，浏览器事件触发线程
    
 如何动画
 =======
