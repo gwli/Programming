@@ -157,8 +157,10 @@ bash 有最好用重定向
    
 *重定向代码块的输出* {} >log.txt 直接一段代码所有输出都重定向到文件中。这样可以分以直接compile的log分开保存起来，在其内部直接重定向。
 
-<< 重定向到文件，从文件中读取。
-<<<就是 "here string" 就是python 中"""三目符的用法。
+.. code-block:: bash
+
+   << 重定向到文件，从文件中读取。
+   <<<就是 "here string" 就是python 中"""三目符的用法。
 
 
 更好完的重定向要属端口应用功能 了。
@@ -236,7 +238,8 @@ shell 的强大，就在于各种替换与连接替换。 对于任意代码块�
 command complete
 ================
 
-如果这个做好，可以大大加快工作效率。例如   
+如果这个做好，可以大大加快工作效率。例如 
+
 #. `More on Using the Bash Complete Command <http://www.linuxjournal.com/content/more-using-bash-complete-command>`_  可以利用来自定义命令补全，是可以加上过滤条件的
 #. `Programmable-Completion <http://www.gnu.org/software/bash/manual/bash.html#Programmable-Completion>`_  bash 中有专门的文档来说明，据说zsh的补全做的最好。
 #. 目前在对于android，已经有现在与补全功能了，在sdk/bash_compeletion/adb  加载了它之后，android下就可以自动补全了。
@@ -266,7 +269,7 @@ exec /usr/bin/flex -l "$@" 以前不知道为什么要有这些用法。现在�
 
 *history skill*
    
-.. ::
+.. code-block:: bash
  
    ! Start a history substitution, except when followed by a space, tab, the end of
    the line, `=' or `('.
@@ -304,11 +307,12 @@ exec /usr/bin/flex -l "$@" 以前不知道为什么要有这些用法。现在�
 
 多进程
 ======
+
 `Bash script parallel processing (concurent exec) <http://ubuntuforums.org/showthread.php?t=382330>`_ 
 
  {} & 就可以直接把这块代码放在了后台运行。 直接用wait来进行同步，并且如何等可以用 man wait 来查参数。
    
-.. ::
+.. code-block:: bash
  
    for i in `seq 1 100` ; do
        (ping www.google.com &)
@@ -342,6 +346,7 @@ http://www.zhihu.com/question/20506693
 对于管道使用大家可能早就熟悉，但是使用以及多个管道呢。
 
 .. code-block:: bash
+
    diff -u < (ls | sort ) <(ssh -i ~/my.key dove@myhost grep amazon mp3.urltxt)
 
 
@@ -373,7 +378,9 @@ http://zsh.sourceforge.net/FAQ/zshfaq01.html#l3
    print -z 直接生成命令执行。 
 
 命令的模型 
+
 http://www.jianshu.com/p/3687e12b8d48
+
 #. Globbing.
 zsh 对于重定向的multios 特别适合异构神网的开发。输入与输出直接这样来实现。
 当于输出文件，也可以多输出命令。 当然也就是实现一个pipeline. 
