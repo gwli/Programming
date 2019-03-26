@@ -1,5 +1,6 @@
+**********
 编程语言
-********
+**********
 
 编程语言最终反映了两个方便的东西，那就是资源的管理，以及基于资源实现的功
 能。由于我们支持能力与认识不同。采用了分层模块的方法把难的东西变的简单可
@@ -41,6 +42,7 @@ The right language can make all the difference in how easy it is to write a prog
 protobuf也是一个小符号系统。 一个简化版本，那就是pack/unpack package的函数。
 
 .. code-block:: cpp
+
    int pack_type1(unsigned char * buf, unsinged short count,unsigned char val, unsigned long data)
    {
         unsigned char * bp;
@@ -92,6 +94,7 @@ protobuf也是一个小符号系统。 一个简化版本，那就是pack/unpack
   
    }
    pack(buf,"cscl",0x01,count,val,data);
+
 
 例如把可以log的输出直接写另外一门语言本身。 这样拿到log就直接执行，就可以分析出大量问题。
 
@@ -225,8 +228,12 @@ A->B,B->C,C->A. 这样能不断演化。
 #. 那一种快速的流水线化，把产生的log格式规整一下直接变成python代码，再添加一些操作，就省去解析的工作。
    当然这一步也可以手工做。 例如生成的log，然后再python 来解析log,那为什么不直接写成python的格式。
    例如
-   log(self,tag,content,time):
-      printf "tag = { time: {0}, content:{0}}".format(time,content))
+
+   .. code-block:: bash
+
+      log(self,tag,content,time):
+         printf "tag = { time: {0}, content:{0}}".format(time,content))
+
    这样出来不直接python 数据嘛。
 
     - 把一个目录大部分文件都删除，只留下一部分。
@@ -280,8 +287,8 @@ XXdoc
 .. csv-table::  
    :header: Language,Usage,remark
     
-    pydoc, topics
-    cpandoc/perldoc, perlfunc/perl/perlcheat
+   pydoc, topics
+   cpandoc/perldoc, perlfunc/perl/perlcheat
 
 
 Build
@@ -327,17 +334,19 @@ golden ld 几个版本。可以试着换一下。
 PLINQ <http://msdn.microsoft.com/en-us/magazine/cc163329.aspx>`_  和 Futures
 对于面象对象的语言，类的静态变量与静态代码是在类进行构造的时候，就已经要
 执行了。是先于任何运行时代码。通过自己的debug来快速的深入底层。
-   * `Debug <HowToDebug>`_ 
-   * `MultiThread <MultiThreadProgram>`_ 
+
+* `Debug <HowToDebug>`_ 
+* `MultiThread <MultiThreadProgram>`_ 
 
 Dylan and JAM
 -------------
 
-   * `Jam scripting language <http://opendylan.org/documentation/hacker-guide/build-system.html>`_ 
-   * `Dylan Dynamic language  <http://opendylan.org/>`_ 
-   * `动态编程和基因序列比对 <http://www.ibm.com/developerworks/cn/java/j-seqalign/
->`_ 
-   * 快盘debug\Dynamic Programming. 
+* `Jam scripting language <http://opendylan.org/documentation/hacker-guide/build-system.html>`_ 
+* `Dylan Dynamic language  <http://opendylan.org/>`_ 
+* `动态编程和基因序列比对 <http://www.ibm.com/developerworks/cn/java/j-seqalign/
+ 
+* 快盘debug\\Dynamic Programming. 
+
 什么是Dynamic Programming 与Linear Progr
 amming?这两个不是编程语言，一个是线性规划与是动态规划。
 
@@ -394,20 +403,19 @@ OOP
 的东东。这样就可以利用不少的代码。 并且在调用函数的就要有一个不断查询虚表的过程。 
 
 函数式编程
-----------
+-----------
 
 函数的本质就是替换，再进一步步何时替换，这样就与变量的生命周期相关的。
 而一般的函数变量只能是局部一次性的,所以也就无法惰性求值。惰性求值就是替换的变量的
 生命周期。
 它的基础   `λ演算 <http://zh.wikipedia.org/wiki/&#37;CE&#37;9B&#37;E6&#37;BC&#37;94&#37;E7&#37;AE&#37;97>`_  `Lambda_calculus <http://en.wikipedia.org/wiki/Lambda_calculus>`_ ，但是它的原理还没有看
-明白。这是一个例子`解释1 <http://www.cnblogs.co
-m/dragonpig/archive/2010/01/26/16570
-52.html>`_ 这个有点浅显了。
+明白。这是一个例子 `解释1 <http://www.cnblogs.com/dragonpig/archive/2010/01/26/1657052.html>`_ 这个有点浅显了。
  `APIO讲稿——函数式编程 <https://www.byvoid.com/blog/apio-fp>`_  这个讲的比较浅显易懂，核心只有
 三条采用BNF：
-   1. &lt;expression&gt; ::=  &lt; l abel &gt;
-   1. &lt;expression &gt; ::= λ &lt; label + &gt; . &tl;expression &gt;
-   1. &lt;expression &gt; ::= (&lt;e xpression &gt;&lt; expression &gt;)
+
+1. &lt;expression&gt; ::=  &lt; l abel &gt;
+1. &lt;expression &gt; ::= λ &lt; label + &gt; . &tl;expression &gt;
+1. &lt;expression &gt; ::= (&lt;e xpression &gt;&lt; expression &gt;)
 
 1，2 用于产生函数，第三条产生调用，同时还有两条替换，代入法则。另外还
 有那就是部分求值（学名叫柯希求值，也就是自由变量的定义），就像复合函数一
@@ -425,11 +433,11 @@ m/dragonpig/archive/2010/01/26/16570
 量只定义一次，大大简化了后期编译优化工作。
 同时从这里也提到停机问题，停机问题，那就是不是能够检测死循环。
 
-   * `对象式Lambda演算的自作用部分计值 <http://wenku.baidu.com/view/c54aeb03cc175527072208be.html>`_  进行部分替换与简化计算
-   * `利用CopedSew重构lambda演算 <http://wenku.baidu.com/view/f6bcffefba0d4a73
-02763a6e.html>`_ 
-   * `形式语义学-Lambda演算 <http://wenku.baidu.com/view/aac684bcfd0a79563c1e72
-09.html>`_ 还没有完全看明摆。
+* `对象式Lambda演算的自作用部分计值 <http://wenku.baidu.com/view/c54aeb03cc175527072208be.html>`_  进行部分替换与简化计算
+* `利用CopedSew重构lambda演算 <http://wenku.baidu.com/view/f6bcffefba0d4a73
+63a6e.html>`_ 
+* `形式语义学-Lambda演算 <http://wenku.baidu.com/view/aac684bcfd0a79563c1e72
+html>`_ 还没有完全看明摆。
 
 
 通过对 pandocfilter 的python 接口的实现对于函数试编程有了进一步的理解，函数可以嵌套定义，动态构造函数，可以输入来定制函数，
@@ -552,7 +560,6 @@ working space.
 例外一种那就是要动态加载，这两者其实是一样，自己load这个库，然后取其
 直接执行。现在python就可以直接调用.net是不是就样的机制。
 
--- Main.GangweiLi - 27 Nov 2013
 
 
 *直接在脚本语言中调用lib.so* 这个在python中是可以直接调用

@@ -42,6 +42,7 @@ shell 最强大的地方，那就是对外部命令的支持，混然天成的�
 :command:`man xargs`  作用就是把字节流变换成list, 可以用-d 来指定界符，同时每几个元为一组 -n 3，同时这个参数参入到哪里 -I %,同时也可以指字最多多少命令并行 -P 0 就是尽可能多。
 
 .. code-block:: bash
+
    find -iname "lib*.so" |xargs -I % mv %  ./backdir/
    find -iname "lib*.so"|xargs -d '\n' -I % mv % ./backdir/
 
@@ -107,12 +108,12 @@ bash 是最简化的， read 指定就可以，写可以用echo也可以write以
 
 例如读入前三行
 
-.. code-block::
+.. code-block:: bash
     
-    { read line1
-      read line2
-      read line3
-    } < /etc/fstab
+   { read line1
+     read line2
+     read line3
+   } < /etc/fstab
 
 
 这是多么的简练，原来perl中那些符号也都是从这里来的吧。并且bash中的read指定很强的。
@@ -395,6 +396,7 @@ http://aosabook.org/en/bash.html
 使用起来非常的方便。
 
 .. code-block:: bash
+
    pro{a,b,c}cddd{h,j}
    proacdddh proacddj ....
 

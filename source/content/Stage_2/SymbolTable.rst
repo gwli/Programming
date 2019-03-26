@@ -40,6 +40,7 @@ Thinking
 ----------------------
 
 .. code-block:: bash
+
    objdump --dwarf=decodeedline yourlib.so
    nm -laC yourLib.so
 

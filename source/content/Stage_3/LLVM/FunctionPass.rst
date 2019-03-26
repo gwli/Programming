@@ -13,6 +13,7 @@
 #. 有源码情况下
 
    .. code-block:: bash
+
       gcc foo.c -Wl,-Bstatic -lbar -lbaz -lqux -Wl,-Bdynamic -lcorge -o foo.exe
       http://stackoverflow.com/questions/2954387/can-i-mix-static-and-shared-object-libraries-when-linking
 

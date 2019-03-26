@@ -50,7 +50,9 @@ vS 已经实现了更新debug方式，那就是在每一个断点处生成snapsh
       goto-bookmark
       help bookmark 这个功能是在 gdb 5.6之后就有了。
 
+
 .. code-block:: bash
+
    #load core-file
    gdb> core-file <coredump>
    #gen
@@ -151,7 +153,7 @@ http://www.kgdb.info/wp-content/uploads/2011/04/GdbPrincipleChinese.pdf
 
    * `556-creating-dynamic-function-call-graphs <http://nion.modprobe.de/blog/archives/556-creating-dynamic-function-call-graphs.html>`_ 
    * `egypt <http://www.gson.org/egypt/egypt.html>`_ 
-   *module List的作用* 可以用查看真实应用程序使用哪些库，并且库的版本信息等等。直接attach到可执行程序就可以得到这些信息了。例如battle的vcrt 就是这样查到的。当然在linux下会有ldd.
+   * module List的作用* 可以用查看真实应用程序使用哪些库，并且库的版本信息等等。直接attach到可执行程序就可以得到这些信息了。例如battle的vcrt 就是这样查到的。当然在linux下会有ldd.
    * debugger是如何知道各种映射关系呢* 就是app中debug info.
      `/how-debuggers-work-part-3-debugging-information <http://eli.thegreenplace.net/2011/02/07/how-debuggers-work-part-3-debugging-information/>`_ 
    * `调试信息 <http://blog.jobbole.com/24916/>`_ 
@@ -583,7 +585,9 @@ http://linux.maruhn.com/sec/glibc-debug.html
 ====================
 
 http://www.ibm.com/developerworks/cn/linux/l-sigdebug.html. 在代码里自己给发一个停下来的信号就行了，然后gdb在attach 上来就行了。
+
 .. seealso::
+
    * `jdb IBM web <http://www.ibm.com/developerworks/cn/java/joy-jdb/index.html>`_  %IF{" '' = '' " then="" else="- "}%
    * `VS 调试技巧 <http://blog.csdn.net/wojiushi3344/article/details/7960275>`_  VS 的immediately Window 就像tcl那个调试器的功能，也就是给你一个运行时环境，就像脚本语言的解释器一样。可以直接调用你的所有函数。`MSDN 参考命令 <http://msdn.microsoft.com/en-us/library/ms171362%28v=vs.100%29.aspx>`_ 
   * `vs2010调试技巧 <http://wenku.baidu.com/view/fbce91f9f705cc1755270920.html>`_  %IF{" '' = '' " then="" else="- "}%
@@ -824,11 +828,13 @@ gdb.events.inferior_call_pre/post 事件。
 
 一些其他的事件，http://visualgdb.com/gdbreference/commands/set_stop-on-solib-events
 http://stackoverflow.com/questions/7481091/in-gdb-how-do-i-execute-a-command-automatically-when-program-stops-like-displ
+
 https://sourceware.org/gdb/current/onlinedocs/gdb/Hooks.html#Hooks
 
 最终看代码实现 https://sourceware.org/gdb/current/onlinedocs/gdb/Hooks.html#Hooks
 
 .. code-block:: cpp
+
    define hook-stop
 
 如果只是看stack,有这样的工具https://github.com/yoshinorim/quickstack

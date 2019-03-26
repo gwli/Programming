@@ -15,7 +15,7 @@ stage of GCC
 *找不到头文件* ，是因为 *-isysroot* ,或者 *-I*  没有设置需要的路径。到底设置了哪些路径，可以通过gcc -v 来得到来查看其真实的设置路径。当然还会一些其他的调试手段，这个与gdb 的过程是一样，那如何对于gcc扩展，也就是LLVM如何来操作呢。具体的可以查看 例如
 
 .. csv-table::
-   :header: "options","comments"
+   :header: "options","comments",
 
    -Q , 打印每一个编译时的函数名 
    -fmemxxxx , 可以查看内存一的一些东东 
@@ -37,12 +37,11 @@ stage of GCC
 #. 利用gcc 的 -E -v来查看一下，它 include进来的结果到底对不对。:command:`gcc -E -v -o file` 就可以查看到file中的预处理内容，预处理注释信息是用# 来说明，在第几行加载的。
 #. 可以根据规则，#include <>,"",以及使用这些参数来控制优先级 `Options for Directory Search <http://gcc.gnu.org/onlinedocs/gcc/Directory-Options.html>`_   优先级，-I 要高于-isysroot, “” 会基于源文件的当前路径，而不会去找父路径。当前，-I,-isysroot.
 
-.. list-table::
 
-   -I  
-   -iquote
-   -b,  查找exe  文件 
-   -isysroot   
+-I  
+-iquote
+-b,  查找exe  文件 
+-isysroot   
 
 
 
@@ -54,7 +53,8 @@ http://www.cnblogs.com/xiaoyixy/archive/2006/04/12/372770.html
 例如你在期望的位置放 :command:`#error message` 如果是你期望的路径就会报错。
 
 同时这些头文件的先后顺序也会影响的编译的结果。 例如Nsight Tegra 的头文件搜索顺序 
-.. imge:: /Stage_3/Compiler/include_path_order.png
+
+.. image:: /Stage_3/Compiler/include_path_order.png
 
 .. code-block:: c
 

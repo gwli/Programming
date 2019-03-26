@@ -20,7 +20,8 @@ TableGen文件td
 
 当然也支持模板操作。同时支持C++注释语言。
 
-.. code-block:: 
+.. code-block:: bash
+
    tblgen ARM.td -gen-registery-enums -o ARMGenRegisterNames.inc
    tblgen ARM.td -gen-registery-desc -o ARMGenRegisterInfo.inc
    tblgen ARM.td -gen-registery-desc-header -o ARMGenRegisterNames.h.inc
@@ -61,7 +62,7 @@ InstrStage类用于描述指令执行中某一阶段。
 
 主要是继承不愉快实现TargetFrameInfo类实现。
 
-.. code-block::
+.. code-block:: c
 
    class TargetFrameInfo {
        StackDirection StackDir;
@@ -88,6 +89,7 @@ InstrStage类用于描述指令执行中某一阶段。
 而bl 只前后32M地址:
 
 .. code-block:: asm
+
    bl next
    .....
    next
@@ -112,11 +114,13 @@ http://blog.chinaunix.net/uid-16459552-id-3364761.html，
 
 因为ARM中 call出栈与入栈的顺序是固定的，其实就可以根据调用约定，来修改ret,sp这些等等。
 
-.. code-block::
+.. code-block:: c
+
    f(ant a) {
     void * ap = &a;
      * （ap-4) = xxxx; 
    }
+
 
 就改掉了你想要的值.
 
@@ -129,10 +133,12 @@ http://blog.chinaunix.net/uid-16459552-id-3364761.html，
 ===================
 
 主要是操作数合法化，指令匹配选择等等。并不是指令都是一一对应的。不匹配时
+
 #. 目标处理器支持最小类型比LLVM的类型要大，此时将该LLVM类型的数据提升为目标处理器类型的数据
    以进行下一步工作。
 #. 目标处理器支持最大类型比LLVM类型要小，把LLVM类型的数据折成数个目标处理可以支持
    的类型数据以进行一下步。
+
 这些合法化主要就是通过TargetLowering来实现的。
 
 

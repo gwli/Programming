@@ -250,14 +250,14 @@ javascript的自动化测试框架: https://github.com/jest-community/jest-runne
 
 .. figure:: https://www.html5rocks.com/zh/tutorials/internals/howbrowserswork/webkitflow.png
     
-    webkit 
+   webkit 
     
 .. figure:: https://www.html5rocks.com/zh/tutorials/internals/howbrowserswork/image008.jpg
    
    Mozilla 的 Gecko 呈现引擎主流程
    
 
-`<https://www.html5rocks.com/zh/tutorials/internals/howbrowserswork/> 浏览器的工作原理`_
+`浏览器的工作原理 <https://www.html5rocks.com/zh/tutorials/internals/howbrowserswork/>`_
 
 渲染引擎会遍历渲染树，由用户界面后端层将每个节点绘制出来
 
@@ -286,6 +286,7 @@ javascript的自动化测试框架: https://github.com/jest-community/jest-runne
 =======
 
 动画的性能优化 https://www.w3cplus.com/animation/animation-performance.html
+
 .. code-block:: html
 
    <div style="width:75%">

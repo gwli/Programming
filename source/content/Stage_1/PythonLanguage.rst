@@ -23,33 +23,34 @@ there is two core module: *sys* and *os*. just like *info* in tcl.  sys is most 
 logging
 =======
 
-.. code-block::
+.. code-block:: py
 
-      import os
-      print os.popen('ping g.cn')
-      #!/usr/bin/env python
-      import sys
-      import os
-      topdir = os.path.dirname(os.path.abspath(__file__))
-      if sys.platform == 'cygwin':
-      	topdir = os.popen('cygpath -a -m %s' % (topdir), 'r').read().strip()
-      sys.path.append(topdir+"/lib")
-      from nose import main
-      
-      if __name__ == '__main__':
-          main()
+   import os
+   print os.popen('ping g.cn')
+   #!/usr/bin/env python
+   import sys
+   import os
+   topdir = os.path.dirname(os.path.abspath(__file__))
+   if sys.platform == 'cygwin':
+   	topdir = os.popen('cygpath -a -m %s' % (topdir), 'r').read().strip()
+   sys.path.append(topdir+"/lib")
+   from nose import main
+   
+   if __name__ == '__main__':
+       main()
 
 它返回一个文件对象，你可以对这个文件对象进行相关的操作。
 
 但是如果你想能够直接看到运行结果的话，那就要用到python os.system,用了以后，立竿见影！
 还是上面的问题：
 
-.. code-block::
-        import os
-        print os.system('ping g.cn')
-        输出的结果是：
-        64 bytes from 203.208.37.99: icmp_seq=0 ttl=245 time=36.798 ms
-        64 bytes from 203.208.37.99: icmp_seq=1 ttl=245 time=37.161 ms
+.. code-block:: py
+
+   import os
+   print os.system('ping g.cn')
+   输出的结果是：
+   64 bytes from 203.208.37.99: icmp_seq=0 ttl=245 time=36.798 ms
+   64 bytes from 203.208.37.99: icmp_seq=1 ttl=245 time=37.161 ms
 
 直接使用VS2015 PSVT的功能，可以条件断点等等功能，非常的的方便。
 
@@ -150,7 +151,7 @@ string,list,dict/hash and tuple
 | r'a string' |  prefix r  stand for original string   means     regular expression is object too. |
 +=============+====================================================================================+
 
-.. code-block:: 
+.. code-block:: py
 
    pattern = re.compile(r'hello')
    match = pattern.match('hello world!')
@@ -234,7 +235,7 @@ so structure and format is important for an programming language. take compare s
 
 you can access the comments from in the code of __doc__.  one usage for this is just like CAS testcase steps:
 
-.. code-block::
+.. code-block:: py
 
    def tounicode(s):
        """Converts a string to a unicode string. Accepts two types or arguments. An UTF-8 encoded
@@ -315,7 +316,7 @@ yield 可以相当于 C语言中函数内static, 但是 yield有点类于return 
 
 Ilterators generators   
 
-.. code-block::
+.. code-block:: py
 
    a = [expression for i in xxx if condition]   //list comprehensions
    a = (expression for i in xxx if condition)   //list generator 
@@ -328,7 +329,7 @@ Ilterators generators
 
 部分求值，现在发现在其实也很简单，函数就是一个替换的过程，部分求值，什么时候替换的过程。难点在于传统的函数值是要释放的，而部分求值，反回来另一个函数，并且这部分求值当做参数传出来。这样实现部分求值。另一个那就是变量在函数中不同作用域，不能随着函数的消失而消失。直接引用全局变量或者static变量都可以达到这个目换。并且本身支持函数对象化。更容易做到了。
 
-.. code-block::
+.. code-block:: py
 
    range(6)  [1,2,3,4,5,6]
    xrange(6)   相当于定义了类，最大值是6，最小值是0，步长为1，当前值为0.每调用一次，更新一下当前。当然利用这个是不是可以产生更多数更加复杂表达方式。同时也解决了以前在CAS的那sendMutliCmd中循环，无法记录自身当前值问题，必须使用global去使上一层变量的方法，现在通过这个yield方法就会非常方便。这个其实编程语言中闭包问题，就是在子函数中调用复函数中局部变量，在tcl中可以使用upvar来实现。使用动态代码实现一个子函数来进行调用。而在python这里可以直接yield来产生。同样也可以自己实现。
@@ -347,7 +348,8 @@ Ilterators generators
 
 而对于tcl 中的foreach的功能可以利用zip + for 来实现
 
-.. code-block::
+.. code-block:: py
+
    for x,y,z in zip(x_list,y_list,z_list):
 
    `65285-looping-through-multiple-lists <http://code.activestate.com/recipes/65285-looping-through-multiple-lists/>`_  可以使用map,zip以及list来实现。
@@ -377,6 +379,7 @@ Decorators
    a() | b() |c()
    $a bc $ a bcd $c (in haskwell) 
 
+
 它的执行顺序是从里到外，最先调用最里层的装饰器，最后调用最外层的装饰器，它等效于
 
 .. code-block:: python
@@ -386,6 +389,8 @@ Decorators
    def f():
        pass
    f = a(b(c(f)))
+
+
 使用 decorator 的好处，实现函数的原名替换，同样的函数名却添加了实现。有类似于Nsight 中 LD_PRELOAD 中那API函数一样的做法。 任于参数如何传递就是简单函数传递。
 
 至于变长修饰变长函数 也是同样的道理。
@@ -404,21 +409,21 @@ reduce,map与函数只是构造计算中的apply函数一种。 例如自己实�
 
 reduce,只一次只取列表两个值，而map每一次只能取一个值。对于取多值的，可以用ireduce,imap
 
-.. code-block::
+.. code-block:: py
 
-    def reduce(function,iterable,initialzer=None):
-        it = iter(iterable)
-        if initialzer is None:
-            try :
-              initialzer = next(it)
-            except:
-         for x in it:
-             accum_value = function(accum_value,x)
+   def reduce(function,iterable,initialzer=None):
+       it = iter(iterable)
+       if initialzer is None:
+           try :
+             initialzer = next(it)
+           except:
+        for x in it:
+            accum_value = function(accum_value,x)
 
 
 其实这样的函数就相于一个神经元。 python iteral_tool 就相于一个个神经元。
 
-.. code-block::
+.. code-block:: py
 
    x,y,z=np.random.random((3,10) 每一个一行。
 
@@ -594,41 +599,41 @@ https://plumbum.readthedocs.io/en/latest/,但是还没有shell本身简练。
 
 .. seealso::
 
-#. `flask <http://flask.pocoo.org/>`_ %IF{" 'Flask is a microframework for Python based on Werkzeug,Jinja 2 and good intentions.' = '' " then="" else="- "}%Flask is a microframework for Python based on Werkzeug,Jinja 2 and good intentions.
-#. `A Byte of Python <http://sebug.net/paper/python/>`_ %IF{" 'an introduction tutorial' = '' " then="" else="- "}%an introduction tutorial
-#.  1. data structure  list, metalist, dict,class,module
-#. `python PEP <http://www.python.org/dev/peps/pep-0405/>`_ %IF{" 'what is PEP' = '' " then="" else="- "}%what is PEP
-#. `在应用中嵌入Python <http://gashero.yeax.com/?p&#61;41>`_ %IF{" '' = '' " then="" else="- "}%
-#. `Python on java <http://www.java2s.com/Open-Source/Android/android-core/platform-sdk/com/android/monkeyrunner/JythonUtils.java.htm>`_ %IF{" '' = '' " then="" else="- "}%*Commute between Python and java* JythonUtils.java there use hash table to mapping the basic data element between java and python.
-#. `org.python.core  <http://web.mit.edu/jython/jythonRelease&#95;2&#95;2alpha1/Doc/javadoc/org/python/core/package-summary.html>`_ %IF{" 'the online manual' = '' " then="" else="- "}%the online manual
-#. `jython offical web <http://www.jython.org/>`_ %IF{" '' = '' " then="" else="- "}%
-#. `install sciPy on linux <http://www.scipy.org/Installing&#95;SciPy/Linux#head-fb320be917b02f8fbe70e3fb2c9fe6f5f5f06fc2>`_ %IF{" '科学计算' = '' " then="" else="- "}%科学计算
-#. `python and openCV <http://www.opencv.org.cn/index.php/Python&#37;26OpenCV>`_ %IF{" '' = '' " then="" else="- "}%
-#. `ipython <http://ipython.org/>`_ %IF{" '' = '' " then="" else="- "}%
-#. `python for .net  CLR <http://pythonnet.sourceforge.net/>`_ Just like Java for JPython, anything in .net you can use via clr.
-#. `Python之函数的嵌套 <http://developer.51cto.com/art/200809/90863&#95;4.htm>`_ %IF{" '' = '' " then="" else="- "}%
-#. `简明 Python 教程 <http://woodpecker.org.cn/abyteofpython&#95;cn/chinese/index.html>`_ %IF{" '' = '' " then="" else="- "}%
-#. `Python 中的元类编程，这才是python 所特有的东西。 <http://www.ibm.com/developerworks/cn/linux/l-pymeta/index.html>`_ 元类是什么，就是生成类的类。
-#. `五分钟理解元类 <http://blog.csdn.net/lanphaday/article/details/3048947>`_ %IF{" '' = '' " then="" else="- "}%
-#. `Python 描述符简介 <http://www.ibm.com/developerworks/cn/opensource/os-pythondescriptors/index.html>`_ %IF{" '还是不太懂' = '' " then="" else="- "}%还是不太懂
-#. `Python 自省指南 如何监视您的 Python 对象 <http://www.ibm.com/developerworks/cn/linux/l-pyint/index2.html>`_ %IF{" '' = '' " then="" else="- "}%
-#. `可爱的 Python: Decorator 简化元编程 <http://www.ibm.com/developerworks/cn/linux/l-cpdecor.html>`_ %IF{" '' = '' " then="" else="- "}%
-#. `Python的可变长参数 <http://www.cnblogs.com/QLeelulu/archive/2009/09/09/1563148.html>`_ %IF{" '' = '' " then="" else="- "}%
-#. `cuda support python <http://docs.continuum.io/numbapro/index.html>`_ %IF{" '' = '' " then="" else="- "}%
-#. `cuda python <http://news.zol.com.cn/361/3610272.html>`_ %IF{" '' = '' " then="" else="- "}%
-#. `欢迎使用“编程之道”主文档! <http://pythonhosted.org/daot/>`_ %IF{" '基于python更接近于自然语言' = '' " then="" else="- "}%基于python更接近于自然语言
-#. `how-to-install-pil-on-64-bit-ubuntu-1204 <http://codeinthehole.com/writing/how-to-install-pil-on-64-bit-ubuntu-1204/>`_ %IF{" '' = '' " then="" else="- "}%
-#. `marshal 对象的序列化 <http://blog.csdn.net/jgood/article/details/4545772>`_ %IF{" '' = '' " then="" else="- "}%
-#. `python PIL <http://www.pythonware.com/products/pil/>`_ %IF{" '' = '' " then="" else="- "}%
-#. `sorted <http://docs.python.org/2/howto/sorting.html>`_ %IF{" 'key 与cmp到底有什么区别' = '' " then="" else="- "}%key 与cmp到底有什么区别
-#. `python-convert-list-to-tuple <http://stackoverflow.com/questions/12836128/python-convert-list-to-tuple>`_ %IF{" '' = '' " then="" else="- "}%
-#. `pygame <http://eyehere.net/2011/python-pygame-novice-professional-1/>`_ %IF{" '在研究游戏的时候来看一下' = '' " then="" else="- "}%在研究游戏的时候来看一下
-#. `python 图像应用实例 <http://scipy-lectures.github.io/#>`_ %IF{" '里面有很多代码，有空的时候要看一下' = '' " then="" else="- "}%里面有很多代码，有空的时候要看一下
-#. `python 多继承 <http://christophor.blog.163.com/blog/static/16215437320107276239434/>`_ %IF{" '' = '' " then="" else="- "}%
-#. ` windows7下使用py2exe把python打包程序为exe文件 <http://blog.csdn.net/xtx1990/article/details/7185289>`_ %IF{" '' = '' " then="" else="- "}%
-#. ` 函数迭代工具 <http://www.cnblogs.com/huxi/archive/2011/07/01/2095931.html>`_ %IF{" '' = '' " then="" else="- "}%
-#. `python 字节码文件（.pyc）的作用与生成 <http://hi.baidu.com/smithallen/item/fa2b77e5438908c5bbf37db4>`_ %IF{" 'python 可以把pyc 当做二进制发布，当然可以也可以自己加密使用' = '' " then="" else="- "}%python 可以把pyc 当做二进制发布，当然可以也可以自己加密使用
-#. `python-with-statement <http://effbot.org/zone/python-with-statement.htm>`_ %IF{" '这个要求你的类，自己有enter,exit函数，with 会自动调用这些。' = '' " then="" else="- "}%这个要求你的类，自己有enter,exit函数，with 会自动调用这些。
+   #. `flask <http://flask.pocoo.org/>`_ %IF{" 'Flask is a microframework for Python based on Werkzeug,Jinja 2 and good intentions.' = '' " then="" else="- "}%Flask is a microframework for Python based on Werkzeug,Jinja 2 and good intentions.
+   #. `A Byte of Python <http://sebug.net/paper/python/>`_ %IF{" 'an introduction tutorial' = '' " then="" else="- "}%an introduction tutorial
+   #.  1. data structure  list, metalist, dict,class,module
+   #. `python PEP <http://www.python.org/dev/peps/pep-0405/>`_ %IF{" 'what is PEP' = '' " then="" else="- "}%what is PEP
+   #. `在应用中嵌入Python <http://gashero.yeax.com/?p&#61;41>`_ %IF{" '' = '' " then="" else="- "}%
+   #. `Python on java <http://www.java2s.com/Open-Source/Android/android-core/platform-sdk/com/android/monkeyrunner/JythonUtils.java.htm>`_ %IF{" '' = '' " then="" else="- "}%*Commute between Python and java* JythonUtils.java there use hash table to mapping the basic data element between java and python.
+   #. `org.python.core  <http://web.mit.edu/jython/jythonRelease&#95;2&#95;2alpha1/Doc/javadoc/org/python/core/package-summary.html>`_ %IF{" 'the online manual' = '' " then="" else="- "}%the online manual
+   #. `jython offical web <http://www.jython.org/>`_ %IF{" '' = '' " then="" else="- "}%
+   #. `install sciPy on linux <http://www.scipy.org/Installing&#95;SciPy/Linux#head-fb320be917b02f8fbe70e3fb2c9fe6f5f5f06fc2>`_ %IF{" '科学计算' = '' " then="" else="- "}%科学计算
+   #. `python and openCV <http://www.opencv.org.cn/index.php/Python&#37;26OpenCV>`_ %IF{" '' = '' " then="" else="- "}%
+   #. `ipython <http://ipython.org/>`_ %IF{" '' = '' " then="" else="- "}%
+   #. `python for .net  CLR <http://pythonnet.sourceforge.net/>`_ Just like Java for JPython, anything in .net you can use via clr.
+   #. `Python之函数的嵌套 <http://developer.51cto.com/art/200809/90863&#95;4.htm>`_ %IF{" '' = '' " then="" else="- "}%
+   #. `简明 Python 教程 <http://woodpecker.org.cn/abyteofpython&#95;cn/chinese/index.html>`_ %IF{" '' = '' " then="" else="- "}%
+   #. `Python 中的元类编程，这才是python 所特有的东西。 <http://www.ibm.com/developerworks/cn/linux/l-pymeta/index.html>`_ 元类是什么，就是生成类的类。
+   #. `五分钟理解元类 <http://blog.csdn.net/lanphaday/article/details/3048947>`_ %IF{" '' = '' " then="" else="- "}%
+   #. `Python 描述符简介 <http://www.ibm.com/developerworks/cn/opensource/os-pythondescriptors/index.html>`_ %IF{" '还是不太懂' = '' " then="" else="- "}%还是不太懂
+   #. `Python 自省指南 如何监视您的 Python 对象 <http://www.ibm.com/developerworks/cn/linux/l-pyint/index2.html>`_ %IF{" '' = '' " then="" else="- "}%
+   #. `可爱的 Python: Decorator 简化元编程 <http://www.ibm.com/developerworks/cn/linux/l-cpdecor.html>`_ %IF{" '' = '' " then="" else="- "}%
+   #. `Python的可变长参数 <http://www.cnblogs.com/QLeelulu/archive/2009/09/09/1563148.html>`_ %IF{" '' = '' " then="" else="- "}%
+   #. `cuda support python <http://docs.continuum.io/numbapro/index.html>`_ %IF{" '' = '' " then="" else="- "}%
+   #. `cuda python <http://news.zol.com.cn/361/3610272.html>`_ %IF{" '' = '' " then="" else="- "}%
+   #. `欢迎使用“编程之道”主文档! <http://pythonhosted.org/daot/>`_ %IF{" '基于python更接近于自然语言' = '' " then="" else="- "}%基于python更接近于自然语言
+   #. `how-to-install-pil-on-64-bit-ubuntu-1204 <http://codeinthehole.com/writing/how-to-install-pil-on-64-bit-ubuntu-1204/>`_ %IF{" '' = '' " then="" else="- "}%
+   #. `marshal 对象的序列化 <http://blog.csdn.net/jgood/article/details/4545772>`_ %IF{" '' = '' " then="" else="- "}%
+   #. `python PIL <http://www.pythonware.com/products/pil/>`_ %IF{" '' = '' " then="" else="- "}%
+   #. `sorted <http://docs.python.org/2/howto/sorting.html>`_ %IF{" 'key 与cmp到底有什么区别' = '' " then="" else="- "}%key 与cmp到底有什么区别
+   #. `python-convert-list-to-tuple <http://stackoverflow.com/questions/12836128/python-convert-list-to-tuple>`_ %IF{" '' = '' " then="" else="- "}%
+   #. `pygame <http://eyehere.net/2011/python-pygame-novice-professional-1/>`_ %IF{" '在研究游戏的时候来看一下' = '' " then="" else="- "}%在研究游戏的时候来看一下
+   #. `python 图像应用实例 <http://scipy-lectures.github.io/#>`_ %IF{" '里面有很多代码，有空的时候要看一下' = '' " then="" else="- "}%里面有很多代码，有空的时候要看一下
+   #. `python 多继承 <http://christophor.blog.163.com/blog/static/16215437320107276239434/>`_ %IF{" '' = '' " then="" else="- "}%
+   #. ` windows7下使用py2exe把python打包程序为exe文件 <http://blog.csdn.net/xtx1990/article/details/7185289>`_ %IF{" '' = '' " then="" else="- "}%
+   #. ` 函数迭代工具 <http://www.cnblogs.com/huxi/archive/2011/07/01/2095931.html>`_ %IF{" '' = '' " then="" else="- "}%
+   #. `python 字节码文件（.pyc）的作用与生成 <http://hi.baidu.com/smithallen/item/fa2b77e5438908c5bbf37db4>`_ %IF{" 'python 可以把pyc 当做二进制发布，当然可以也可以自己加密使用' = '' " then="" else="- "}%python 可以把pyc 当做二进制发布，当然可以也可以自己加密使用
+   #. `python-with-statement <http://effbot.org/zone/python-with-statement.htm>`_ %IF{" '这个要求你的类，自己有enter,exit函数，with 会自动调用这些。' = '' " then="" else="- "}%这个要求你的类，自己有enter,exit函数，with 会自动调用这些。
 
 
 thinking
@@ -640,50 +645,52 @@ androidRobot reference the example `monkeyrunner.JythonUtils.java <http://www.ja
 
 @MonkeyRunnerExported is used to generate _doc_ for python method,  _doc_ is built-in string for documentation.
 JLineConsole(); Just support single line command? `PythonInterpreter source code <http://code.google.com/p/jythonroid/source/browse/branches/Jythonroid/src/org/python/util/PythonInterpreter.java?spec=svn30&r=30>`_   
-<verbatim>
-at ScriptRunner.java, via run.  bind the robot->RobotDevice.
- public static int run(String executablePath, String scriptfilename, Collection<String> args, Map<String, Predicate<PythonInterpreter>> plugins,Object object)
-/*     */   {
-/*  79 */     File f = new File(scriptfilename);
-/*     */ 
-/*  82 */     Collection classpath = Lists.newArrayList(new String[] { f.getParent() });
-/*  83 */     classpath.addAll(plugins.keySet());
-/*     */ 
-/*  85 */     String[] argv = new String[args.size() + 1];
-/*  86 */     argv[0] = f.getAbsolutePath();
-/*  87 */     int x = 1;
-/*  88 */     for (String arg : args) {
-/*  89 */       argv[(x++)] = arg;
-/*     */     }
-/*     */ 
-/*  92 */     initPython(executablePath, classpath, argv);
-/*     */ 
-/*  94 */     PythonInterpreter python = new PythonInterpreter();
-/*     */ 
-/*  97 */     for (Map.Entry entry : plugins.entrySet()) {
-/*     */       boolean success;
-/*     */       try { 
-					success = ((Predicate)entry.getValue()).apply(python);
-/*     */       } catch (Exception e) {
-/* 102 */         LOG.log(Level.SEVERE, "Plugin Main through an exception.", e);
-/* 103 */       }
 
-				continue;
+.. code-block:: java
 
-				/*if (!success) {
-					LOG.severe("Plugin Main returned error for: " + (String)entry.getKey());
-				}*/
-/*     */     }
-/*     */ 
-/* 111 */     python.set("__name__", "__main__");
-/*     */ 
-/* 113 */     python.set("__file__", scriptfilename);
-			  python.set("robot", object);
-/*     */     try
-/*     */     {
-/* 116 */       python.execfile(scriptfilename);
-/*     */     } catch (PyException e) {
-</verbatim>
+   at ScriptRunner.java, via run.  bind the robot->RobotDevice.
+    public static int run(String executablePath, String scriptfilename, Collection<String> args, Map<String, Predicate<PythonInterpreter>> plugins,Object object)
+   /*     */   {
+   /*  79 */     File f = new File(scriptfilename);
+   /*     */ 
+   /*  82 */     Collection classpath = Lists.newArrayList(new String[] { f.getParent() });
+   /*  83 */     classpath.addAll(plugins.keySet());
+   /*     */ 
+   /*  85 */     String[] argv = new String[args.size() + 1];
+   /*  86 */     argv[0] = f.getAbsolutePath();
+   /*  87 */     int x = 1;
+   /*  88 */     for (String arg : args) {
+   /*  89 */       argv[(x++)] = arg;
+   /*     */     }
+   /*     */ 
+   /*  92 */     initPython(executablePath, classpath, argv);
+   /*     */ 
+   /*  94 */     PythonInterpreter python = new PythonInterpreter();
+   /*     */ 
+   /*  97 */     for (Map.Entry entry : plugins.entrySet()) {
+   /*     */       boolean success;
+   /*     */       try { 
+   					success = ((Predicate)entry.getValue()).apply(python);
+   /*     */       } catch (Exception e) {
+   /* 102 */         LOG.log(Level.SEVERE, "Plugin Main through an exception.", e);
+   /* 103 */       }
+   
+   				continue;
+   
+   				/*if (!success) {
+   					LOG.severe("Plugin Main returned error for: " + (String)entry.getKey());
+   				}*/
+   /*     */     }
+   /*     */ 
+   /* 111 */     python.set("__name__", "__main__");
+   /*     */ 
+   /* 113 */     python.set("__file__", scriptfilename);
+   			  python.set("robot", object);
+   /*     */     try
+   /*     */     {
+   /* 116 */       python.execfile(scriptfilename);
+   /*     */     } catch (PyException e) {
+
 =Extendting=  see 9.4 P223. Jython for Java Programmers.
 
 == Main.GangweiLi - 29 Oct 2012
@@ -840,7 +847,7 @@ currying, Partial Argument, 可以用lambda 来实现，或者使用 :command:`f
 
 例如
 
-.. code-block::
+.. code-block:: py
 
    self.env.set_warfunc(lambda * args:warnings.append(args))
 

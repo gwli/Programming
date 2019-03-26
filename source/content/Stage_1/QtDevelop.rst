@@ -90,8 +90,10 @@ Compile Sample
 #. install QTCreator, install Android Plugin
 #. Chose platform, and slect Plannet Example
 #. configure projects. 
-   #. which toolchain, and and api.
-   # Projects>ManageKits>Add
+
+   * which toolchain, and and api.
+   * Projects>ManageKits>Add
+
       - Device type
       - Compiler
       - Debugger
@@ -139,7 +141,7 @@ shadow:    F:\Qt5\Examples\Qt-5.5\canvas3d\canvas3d\threejs\build-planets-Androi
 
 通过compile log可以快速得到编译脚本。
 
-.. code-block::
+.. code-block:: bash
    
    F:\Qt5\5.5\android_armv7\bin\qmake.exe" F:\Qt5\Examples\Qt-5.5\canvas3d\canvas3d\threejs\planets\planets.pro -r -spec android-g++ "CONFIG+=debug" "CONFIG+=declarative_debug" "CONFIG+=qml_debug"
    "F:\Qt5\Tools\mingw492_32\bin\mingw32-make.exe" -C F:\Qt5\Examples\Qt-5.5\canvas3d\canvas3d\threejs\build-planets-Android_for_armeabi_GCC_4_9_Qt_5_4_2_0c4ce3-Debug`
@@ -217,7 +219,7 @@ http://www.digia.com/Global/Images/Qt/Files/Qt_Developer_Day_China_2013_Presenta
 
 原来方式是一个个control来放，现在直接 
 
-.. code-block::
+.. code-block:: c
 
    viewer.engine(().addImport()
    viewer.setSource(QUrl(grc:/planets.qml"))

@@ -396,17 +396,13 @@ http://www.brendangregg.com/linuxperf.html 看其图。
 #. 找到bottleneck可以考虑是替换算法，以及数据结构
 #. 减少overhead. 例如函数调用的。
 #. 从callstack看到函数后，要从框架上看，从哪里动手最合理。 而不是简单只要找到最大的函数直接优化本身。有可能这个函数使用最大是由于上一层算法的调用问题。
-   找到真正的原因。从flat模式可以看哪一个函数用的最多。  TOP-Bottom,有利于分解，bottom-top快速看到最大值，并且都是调用的。
-   找到最大值，一般有两种方法: 换一个更好的算法与数据结构，或者重写surrouding program 把这个函数给扔掉。 具取于为什么它这么大。
+#. 找到真正的原因。从flat模式可以看哪一个函数用的最多。  TOP-Bottom,有利于分解，bottom-top快速看到最大值，并且都是调用的。
+#. 找到最大值，一般有两种方法: 换一个更好的算法与数据结构，或者重写surrouding program 把这个函数给扔掉。 具取于为什么它这么大。
 
 
 生成callgraph
 -------------
 
-.. code-block:: bash
-   
-   perf record -g ./cmatrix
-   perf report --stdio
 .. code-block:: bash
    
    perf record -g ./cmatrix
@@ -469,7 +465,9 @@ tuning
 #. Collect common subexpressions. 尽可能让计算只做一次，但到底是用时间换空间，还是空间换时间。
    
    .. code-block:: cpp
+
       sqrt(dx*dx + dy*dy) +((sqrt(dx*dx + dy*dy)>0)....)
+
    像这种采用一次的计算,还是多次，取决于指令的速度。 变量赋值意味着大量的move操作，一个是move本身的速度，还有move的位置，不同存储bandwith也是不一样的。
 
 #. Replace expensive operations by cheap ones.  这个计算的机指令周期了。 不同硬件对不指令周期也都是不同。 例如精度要求不高，可以用单精度指令来计算。

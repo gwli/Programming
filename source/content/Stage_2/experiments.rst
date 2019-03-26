@@ -12,6 +12,7 @@ https://github.com/abishekvashok/cmatrix
 应用vim 的键盘操作也能实现。 
 
 .. code-block:: c
+
    /* Matrix typedef */
    typedef struct cmatrix {
        int val;

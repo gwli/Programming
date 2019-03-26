@@ -35,6 +35,7 @@ https://www.technovelty.org/linux/plt-and-got-the-key-to-code-sharing-and-dynami
 所以在plt表时经看到 最后相当于拿到起点值，再加上移值量，基本上三条指令。 第一条从r12得到全局表，第二条得到起点值，第三条得到需要的值。正好pc值，这也就跳转对应的代码了。而下面这表就是当前.o文件plt. 根据这个表找到libc.so 中 raise:的位置。
 
 .. code-block:: asm
+
    pthread_create@plt:
    0x40693644  add          r12, pc, #0, 12 
    0x40693648  add          r12, r12, #401408	; 0x62000 
@@ -68,7 +69,8 @@ http://stackoverflow.com/questions/11676472/what-is-the-difference-between-got-a
 LD_BIND_NOW 环境变量可以控制， 在应用程序加载的时候就解析，而非等到使用时再解析。
 http://refspecs.linuxfoundation.org/ELF/zSeries/lzsabi0_zSeries/x2251.html
 
-.. code-block::
+.. code-block:: asm
+
    fun@plt:
    jmp * (fun@got.plt)
    push index
@@ -118,7 +120,7 @@ https://sourceware.org/gdb/onlinedocs/stabs/Symbol-Table-Format.html
 
 格式，以及 利用info symbols 来查看一下。
 
-.. code-block:: 
+.. code-block:: c 
    
    struct internal_nlist {
        unsigned long n_strx;         /* index into string table of name */
@@ -152,7 +154,7 @@ BFDAandABI
 
 例如pentak就是利用ELF头来判断binary 的架构的，一个简单做法那就是。
 
-.. code-block:: C#
+.. code-block:: csharp
 
    internal ElfHeader GetElfHeader(string packageName, int pid)
         {
@@ -186,10 +188,11 @@ ABI 指的就是`ELF,COFF,和PE COFF <http://www.cnblogs.com/yizhu2000/archive/2
 #. `API 与 ABI <http://wangcong.org/blog/archives/1573>`_  一个通俗点的解释。并且可以检测这种变化的。
 #. `向其它应用程序地址空间注入代码 <http://www.360doc.com/content/10/1119/15/1801810_70694111.shtml>`_ 
 #. `PE格式文件的代码注入  <http://blog.csdn.net/xieqidong/article/details/2391240>`_ 
-#. [[http://www.programlife.net/code-injection.html][代码注入技术]]
-    `ptrace应用之三代码注入 <http://blog.csdn.net/estate66/article/details/6061642>`_  也可以利用[[http://www.freebuf.com/articles/system/6388.html][gdb的脚本能力进行代码注入]]
+#. `代码注入技术 <http://www.programlife.net/code-injection.html>`_
+#. `ptrace应用之三代码注入 <http://blog.csdn.net/estate66/article/details/6061642>`_  也可以利用
+   `gdb的脚本能力进行代码注入 <http://www.freebuf.com/articles/system/6388.html][gdb的脚本能力进行代码注入>`_
 
-.. ::
+.. code-block:: bash 
 
    set write on ;show write 
    注意的是动态库libdynlib.so在编译时指定了-fPIC选项，用来生成地址无关的程序。
@@ -198,7 +201,17 @@ ABI 指的就是`ELF,COFF,和PE COFF <http://www.cnblogs.com/yizhu2000/archive/2
       
 .. ::
  
-   #. 文件头（File Header）      2. 可选头（Optional Header）      3. 段落头（Section Header）      4. 段落数据（Section Data）      5. 重定位表（Relocation Directives）      6. 行号表（Line Numbers）      7. 符号表（Symbol Table）      8. 字符串表（String Table）      Linux下使用nm命令查看符号表，使用strip删除符号表。      Windows下符号表直接保存在.pdb文件中，使用symview软件查看符号表。      `.eh_frame section <http://gcc.gnu.org/ml/gcc/1997-10/msg00312.html>`_  
+   #. 文件头（File Header）
+      2. 可选头（Optional Header）
+      3. 段落头（Section Header）
+      4. 段落数据（Section Data）
+      5. 重定位表（Relocation Directives）
+      6. 行号表（Line Numbers）
+      7. 符号表（Symbol Table）
+      8. 字符串表（String Table）
+      Linux下使用nm命令查看符号表，使用strip删除符号表。
+      Windows下符号表直接保存在.pdb文件中，使用symview软件查看符号表。
+      `.eh_frame section <http://gcc.gnu.org/ml/gcc/1997-10/msg00312.html>`_  
       
 
 
@@ -291,14 +304,15 @@ ABI 是什么
 一个简单的赋值是两条ASM
 例如
 
-.. code-block:: C
+.. code-block:: c
+
    int i = 1;
    mov r0 #1
    str r0 [r11,#-8]
 
 函数内部实现变量，就是栈上加减的。
 
-.. code-block:: C
+.. code-block:: c
 
    int add(int a,int b) {
       return a + b;
@@ -344,8 +358,10 @@ ABI 是什么
     - Relocation
 #. Program Loading and Dynamic Linking
 #. Libraries.
+
    - C lib
    - Unwind lib
+
 #. Execution Environment
 #. Conventions.
 
@@ -358,8 +374,10 @@ http://m.blog.csdn.net/article/details?id=49154509，因为只要参数固定，
 栈的大小的，直接加减就可以搞定 你看到
 
 .. code-block:: asm
+
    subq $8 $rsp
    addq $8 $rsp
+
 就是直接计算好了，而不需要在额外 pushl,popl指令了，毕竟差异还是很大的。
 
 参数传递

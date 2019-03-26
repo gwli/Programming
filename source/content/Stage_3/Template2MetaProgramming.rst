@@ -22,7 +22,7 @@ http://www.ibm.com/developerworks/cn/linux/l-metaprog1.html
 直接使用M4的无限替换机制，难度在于无法控制替换的颗粒度，而scheme 语言的 symbol变量，就很好的解决这个问题。当然各个语言也都有自己替代方案
 例如python 可以利用 local()/global()空间来实现变量名的字符串拼接。而使用 type(),metaclass 来实现元类的构造。
 
-.. code-block:: 
+.. code-block:: cpp 
 
    template<int N>
    struct Factorial

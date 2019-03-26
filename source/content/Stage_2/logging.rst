@@ -152,7 +152,8 @@ logging
 
 python 的logging的用起来很方便,完全不用自己重新设计，并且从此再也不用注释代码。直接保留了最用的信息。
 
-.. code-block::
+.. code-block:: py
+
    import logging
    logging.basicConfig(Level=logging.DEBUG)
    logger = logging.getLogger(__name__)

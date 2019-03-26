@@ -86,7 +86,9 @@ see http://blogs.technet.com/b/heyscriptingguy/archive/2013/01/21/using-net-asse
 
 if,switch,loop的支持，对于loopwhile,for,foreach都支持。对于switch 只是处理部分目前看只是字符串了。
 对于执行eval  以及subst 中功能在powershell也中也支持。（）相当于eval了。同时& 可以用于字符串拼接命令。对于其他命令，可以使用iex 来执行，当然也可以使用cmd /C 来执行。也可以直接使用.net的类库与WMI接口都是直接使用的。
-  * `CScript.exe  <http://doc.51windows.net/wsh/?url&#61;/wsh/html/wsRunCscript.htm>`_  CScript.exe 是 Windows 脚本宿主的一个版本，可以用来从命令行运行脚本。 CScript.exe 提供了用于设置脚本属性的，命令行开关。要使用 CScript.exe，可使用下列语法在命令行上键入命令：
+
+* `CScript.exe  <http://doc.51windows.net/wsh/?url&#61;/wsh/html/wsRunCscript.htm>`_  CScript.exe 是 Windows 脚本宿主的一个版本，可以用来从命令行运行脚本。 CScript.exe 提供了用于设置脚本属性的，命令行开关。要使用 CScript.exe，可使用下列语法在命令行上键入命令：
+
 
 对于vbs是用Cscripts.exe 还是使用Wscripts.exe 就看你是不是要用窗口控制了。
 powershell也支持函数，并且对命令参数的定义可以用param 直接来控制，有点像python中函数，并且把命令行参数集成在一起了。并且还可以参数验证。
@@ -100,7 +102,7 @@ powershell也自己的配置文件，$pshome等。可以bash进行配置。
    get-Alias ,
    Export-Alias,
    Import-Alias,
-    $args , 就相当于bash中$@,$@的用法了 ,
+   $args , 就相当于bash中$@,$@的用法了 ,
 
 -Process,Services and Event Logs
 ================================

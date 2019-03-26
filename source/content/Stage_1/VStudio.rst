@@ -7,6 +7,7 @@ VS2017
 vswhere 可以用来查找所有vs instance的位置，以及所安装的组件。
 
 .. code-block:: bash
+
    SET VS_COMPONENTS=(Microsoft.VisualStudio.VC.Ide.Core Microsoft.VisualStudio.VC.MSBuild.Base Microsoft.VisualStudio.Component.CoreEditor Microsoft.VisualStudio.ComponentGroup.NativeDesktop.Core)
    SET VSWHERE_REQUIREMENTS=
    FOR %%c IN %VS_COMPONENTS% DO SET VSWHERE_REQUIREMENTS=!VSWHERE_REQUIREMENTS! -requires %%c
@@ -27,7 +28,7 @@ MSBuild 用法
 
 直接msbuild添加到环境变量path中。 
 
-:commmand:`msbuild  "+ self.projPath + "/android_app/project/android_app.sln /t:executables\\android_app_standalone /p:Configration=Debug /p:Platform=Tegra-Android /p:BuildProjectReference=false`
+:command:`msbuild  "+ self.projPath + "/android_app/project/android_app.sln /t:executables\\android_app_standalone /p:Configration=Debug /p:Platform=Tegra-Android /p:BuildProjectReference=false`
 
 
 CodeMap

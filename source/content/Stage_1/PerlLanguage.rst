@@ -18,7 +18,7 @@ http://perldoc.perl.org/perlsub.html 写清楚了各个定义。
 
 .. code-block:: perl
 
-    ulink glob "*txt";
+   ulink glob "*txt";
    
 
 这些比管道还高效。
@@ -28,6 +28,7 @@ http://perldoc.perl.org/perlsub.html 写清楚了各个定义。
 
 
 .. code-block:: perl
+
    sub map(&@){
      my ($function,@sequence)=@_;
    }
@@ -68,7 +69,7 @@ http://stackoverflow.com/questions/4415497/how-to-redirect-stdout-and-stderr-to-
 对于调试用很大的作用, 也就是几个文件handle而己。重新打开一下。就行了。
 当然，也是可以用select 直接输出到哪一个。
 
-:: code-block:: perl
+.. code-block:: perl
 
    my $log_file = "/path/to/log/file.log";
    redirect_streams();
@@ -99,14 +100,14 @@ debug
 `Debugging Perl in Perl5 by example <http://affy.blogspot.com/p5be/ch16.htm>`_  and `there <http://refcards.com/docs/forda/perl-debugger/perl-debugger-refcard-a4.pdf>`_  is detailed command reference
 what is more you query the state of debugger by `check the state variable. <http://perldoc.perl.org/perldebguts.html#Frame-Listing-Output-Examples>`_   for example @DB::dbline
    
-.. ::
+.. code-block:: bash
  
-    s [expr]  this means you can step in the expr for example s  db=connectDB(); into the connectDB.
-    x [var]   will print out the structure of the variable. it is stronger than print.
-    f        you can open other files.  // for example open File::Spec.pm you directly f Spec.pm
-    y        you can check stack variable. level is just like caller of perl. the other way is that you count the number backtrace of T.
-    T      print call stack.
-    V     V package variableName       packageName regxp  use /  , variable Name use ~ to match.
+   s [expr]  this means you can step in the expr for example s  db=connectDB(); into the connectDB.
+   x [var]   will print out the structure of the variable. it is stronger than print.
+   f        you can open other files.  // for example open File::Spec.pm you directly f Spec.pm
+   y        you can check stack variable. level is just like caller of perl. the other way is that you count the number backtrace of T.
+   T      print call stack.
+   V     V package variableName       packageName regxp  use /  , variable Name use ~ to match.
    
    w    when just some steps you watch variable is simple. but there are more than ten, or 100, you need to use the a make scripts to collect information, store in a global variable, to write to logfile. but which parameter we could use. 
    perl -I  include your lib dir. this is just like gcc -I drectory.  the scripts interpreter just combination compiler and runtime engine.

@@ -71,12 +71,15 @@ phi值的应用
 主要是用来解决类如
 
 <result> = phi <ty> [<val0,<label0],....
+
 .. code-block:: asm
+
    a = 1;
    if (v <10)
        a = 2;
    b =a;
    b = PHI(a1,a2);
+
 使其满足SSA的约束。 有点类似于 switch case的功能。
 
 select

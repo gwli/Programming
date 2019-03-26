@@ -132,6 +132,7 @@ Thinking
 优化方向
 
 .. graphviz::
+
    digraph {
      filesize -> { duplicate function, sharelibcall,abandant call};
      parrelel -> { data depandant path}

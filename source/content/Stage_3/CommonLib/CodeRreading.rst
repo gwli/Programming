@@ -79,12 +79,13 @@ summary the lesson from the project.
 在线源码树
 ----------
 要学会快速查询这些源码树,并且能够源码数中快速得到自己想东东。
+
 #. 编译的控制 
-   #. 例如是功能有没有，例如，android系统的各个类型，user,userdebug,np,等等都是一些编译选项，并且在一个系统里具有一个查询的系统的编译洗项，这个kernel source tree的out中，ndk也有对应的工具来输出这些，以及实时查询getprop.
+#. 例如是功能有没有，例如，android系统的各个类型，user,userdebug,np,等等都是一些编译选项，并且在一个系统里具有一个查询的系统的编译洗项，这个kernel source tree的out中，ndk也有对应的工具来输出这些，以及实时查询getprop.
 #. 调用关系的查询 对于程序来说，就是调用关系，只要把调用关系搞明白了，一切就都简单了。只要抓住这个逻辑，一切都简单了。另一个那就是回调，以及消息的处理传递机制。推理+知识本身+再加上相应的工具就可以随心而行了。
 #. 快速的重构与对比。并且支持结构化的对比以及批量的对比。
-例如对于python有这些工具支持，以及https://github.com/yinwang0/psydiff,对于大一点代码自己要用这个，同时VS
-本身也支持直接调用关系以及生成类，这对于看C/C++与c#用VS是方便的。并且其还有快速的命令行来用操作。要把vs的命令行给用好，vs的未来会更强更通用。
+
+例如对于python有这些工具支持，以及https://github.com/yinwang0/psydiff,对于大一点代码自己要用这个，同时VS 本身也支持直接调用关系以及生成类，这对于看C/C++与c#用VS是方便的。并且其还有快速的命令行来用操作。要把vs的命令行给用好，vs的未来会更强更通用。
 PySonar2 与 Sourcegraph 集成完毕
 http://www.yinwang.org/blog-cn/2013/10/29/pysonar2/这个要放到自己开始源码的浏览器的就会非常有用，就像自己之前lucent用grok一样。
 

@@ -28,11 +28,14 @@ CPS
   Common Project System.
 
 You can enable VS diagnostics logging by adding the section
-<system.diagnostics>
-  <switches>
-    <add name="CPS" value="Verbose" />
-  </switches>
-</system.diagnostics>
+
+.. code-block:: xml
+
+   <system.diagnostics>
+     <switches>
+       <add name="CPS" value="Verbose" />
+     </switches>
+   </system.diagnostics>
   
 
 对于 Viusal Studio 的技巧有一本 Visual Studio Hacks. 

@@ -76,6 +76,7 @@ InstCombine
 现在采用SMT理论来进行化简寻找等介合并来实现。现在最新的superoptimizer就是在这一块。
 
 .. graphviz:: 
+
    digraph OPT {
       Canonicalization -> Simplification->Loop_Opts->inliner->Simplifcation;
    }
