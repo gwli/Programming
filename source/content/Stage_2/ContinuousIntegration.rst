@@ -3,6 +3,7 @@ CI持续集成
 **********
 
 the common element of the builder is that:
+
 #. source code, you can use the macro or variable to represent the source code.
 #. builder engine. for example gcc or ads1.2. javac.  source code,lib is its inputs, various code outputs, and there are various options to control the code generation.
 #. make,ant just linux command, you need prepare which version you use. and you can make group of these tools. and call them toolchains. when you open toolchain directory of the ndk. you can see these tools.
