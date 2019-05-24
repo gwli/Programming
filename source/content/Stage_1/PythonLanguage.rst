@@ -15,6 +15,7 @@ os and sys 对于系统的操作
 =========================
 
 可以考虑用python脚本来代替shell脚本。并且要考虑并行的问题。
+
 #. `can-i-use-python-as-a-bash-replacement <http://stackoverflow.com/questions/209470/can-i-use-python-as-a-bash-replacement>`_ 这个讨论已经写的很详细了。
 there is two core module: *sys* and *os*. just like *info* in tcl.  sys is most about python interpreter. for example, the sys.path is object search path for lib and module.  `here <http://woodpecker.org.cn/abyteofpython_cn/chinese/ch14s03.html][os ]] is most about operation system. for example, os.environ["XXX"],you can get the ENV VAR.   [[http://woodpecker.org.cn/abyteofpython_cn/chinese/ch14s02.html][sys.argv]] more details about sys see [[http://docs.python.org/2/library/sys.html>`_
 
@@ -124,9 +125,10 @@ namespace
 =========
 
 #. `python学习笔记——模块和命名空间 <http://blog.sina.com.cn/s/blog_4b5039210100ennq.html>`_ 在python中是一切对象，这个与lisp一切结数据的模式是很像的，现在还不知道hackshell的编程模型是什么。python的几种命名空间，对于简单函数调用，python可以像传统的面过过程一样，直接调用其函数，也可以采用面向对象方式。python面向对象机制是不是有一点像perl,但是它的面过过程的调用是通过静态函数来变通的。还是本来两种方式都是可以的。
-   #. build-in name space  
-   #. global name space 
-   #. local name space 
+ 
+#. build-in name space  
+#. global name space 
+#. local name space 
 
 关系的表达就是最直接的方式之一，那就是指针，类中各种关系其实都类，都是一种指针
 在数据库那就可以叫做外键。 
@@ -261,19 +263,28 @@ http://docutils.sourceforge.net/docs/peps/pep-0257.html
 command line
 ============
 for python, you can process comand line options in three way:
+
 #. sys.argv
 #. getOption
 #. plac module   `Parsing the Command Line the Easy Way <https://ep2013.europython.eu/media/conference/slides/plac-more-than-just-another-command-line-arguments-parser.pdf>`_ 
 #. `argparse <http://docs.python.org/2/library/optparse.html>`_ this one looks good for me, it just like getOption, but stronger than her.
+#. Command module
 
 
 mutli-thread of python
 ======================
 
 多线程与进程一样，可以动态的加载与实现，而不必须是静态。并且可以是瞬间的，还是是长时间的。之前的理解是片面的，这个受以前学习的影响，一个线程或者线程就像一个函数根据其功能的来，不是说是线程就要有线程同步。可以是简单的做一件事就完的。例如实现异步回调呢，就可以是这样的，把回调函数放在另一个线程里。用完释放掉就行了。`C#线程篇==-Windows调度线程准则（3） <http://www.cnblogs.com/x-xk/archive/2012/12/03/2795702.html>`_ 如何让自己的程序更快的跑完，其中在不同提高算法性能的情况下，那就是占一些CPU的时间片，优先级调高一些，就像我们现在做事一样，总是先做重要的事情。然后按照轻重缓级来做。就像找人给干活的时候，你总经常会说把我的事情优无级高一些。先把我的事情做完。 这个应该可以用转中断来实现。
-` Lib/threading.py <http://www.laurentluce.com/posts/python-threads-synchronization-locks-rlocks-semaphores-conditions-events-and-queues/][Python threads synchronization: Locks, RLocks, Semaphores, Conditions, Events and Queues]],[[http://docs.python.org/2/library/threading.html>`_
+`Lib/threading.py <http://www.laurentluce.com/posts/python-threads-synchronization-locks-rlocks-semaphores-conditions-events-and-queues/>`_
+
+*Python threads synchronization: Locks, RLocks, Semaphores, Conditions, Events and Queues <http://docs.python.org/2/library/threading.html>`_
 
 例如以前的，我都是利用傻等的方式，还有时间片或者用sleep,其实异度等待的机制可以用`线程事件来高效实现 <http://blog.csdn.net/made_in_chn/article/details/5471524>`_
+
+协程的实现原理
+---------------
+
+协程本质相当于软中断，能够在函数中暂停，并且还能返回继续执行， C语言的函数内部的static变量的模型， 语言的调用模型ABI模型直接采用了原始的CPU的内存模型，C语言就是这个么干的，但是python就却是自己直接用在堆上实现的。 相当于hack了一把function frame 并且没有只是原来first in,last out原型而在原来的stack 模型上又加上了一个引用计数的模型。 http://aosabook.org/en/500L/a-web-crawler-with-asyncio-coroutines.html 有详细讲解了其模型。
 
 把这些东西优化到编程语言这一层那就是协程了，python 中 yield就是这样的功能。通过协程就可以原来循环顺序执行的事情，变成并行了，并且协程的过程隐藏了数据的依赖关系。 对于编程语言中循环就是意味着顺序执行。如何提高效率，实别的计算中数据依赖问题，把不相关的代码提升起来用并行，采用协程就是这样的原理。 这也就是什么时候采用协同。什么时候采用协程了。这个优化是基于实现的优化是基于你的资源多少来的。所以在python对于循环进行了优化。所以写循环的时候就不要再以前的方式了，采用计算器了，要用使用yield的功能。来进行简化。`coroutine <http://blog.dccmx.com/2011/04/coroutine-concept/>`_, 线程就是它什么时候执行，什么开始都是由内核说了算的。你就控制不了。coroutine就是提供了在应用程序层来实现直接的资源调度，如果更直接控制调度，另一个就是采用CUDA这样更加直接去操作硬件资源。
 yield 可以相当于 C语言中函数内static, 但是 yield有点类于return 但是yield 之后的代码也可以继续执行。 相当于 last PC pointer https://hackernoon.com/the-magic-behind-python-generator-functions-bc8eeea54220
