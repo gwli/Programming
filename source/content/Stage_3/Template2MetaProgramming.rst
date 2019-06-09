@@ -20,6 +20,8 @@
 对于模板进一步高级处理，那就是元编程。同时要支持传统语言本身的变量，分析，循环。 同时还要支持自身的这些功能。元编程基本上都采用的函数式编程范式。
 http://www.ibm.com/developerworks/cn/linux/l-metaprog1.html 例如最灵活的m4,到现在racket等等的编程模型。以及中间一些语法与词法工具。
 
+https://www.rascal-mpl.org/ 快速的元编程语言。
+
 同样加速的代码方式，对于一些常值，我们在编译时就将其计算了，采用一种新型分层计算模式。元编程相当于编译时计算，传统的代码是运行时计算。
 http://www.ibm.com/developerworks/cn/linux/l-metaprog1.html
 
@@ -51,6 +53,20 @@ http://www.ibm.com/developerworks/cn/linux/l-metaprog1.html
 
 
 虽然C++的元编程是完备，但是不太好用。 最好用的还scheme这类的。 
+
+充分利用bash heredoc,herestring 就可以实现简单相当功能的元编程，而linux 的启动版本都是采用这样的模式。
+
+.. code-block:: bash
+   
+   #!/bin/bash
+   # metaprogram
+   echo '#!/bin/bash' >program
+   for ((I=1; I<=992; I++)) do
+       echo "echo $I" >>program
+   done
+   chmod +x program
+   
+   
 
 如何判断一个文本中某一列序列的连续性？
 =====================================
