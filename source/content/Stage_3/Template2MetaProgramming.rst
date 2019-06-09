@@ -1,11 +1,19 @@
+**********
 元编程
-======
+**********
+
+直接用hardcode 的代码，好处那就是直观，并且方便 debug,因为一目了然。 但是灵活性不强。 如果写纯粹的电脑，要么就得写很多格式代码，后边的维护麻烦。
+要么就得写大量flow control 代码，但是这些flow control 与业务逻辑 没有什么关心，只是因为你为了写成代码，而写的代码。 
+
+代码简单的逻辑，尽可能终于业务本身的逻辑，尽可能减少不必要的逻辑。 
 
 元编程的本质，一切都是可以动态替换与构造的，包括语言本身的关键字，例如scheme 语言 通过列表实现任意结构的编程。 并且能够动态的高效执行。
+
 
 模板是初级的元编程。 m4是高级的元编程。
 
 从template到元编程，template技术最成熟就是HTML 模板，各个语言都有自己template toolkit. 利用嵌套，递归来实现,并且支持参数，实现原理可以参考toolkit 与foswiki的template.pm
+
 #. `Wiki definiation of Template Processor <http://en.wikipedia.org/wiki/Template&#95;processor>`_  
 #. `template foswiki SupportQuestions <http://foswiki.org/Support/SupportQuestions>`_  研究这个模板实现技巧
 
@@ -105,6 +113,7 @@ See also
 
 
 *meta programming tool*
+
 #. flex
 #. bison
 #. Gperf  generate the hash function
