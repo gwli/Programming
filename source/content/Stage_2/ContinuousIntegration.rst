@@ -123,6 +123,12 @@ CI 持续水平， 如果参数化，并且达到资源的并行，并且最大�
    * 测试本身保证基本的base.
    * 各个stakeholder可以自主订阅。
    
+   
+   
+#. 一般功能测试，要控制在10分钟之内，并且尽可能把测试代码与业务代码放在一块，这样开发人员在coding的过程中就可以复用测试的结果。
+   并且测试本身的执行是云化的，这样的开发就可以实时就像intelisnese 这样获取反馈。
+   
+   
 the common element of the builder is that:
 
 #. source code, you can use the macro or variable to represent the source code.
