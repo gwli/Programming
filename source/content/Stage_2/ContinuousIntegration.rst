@@ -53,7 +53,27 @@ CI的目标，就像如何用尽可能少的资源，尽可能少时间，让整
    * bug管理系统 
    * online log system, crash management.
    * DevOp 
+  
+  
+  
+BuildChecker
+==================
+
+最基本的核心，check latest build, prepare build,trigger tasks. 
+
+#. check lastest build.
+    
+    * per modifcation save.(testing in dev)
+    * per checkin
+    * per hours/nightly
+    * per merge
+    * manual input
+    
+#. 输入是 各种branch的版本，developer private,nightly,weekly,release ....
+#. 各种需求的打包格式与配置
+#. trigger 各种层级task的配置
    
+   * 采用 any of all 的策略， new build,new dependencies changes. 
   
 
 CI 的基本元素
