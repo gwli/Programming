@@ -2,6 +2,15 @@
 ProfilingAndAnalysis
 ********************
 
+实现原理
+==========
+
+要么是静态的分析各种资源的分析，或者硬件本身支持。 软件库的实现APIC的功能，主要是inject来实现的。
+
+当硬件资源有限的情况下，采用multi-passes 来实现，多跑几遍，每一次只测量一段，尽量减少对被测对象的干扰与破坏。
+同时inject可以LD_PRELOAD 这种一次ALL_IN的模式，也可以自定义实现dll_export 功能来定制某一些API。 最有可能破坏，malloc函数。
+操作的对象就是ABI的 ELF的符号解析与跳转这一块， 经常会出现的问题，随意injection会破坏内存对齐从而导致程序crash. 
+
 Optimization 的过程，本身就可以是寻径的过程，最终变成汇编语言之后，每条汇编指定有一个定cost,把哪有cost的分类到一个group,然后每一个group生成group 的cost函数，这样就可得到每下代码块的cost了，同时也就生成一个cost函数，这样基于callgraph图来生成路径。 
 
 * 传统的 tree只能看到单一调用关系，例如多个函数调用同一个基层的函数是看不出来的。
