@@ -87,6 +87,11 @@ LLVM来提供。 而传统编译器只是起到了翻译的过程。没并且起
 
 由于我们可以将字节码附在可执行文件中，所以也就保留了高层次的信息以便后面阶段的再优化。
 
+如何使用 clang 
+==================
+
+使用环境变量，CC,CXX,CFLAG,CXXFLAG。
+https://stackoverflow.com/questions/7031126/switching-between-gcc-and-clang-llvm-using-cmake
 
 LLDB
 ====
