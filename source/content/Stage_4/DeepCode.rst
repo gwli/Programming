@@ -1,7 +1,6 @@
 自动编码
 ========
 
-
 初级的自动编码那就是元编程，它可以大大提编码的生产率，加快的产品的迭代。 
 自动编码，是不是直接从数学公式到汇编会更高效。并且更加的直观。 
 而采用seq2seq感觉太死板了，同一个功用可以多种不同的代码。 
@@ -45,6 +44,7 @@ Programming sythinize.
 特别是现在的硬件的迭代速度越来越块，整个toolchain的开发，更是落后不少，更别提上层的应用了。
 https://github.com/primaryobjects/AI-Programmer
 
+*  program-synthesis-in-2019   https://blog.sigplan.org/2019/07/31/program-synthesis-in-2019/
 
 还是将来用neural turing machine 来直接执行，我们用RL的很大一部分就是为取待这样的
 工作。
