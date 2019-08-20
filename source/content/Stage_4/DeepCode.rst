@@ -1,3 +1,47 @@
+SOL
+======
+
+* 在可接受的时间内可以生成任意规模的应用程序，而不是helloword.
+* 并且定制，可以优化
+* 可以证明证确性。 
+* 异常处理等等。
+
+最新现状
+=============
+
+https://blog.sigplan.org/2019/07/31/program-synthesis-in-2019/
+
+#. The art of specticifcation
+
+   * LLVM 目前实现了IR的统一，
+   * 传统编译器基于规则的rewrite，然后再化简的模式。
+   * 要解决向下翻译的时候信息缺失。 例如循环的次数，以及数据本身的大小。
+   * 复杂复杂度的N的大小并没有往下传递,采用 JIT编译可以解决这个问题。但是时延有要求应用就有会出抖动，例如GL中shader的不定时编译。
+   * 当然规范要简于现在代码，不然还不容与代码。用简炼的数学公式加集合公式就是一个不错方向。现在函数式编程语言越来越走向这里了。
+#. The first wave of synthesis: deductive reasoning
+   * 形式证明，来证明与生成代码。也是基规则rewrite,这里加入公理推导系统，例如SAT。 
+   * superoptimization and Synthesis kernel. 
+   * 问题对于大规模系统太复杂
+   
+#. The second wave of synthesis: inductive reasoning
+   * 只要给出例子就能从中学 （counter example-guilded CEGIS).
+   * Flash Fill 就是比较成功
+   * 对于字符串格式处理比较成功
+   * DSL语言合成， Rosette
+   
+#. The third wave of synthesis: Statistical reasoning
+   * DeepCoder/Interpretable ML model/generating more efficient code
+   * 好处不是手写specifiction. 并且可以方便的定制化
+ 
+#. What's next
+   
+   * 基于优化的合成工具，也是现在代码当做特解，找到通解，并且优出最优解
+   
+      * 能够优化工具来实现重构优化。
+      * 根据图论的来设定边界。
+      
+   * 基于有限的模板失理合成。 Lens  Google/Souper. 
+
 自动编码
 ========
 
