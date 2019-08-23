@@ -95,6 +95,16 @@ https://github.com/primaryobjects/AI-Programmer
 
 IPS 
 
+Meetings
+===========
+
+#. International Conference on Architectural Support for Programming Languages and Operating Systems 
+https://asplos-conference.org/ Verification
+#. Code Generation and Optimization http://cgo.org
+#. rogramming languages and programming systems research, covering the areas of design, implementation, theory, applications, and performance 
+https://pldi19.sigplan.org/  Synthesis
+#. Verification, Model Checking, and Abstract Interpretation  VMCAI https://popl19.sigplan.org/
+
 黑盒派
 ------
 
