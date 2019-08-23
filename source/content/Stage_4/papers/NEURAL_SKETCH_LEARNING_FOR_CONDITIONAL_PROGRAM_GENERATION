@@ -3,4 +3,7 @@ PROGRAM GENERATION"
 url = "https://arxiv.org/abs/1703.05698"
 tags = [ " automatically inferring good synthesis templates", ]
 remarks = """
+根据概率学习生成 if 语句。 基于统计生成代码 + 再加上debug. 实现 JAVA API 演示应用 
+https://github.com/capergroup/bayou
+
 """
