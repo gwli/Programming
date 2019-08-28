@@ -1,2 +1,11 @@
 title="Graph Matching Networks for Learning the Similarity of Graph Structured Objects"
 url = "https://arxiv.org/pdf/1904.12787.pdf"
+status = "read again“
+tag = [ "GMN",GNN"]
+
+remarks = """
+
+并不是向量化来直接计算图的相似性，而是采用训练+ training的方式来进行相似的判别。
+
+这个用途方向也不错，也就是相似漏洞检测。 直接利用binary文件的CFG来进行检测。
+"""
