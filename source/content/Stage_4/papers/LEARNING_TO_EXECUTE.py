@@ -2,7 +2,7 @@ title = "LEARNING TO EXECUTE"
 url = "https://arxiv.org/pdf/1410.4615.pdf"
 tags = ["RNN","LSTM","simulate"]
 code = ""
-status= ""
+status= "close"
 remarks = """
 这篇文章试验了自己的关于用神经网络来模拟加减乘除运算，以及memoery的能力。采用LSTM实现的，并且课程学习的方式来进行学习。
 采用学习加法与记忆的功能，并且计算难度从1-9数字的加法，而记忆采用5-65字符的测试，这包括重复输出，反转输出，以及拼接输出。
