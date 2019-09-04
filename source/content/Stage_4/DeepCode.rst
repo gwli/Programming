@@ -20,11 +20,13 @@ https://blog.sigplan.org/2019/07/31/program-synthesis-in-2019/
    * 当然规范要简于现在代码，不然还不容与代码。用简炼的数学公式加集合公式就是一个不错方向。现在函数式编程语言越来越走向这里了。
    
 #. The first wave of synthesis: deductive reasoning
+
    * 形式证明，来证明与生成代码。也是基规则rewrite,这里加入公理推导系统，例如SAT。 
    * superoptimization and Synthesis kernel. 
    * 问题对于大规模系统太复杂
    
 #. The second wave of synthesis: inductive reasoning
+
    * 只要给出例子就能从中学 （counter example-guilded CEGIS).
    * Flash Fill 就是比较成功
    * 对于字符串格式处理比较成功
