@@ -18,6 +18,7 @@ https://blog.sigplan.org/2019/07/31/program-synthesis-in-2019/
    * 要解决向下翻译的时候信息缺失。 例如循环的次数，以及数据本身的大小。
    * 复杂复杂度的N的大小并没有往下传递,采用 JIT编译可以解决这个问题。但是时延有要求应用就有会出抖动，例如GL中shader的不定时编译。
    * 当然规范要简于现在代码，不然还不容与代码。用简炼的数学公式加集合公式就是一个不错方向。现在函数式编程语言越来越走向这里了。
+   
 #. The first wave of synthesis: deductive reasoning
    * 形式证明，来证明与生成代码。也是基规则rewrite,这里加入公理推导系统，例如SAT。 
    * superoptimization and Synthesis kernel. 
@@ -30,6 +31,7 @@ https://blog.sigplan.org/2019/07/31/program-synthesis-in-2019/
    * DSL语言合成， Rosette
    
 #. The third wave of synthesis: Statistical reasoning
+
    * DeepCoder/Interpretable ML model/generating more efficient code
    * 好处不是手写specifiction. 并且可以方便的定制化
  
@@ -69,6 +71,7 @@ https://blog.sigplan.org/2019/07/31/program-synthesis-in-2019/
 #. API replay, 也就是把strace直接回放的功能。
 #. 利用AI 生成一个语法检查器 vscode 已经有这样的插件
 #. 从例子中学习，例如excel当中，大量的字符号拼接与计算问题，那些简单的几行代码，但是人们都去学习相关的API
+
    * 提供例子，或者自然语言描述
    * 字符号，拼接提取，以及简单的计算
    * 微软已经有这样的试验产品
@@ -119,16 +122,13 @@ https://www.zhihu.com/question/65642229
 FlashMeta
 =========
 
-FlashMeta
-=========
-
 微软的programming-by-example 的合成代码框架，并且已经有产品级的应用。用在了powershell 3.0 中。 
 https://www.microsoft.com/en-us/research/uploads/prod/2018/01/oopsla2015-flashmeta.pdf
 
 
 
 LEVERAGING GRAMMAR AND REINFORCEMENT LEARNING FOR NEURAL PROGRAM SYNTHESIS
-================================================================
+===========================================================================
 
 https://openreview.net/pdf?id=H1Xw62kRZ
 
