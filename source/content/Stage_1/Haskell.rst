@@ -38,6 +38,8 @@ haskell的理论基础是 `范畴论 <https://www.zhihu.com/question/20448295/an
 范畴是一组对象及其关系的集合，这些对象之间的关系（称为态射，morphisms）在组合（composition ）和结合性（associativity）方面表现良好。这样就为数学提供了一个模板，将不同内容输入模板，就能重建一个数学领域：集合范畴由集合和它们之间的关系（映射）组成；群范畴由群和它们之间的关系（群同态）组成；拓扑空间范畴由拓扑空间和它们之间的关系（连续映射）组成；等等
 
 
+`幺半群 <https://www.wikiwand.com/zh-hans/%E5%B9%BA%E5%8D%8A%E7%BE%A4>`_  Monid 函数复合的数学基础，而变换幺半群，与语法幺半群来解决有限状态机。
+
 `haskell offical web <http://www.haskell.org/haskellwiki/Haskell>`_
 
 debug and profiling
