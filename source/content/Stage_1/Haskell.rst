@@ -35,6 +35,7 @@ haskell 利用实现了类型的也可以参数，也就是有类型的的类型
 
 代数化，就是把其变的可计算。
 
+
 haskell的理论基础
 ===================
 
@@ -45,8 +46,10 @@ haskell的理论基础是 `范畴论 <https://www.zhihu.com/question/20448295/an
 
 `幺半群 <https://www.wikiwand.com/zh-hans/%E5%B9%BA%E5%8D%8A%E7%BE%A4>`_  Monid 函数复合的数学基础，而变换幺半群，与语法幺半群来解决有限状态机。
 
+Monad 单子，要解决如何传递全局变量，在纯函数里，读写文件，打log等等都需要，这样都需要一个全局的变量。但是函数内部直接使用那就破坏了纯函数的性质。
 `haskell offical web <http://www.haskell.org/haskellwiki/Haskell>`_
 
+Monad
 debug and profiling
 ===================
 
