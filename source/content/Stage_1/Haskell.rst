@@ -72,7 +72,26 @@ haskell实现，输入，输出的控制，并且函数调用模式匹配就像�
 
 柯西，惰性求值 把函数就变成了一个特殊编码。二制编码是高位权值大，而函数的编码要反过来，这样才不断的缩小解空间，2421 与8421的1248 编码的效率是不同的。核心就是如何控制求值顺序与时间这样实现实时的JIT。
 
-Monad
+*Monad* 
+
+都是入门级的书的例子给坑了，一提monad就提IO操作，但是一般的IO操作都大家已经形成固有习惯，但是这样讲，大家也看出来什么区别，但是你却神秘讲的这个就是monad. 
+
+真实的情况，也是自己思考如何业务代码与控制代码分开。 传统的exception处理，以及logging都是混在一起看着很不简洁。 虽然的python的装饰器，对于单个函数可以解决。 同时我们又想小函数的拼接像 bash pipline。 但是 bash pipeline 有也有一个缺点那就是 commmand 1|command 2 | command 3.  我们希望command1 如果执行失改不要往下执行了。 monad 就是这样一个完美方案的解决。它定义一个this指针，unit,return 函数就起这样操作。 >>= 则是函数拼接的调用约定。
+https://nikgrozev.com/2013/12/10/monads-in-15-minutes/
+
+monad 是一个 typeclass 并且是针对的functor,以及如何拼接。相当于算子的类定义，就像泛函是对一般函数类的分类与抽象。
+这个类两个基本操作
+* this 指针，这样才能方便操作自身。 在haskell 用return，unit等等表征。
+* 另外一个操作bind, 也就 a >>= M b,  最重要的 a f1=> b f2=> c f3=>d, 最初的输入是f1的输入是a,但是输出是不是b, 但是M的作用，把f1的输出转换成b,然后让其传递下去。
+
+* haskell的所有类型中都会定义一个 0 ()值，并且将其做为一个异常值。所有类型的0值都是().
+
+.. code-block:: python
+   
+   print a[2], if a[0] == None; return (). 
+   return a[0]
+
+
 debug and profiling
 ===================
 
