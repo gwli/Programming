@@ -41,6 +41,7 @@ http://www.aosabook.org/en/llvm.html
 #. Frontend 语法检查
 #. Optimizer
 #. Backend
+
    - instruction selection,
    - register allocation
    - instruction scheduling. 
@@ -293,6 +294,7 @@ PersonalityFunction,用于exception handle.
 #. Attribute Groups, 可以后attribute合并分组，当然是一个module范围内。
 
 Function Attributes, 主要是
+
 #. noinline, alwaysinline, optize,cold,"patchable-function",readonly 
 
 Funclet Operand Bundles,相当于闭包运算了。
@@ -363,8 +365,10 @@ llc
 ====
 
 可以用于生成目标机器码，同时还能生成反向的cpp 代码。
-http://richardustc.github.io/2013-07-07-2013-07-07-llc-cpp-backend.html
-llc -march=cpp test.o  / llc -march=cpp test.s 相当于反向工程了。
+.. code-block:: bash
+   
+   http://richardustc.github.io/2013-07-07-2013-07-07-llc-cpp-backend.html
+   llc -march=cpp test.o  / llc -march=cpp test.s 相当于反向工程了。
 
 
 lli
@@ -398,6 +402,7 @@ SSA的基础
 =========
 
 各种各样的编译层出不穷，例如QBE号10%代码达到LLVM70%的功能，主要是基于SSA来做的，
+
 #. SSA 形式的构造本就是复写传播(copy propagation).
 #. SCCP (sparse condition constant propagation), SSA 形式上最经典的数据流分析与优化分析 之一。
 
@@ -426,6 +431,7 @@ http://clang-analyzer.llvm.org/scan-build.html 静态分析工具，直接分析
 ============
 
 https://www.zhihu.com/question/29355187 这里有全面的总结了。
+
 #. Expression tree
 #. Local (basic block)
 #. Loop
@@ -516,11 +522,11 @@ field reordering
 并且根据每一段数据使用频率以及cache的cost建立相应的内存池以及结构体的重排。
 
 基于当前的水平，DSA与automatic Pooling是技术发展的方向。http://llvm.org/pubs/2005-05-04-LattnerPHDThesis.pdf
+
 函数摘要信息 procedure summary
 ==============================
 
 好的摘要信息，可以直接使用摘要进行过程间分析，相当于增量编译了。
-
 
 
 指令的优化
@@ -551,12 +557,10 @@ c=a+b;e=d+e; h=i+j;与c=a+b;h=i+j;e=d+e;效率是一样吗，一个关键因素�
 
 其中一个重要问题，那就是如何隐藏latency的问题。
 
-
 strict alias-rule
 =================
 
 http://stackoverflow.com/questions/98650/what-is-the-strict-aliasing-rule， 就是不请允许用两种不同类型指针指到同一块地址上。这样会引起分析失效。
-
 
 CFG优化
 ========
