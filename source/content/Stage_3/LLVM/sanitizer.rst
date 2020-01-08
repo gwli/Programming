@@ -1,5 +1,6 @@
 * Memory Tagging and how it improves C/C++ memory safety  https://arxiv.org/ftp/arxiv/papers/1802/1802.09517.pdf
   讨论了 memory Tagging的优缺点，总体是优点大于缺点。
+* chrome 每天600个实例运行 15million testcases: https://blog.chromium.org/2012/04/fuzzing-for-security.html
 .. todo::
 
    * Kernel Address Sanitizer https://www.kernel.org/doc/html/v4.12/dev-tools/kasan.html
