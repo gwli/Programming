@@ -9,6 +9,31 @@ C与C++
 语言娈量与指针以及各种作用域的定义，都是对内存管理的定义。而内存管理基本上上都是对引用技术的管理模式。
 各种管理模型都是引用计数对种模型的适配。 看来计数是管理的一个开始。
 
+C/C++ 常见的错误
+=================
+CppCon 2014: Kostya Serebryany "Sanitize your C++ code"  https://www.youtube.com/watch?v=V2_80g0eOMc
+#. Buffer overflow(heap,stack,global)
+#. Heap use after free, stack-use-after-return
+#. Data race,deadlock
+#. Use of Uninitalized memory
+#. Memory leak
+#. Integer overflow
+
+AddressSanitizer ASan
+----------------------
+
+* use-after-free and buffer overflow.
+ThreadSanitizer TScan
+----------------------
+
+MemorySanitizer MSan
+---------------------
+
+UndefinedBehaviorSanitizer UBScan
+------------------------------------
+
+
+
 类型转换
 ========
 
