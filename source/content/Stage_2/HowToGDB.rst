@@ -98,6 +98,7 @@ Debug 的实现机理
 
 用户的输入
 ----------
+
 user interface,除了CLI接口可用各种后端，例如ddd,以及VS的MIEngine. 可以利用 readline/history等库。
 
 gdb 可以当做后台，也可以直接使用，同时也支持vim 类似的分屏功能，利用layout的函数就可以实现。
@@ -113,13 +114,8 @@ gdb 可以当做后台，也可以直接使用，同时也支持vim 类似的分
 通过查找输入的断点和具体代码位置对应起来，并在该位置替换为一条断点指令，并且保存以前的指令，到目标程序运行到该断点处时，产生SIGTRAP信号，该信号被GDB捕获，GDB查找断点列表来确定是否命中断点。继续执行的时候则会把保存的指令重新放回并执行。n/s/ni/si/finish/uitil也会自动设置断点。
 条件断点的实现，也就是对于SIGTRAP的event callback chain上的一个而己。
 
-断点插入的时机，
-gdb 将断点实际插入目标程序的时机：当用户通过 break 命令设置一
-个断点时，这个断点并不会立即生效，因为 gdb 此时只是在内部的断
-点链表中为这个断点新创建了一个节点而已。 gdb 会在用户下次发出
-继续目标程序运行的命令时，将所有断点插入目标程序，新设置的断
-点到这个时候才会实际存在于目标程序中。与此相呼应，当目标程序
-停止时， gdb 会将所有断点暂时从目标程序中清除。
+断点插入的时机，gdb 将断点实际插入目标程序的时机：当用户通过 break 命令设置一个断点时，这个断点并不会立即生效，因为 gdb 此时只是在内部的断
+点链表中为这个断点新创建了一个节点而已。 gdb 会在用户下次发出继续目标程序运行的命令时，将所有断点插入目标程序，新设置的断点到这个时候才会实际存在于目标程序中。与此相呼应，当目标程序停止时， gdb 会将所有断点暂时从目标程序中清除。
 
 http://www.kgdb.info/wp-content/uploads/2011/04/GdbPrincipleChinese.pdf
 
@@ -153,7 +149,7 @@ http://www.kgdb.info/wp-content/uploads/2011/04/GdbPrincipleChinese.pdf
 
    * `556-creating-dynamic-function-call-graphs <http://nion.modprobe.de/blog/archives/556-creating-dynamic-function-call-graphs.html>`_ 
    * `egypt <http://www.gson.org/egypt/egypt.html>`_ 
-   * module List的作用* 可以用查看真实应用程序使用哪些库，并且库的版本信息等等。直接attach到可执行程序就可以得到这些信息了。例如battle的vcrt 就是这样查到的。当然在linux下会有ldd.
+   * module List的作用 可以用查看真实应用程序使用哪些库，并且库的版本信息等等。直接attach到可执行程序就可以得到这些信息了。例如battle的vcrt 就是这样查到的。当然在linux下会有ldd.
    * debugger是如何知道各种映射关系呢* 就是app中debug info.
      `/how-debuggers-work-part-3-debugging-information <http://eli.thegreenplace.net/2011/02/07/how-debuggers-work-part-3-debugging-information/>`_ 
    * `调试信息 <http://blog.jobbole.com/24916/>`_ 
@@ -203,7 +199,7 @@ ptrace是通过发送SIGSTOP让进程挂起的,ptrace也是通过系统信号来
 但是ptrace也有很多的缺点，例如一个进程只能被ptrace attach一次。将来会用utrace来取代。
 http://www.ibm.com/developerworks/cn/linux/l-cn-utrace/index.html
 
-当然主要是也sigtrap信号的实现，不管CPU的硬件实现，还是软件实现。原理都是一样的，因为在于速度:http://stackoverflow.com/questions/3475262/what-causes-a-sigtrap-in-a-debug-session
+当然主要是也sigtrap信号的实现，不管CPU的硬件实现，还是软件实现。原理都是一样的，因为在于速度: http://stackoverflow.com/questions/3475262/what-causes-a-sigtrap-in-a-debug-session
 
 并且虚拟机也是通过ptrace,来实现的，现在可以用utrace来实现。
 
@@ -243,7 +239,7 @@ module列表
 
 elf结构的哪一些块放着呢。
 module 加载的顺序采用深度优先的模式，并且得不断改写进程中GOT表，来进行重定位那些lib。这些module都是按照顺序加载的。逐section加载的。然后需要不断的调整各个.got表，以及.got.plt。 各个module就是通过自己.got 与.got.plt形成一个module链。
-这个列表是可以用:command:`info file` 来看到的。
+这个列表是可以用 :command:`info file` 来看到的。
 对于动态的链接库来说，第一个加载就应该是 /system/bin/app_linker. 
 在哪里寻找这些库，可以用set-solibsearchpath 来设置，原理path的一样的，不支持递归。 或者直接用 sysroot来进行统一的设置。
 同时加载 moudle还可以定制化，
@@ -456,6 +452,7 @@ tracepoint
 this is just a pm point of SDH. you monitor the system state at the tracepoint, you can collect the data. so you that %RED%how to use tracepoint to make write down execution log just bash set +x%ENDCOLOR% the core-file is implemented use this.I guess so. there are three target for GDB: process, corefile,and executable file. what is more, GDB could offer some simulator for most of the GDB.  
 
 .. csv-table:: 
+
    target , sim, exec,core,remote ,
    os , set, info ,
 
@@ -493,13 +490,13 @@ GDB extension
 
 gdb 支持自身命令的扩展，一种是通过<verbatim>define commandname</verbatim>. 另一种通过命令hook来实现。另外现在gdb 都支持 `python来进行扩展 <http://sourceware.org/gdb/onlinedocs/gdb/Python.html>`_ 。并且gdb也是可以`http://docs.python.org/devguide/gdb.html <直接调试python>`_ .
 
-..cas-table:: 
+.. cas-table:: 
 
-  meta element , define commandname , define a new function ,
-           ^ ,  if,while document,echo,printf,output ,
-           ^ , help user-defined,show user ,
-  hook , hookpost-XXX , after ,
-    ^  , hook-XXX ,  before ,
+   meta element , define commandname , define a new function ,
+            ^ ,  if,while document,echo,printf,output ,
+            ^ , help user-defined,show user ,
+   hook , hookpost-XXX , after ,
+     ^  , hook-XXX ,  before ,
    command file   ,  source, .gdbinit <verbatim>gdb <cmds >log 2>&1</verbatim> ,查一下pentak这个是在什么时候调用的 ,
 
 now, there is good example for define command,  ndk/common/gdb/common.setup for art on.
@@ -580,6 +577,16 @@ core dump 调试
 #. 动态生成strace  :command:`strace -p pid` .
 #. 调试正在运行的程序 :command:`gdb debuggee pid`.
 http://linux.maruhn.com/sec/glibc-debug.html
+
+.. code-block:: bash
+   yum --enablerepo='*debug*' install /usr/lib/debug/.build-id/c7/8fbda71040fadd2879a75cf9f3ee259853dc36.debug
+   # ubuntu   /usr/lib/debug/{lib,usr} https://wiki.ubuntu.com/Debug%20Symbol%20Packages
+   # add ddpkg , apt-install xxx-dbg or xxx-dbgsym
+   $gdb --core=core.990014
+   (gdb) info proc mappings
+   (gdb) add-symbol-files xxxx
+   (gdb) bt
+   
 
 利用信用号来进行调试
 ====================
