@@ -145,6 +145,11 @@ http://tvmlang.org/
 
 
 
+对于推理最基的应用方式
+=====================
+
+save the module to pickle 然后把其读回就来就行了，但是 open('model.picle','rb') 默认是text模式。
+
 reference
 =========
 
