@@ -1,6 +1,14 @@
 JS and Node.js
 ###############
 
+web 通信最基本那就是socket的机制直接来，自定义格式与协议，也可以用proto或者gRTC来实现，再或者利用http协义来进行通信，在http协议之上就有一个url,然后就是如何路由url来实现信息传递，http本身就四个 get/post/put/delete 基本操作。 然后在两端效率上就有了nodejs来做server. 或者各各种cgi来使用。以及现在rest-api,或者graphql来加速的方法。
+以及各种消息队队的应用,zeroMQ等等。
+
+之前的featerJs 非常适合在server service,在做客户端可以用vue/angular/react一堆新技术。主要是把DOM rendering更新建模产生新的方式。
+
+洛个模块之间如何通信。 nodejs当做server时当做一个前台的转发器，发送给消息对队，然后后台各自己的系统来异步来执行。
+
+
 最具C的格式，scheme一切皆对象的形式。再加异步编程的模型，可以随意的用event来进行function call. 
 每一个函数的执行都可以callback. 应该是每一个对象都有一个callback. 并且还有prototype机制，暂且当做反射来用吧。
 
