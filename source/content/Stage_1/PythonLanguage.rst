@@ -319,6 +319,8 @@ yield 可以相当于 C语言中函数内static, 但是 yield有点类于return 
 
 现在对于C语言可以直接操作硬件，这种说法的错误。同为一种语言凭什么说C可以操作硬件。原因在于好多的硬件直接C语言的编译器而己尽可能复用以前的劳动成果而己。只要你能把perl,python,各种shell变成汇编都能直接操作硬件的。
  
+
+
  
 现代语法
 ========
@@ -466,6 +468,7 @@ C extending Python
 
 `对象机制的基石——PyObject <http://www.ibm.com/developerworks/cn/linux/l-pythc/][用C语言扩展Python的功能]] just like SWIG for tcl. there is stand process for C on python.   The big problem is that data type converstion.    [[http://book.51cto.com/art/200807/82486.htm>`_ PyObject 本质就是结构体指针加一个引用计数。
 
+直接使用 ctypes 来实现调用DLL，并且根据规则来做数据灰型的转换，另一种而是numpy的式直接扩展。
 
 shutil
 ======
