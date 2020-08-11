@@ -202,6 +202,12 @@ Python 中 的class
 
 python 本身没有抽象类的概念，实现这些约束：如果子类不实现父类的_getBaiduHeaders方法,则抛出TypeError: Can't instantiate abstract class BaiduHeaders with abstract methods  异常 则需要from abc import ABCMeta, abstractmethod 来添加这些依赖。 主要是实现 抽象方法与抽象属性这两个关键字。
 
+
+with 与context manager
+======================
+
+要么继承__enter,__exit的接口，要么用contextmanager + yield 来实现。  yield特别适合中断场景的使用。
+
 各种字符串之间的转换（dictionary->str，list->str）
 =================================================
 
