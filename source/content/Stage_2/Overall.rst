@@ -92,3 +92,31 @@
 
    - 尽可能使用IDE减少语法错误，与拼写错误。
    - 使用一种命名规则，长短不重要，关键是统一。这样可以减少大量的错误，尽可能避免同一类变量使用不同的命名规则与缩写。 这样会引起大量的莫名其妙的错误。
+   - 计算与数据结构本身可以互换，完成可以用pre-cook的数据，来代替复杂if/else以及字符串处理. 例如今天本身版本号的大小，等等不规则，直接用vi 处理成现成数据结构，快速简单。
+     .. code::
+        def plot_builds():
+       opts = ("bare","osrt","nvtx","nvtx_cuda","nvtx_cuda_cublas","nvtx_cuda_cublas_cudnn","nvtx_cuda_cublas_cudnn_osrt")
+       builds_version= [
+           ("2019.3.7.9-a08d2de"   , "NsightSystems-linux-public-2019.3.7.9-a08d2de"),
+           ("2019.4.2.140-a3552e5" , "NsightSystems-linux-public-2019.4.2.140-a3552e5"),
+           ("2019.5.2.16-b54ef97"  , "NsightSystems-linux-public-2019.5.2.16-b54ef97"),
+           ("2020.1.2.52-d1e696b"  , "NsightSystems-linux-public-2020.1.2.52-d1e696b"),
+           ("2020.2.5.11-1c99c0f"  , "NsightSystems-linux-public-2020.2.5.11-1c99c0f"),
+           ("2020.3.2.12-f6b4b91"  , "NsightSystems-linux-public-2020.3.2.12-f6b4b91"),
+           ("2020.3.4.4-dbd0d9e"   , "NsightSystems-linux-public-2020.3.4.4-dbd0d9e"),
+           ("2020.5.0.208-a2110d9" , "NsightSystems-linux-public-2020.5.0.208-a2110d9"),
+           ("2020.5.0.839-84671bb" , "nsight-systems-linux-public-2020.5.0.839-84671bb"),
+           ("2020.5.1.65-eb1b5bf"  , "nsight-systems-linux-public-2020.5.1.65-eb1b5bf"),
+           ("2020.5.1.77-a16fea9"  , "nsight-systems-linux-public-2020.5.1.77-a16fea9"),
+       ]
+       builds_version.reverse()
+       fig, axs = plt.subplots(len(opts),len(builds_version),figsize=(6*len(builds_version),30))
+       for opt_idx in range(len(opts)):
+           for build_idx in range(len(builds_version)):
+               csv_fname  = glob.glob("app_cpu_memory/logs/{}/cpu-memory-mobile-{}-*1.log".format(builds_version[build_idx][1],opts[opt_idx]))[0]
+               build_data = pd.read_csv(csv_fname)
+               axs[opt_idx, build_idx].plot(build_data['# Elapsed time'],build_data['Real (MB)'])
+               axs[opt_idx, build_idx].set_title('{}:{}'.format(builds_version[build_idx][0],opts[opt_idx]))
+       fig.savefig("mobilenet_memory_over_nsys.png") 
+   plot_builds()
+     - 同时对于251 文件，5W的改动的时候，vim就会特别慢了，你如果复杂的组合的话。这时候用sed的处理+ bash的处理会更高。
