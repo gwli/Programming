@@ -229,7 +229,35 @@ Queue, 先入先出的队列, LioQueue,PriorityQueue,Qeueue,deque,heapq.
 ​http://open.163.com/movie/2015/1/6/H/MAFCPCJCV_MAFDA5K6H.html
 计算概率密度，通过局部的计算。我想这可能是新的算法
 
+动态规化
+========
 
+基本理解，那就是遍历的动态化，简单的遍历直接用for,while等loop 就可以高定。但是如何遍历的路径与长度都是非固定的呢。这时候就是递归函数来实现，本质就是数学上的分形原理。
+最简单递归那就是阶乘的算法。复杂一些，例如二叉树的递归，最复杂一些的每一层都有一些局变量的共享，只在这一层共享。yield加DP这种延迟会更加的灵活。 这样实现了不断的for,join的动态过程
+
+def dp(entry,options):
+      local_share={}
+      if xxxxx:
+         local_share[xxx]=xxxx
+         ....
+         return xxxx
+      else if yyy:
+         local_share[yyy]=yyy
+      loop local_share or entry:
+           if aa
+              child = dp(sub_entry,options_aa)
+           else:
+              child = dp(sub_entry,options_bb)
+         
+      if child eq xxxx:
+         ret = sum(local_share[xxxx])
+      else if child eq yyy:
+         ret =sum(local_share[yyyy])
+      
+      return ret 
+
+
+并且现在的深度学习神经网络模型，不正好利用是动态规模的一种变型呢，特别是ＣＮＮ　神经网络就是动态规化的。前面神经元就是遍历计复的滤波器，而后非线性函数就是一个summary. 
 
 计算模型
 ========
