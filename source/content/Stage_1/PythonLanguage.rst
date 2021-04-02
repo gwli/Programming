@@ -490,6 +490,10 @@ shutil
 
 读写二进制文件可以用，struct,以及unpack,pack函数。
 
+subprocess
+==========
+os.system最简单就是直接传递字符串，subprocess提供了更了python的控制。例如 stdout,stderr等等。
+例如  subprocess.call(["ls", 1>fafa 2>&1"],stdout=None,stderr=sp.STDOUT,shell=true) 这样操作时，重定向就是不起做用的，因为其被subprocess.call的stdout,stderr 控制了。
 
 difflib
 =======
